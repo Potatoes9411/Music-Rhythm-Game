@@ -1,0 +1,40 @@
+{
+    "replays": [
+        {
+            "replay": "square_classic.replay.json",
+            "verifyAtSec": 45.0,
+            "inputs": 0,
+            "hashMatch": true
+        },
+        {
+            "replay": "circle_chaos.replay.json",
+            "verifyAtSec": 45.0,
+            "inputs": 0,
+            "hashMatch": true
+        },
+        {
+            "replay": "arch_bounce_curve_16x9.replay.json",
+            "verifyAtSec": 45.0,
+            "inputs": 0,
+            "hashMatch": true
+        },
+        {
+            "replay": "platform_music_ball.replay.json",
+            "verifyAtSec": 45.0,
+            "inputs": 0,
+            "hashMatch": true
+        },
+        {
+            "replay": "journey_auto.replay.json",
+            "verifyAtSec": 45.0,
+            "inputs": 0,
+            "hashMatch": true
+        },
+        {
+            "replay": "sandbox_taps.replay.json",
+            "verifyAtSec": 12.0,
+            "inputs": 6,
+            "hashMatch": true
+        }
+    ]
+}

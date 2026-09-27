@@ -21,6 +21,12 @@ import com.rhythmphysics.core.render.RenderSettings
  *
  *   audio clock -> engine.update(t) (fixed 120 Hz steps) -> engine.render -> hardware Canvas
  *
+ * t is the audio position *at the moment this frame will be on screen*: the audio clock reports
+ * what is audible now (AudioTrack timestamps), and a frame drawn now is presented one or more
+ * vsyncs later, so the frame's expected presentation time is added (exact FrameTimeline on
+ * API 33+, estimated from the vsync period before). A user offset corrects for output devices
+ * that under-report latency (some Bluetooth headsets).
+ *
  * All engine access happens on the render thread; the UI posts commands via [post].
  * Rendering at 60/90/120 Hz never changes the simulation (steps are fixed and clock-driven).
  */
@@ -46,6 +52,11 @@ class VisualizerView(context: Context) : SurfaceView(context), SurfaceHolder.Cal
     var onPlainTap: (() -> Unit)? = null
 
     private var lastFrameNanos = 0L
+    /** User A/V offset: positive shows visuals later (ms). */
+    @Volatile var avOffsetMs = 0
+    /** Last presentation lead applied (ms), for the debug overlay. */
+    @Volatile var presentLeadMs = 0.0; private set
+    private var vsyncNanos = 16_666_667L
 
     init {
         holder.addCallback(this)
@@ -69,27 +80,49 @@ class VisualizerView(context: Context) : SurfaceView(context), SurfaceHolder.Cal
     fun resume() { active = true; schedule() }
     fun pauseRendering() { active = false }
 
-    private fun schedule() = post { if (active && surfaceReady) choreographer?.postFrameCallback(frameCallback) }
+    private fun schedule() = post { if (active && surfaceReady) postNext() }
 
-    private val frameCallback = object : Choreographer.FrameCallback {
-        override fun doFrame(frameTimeNanos: Long) {
-            if (!active || !surfaceReady) return
-            val t0 = SystemClock.elapsedRealtimeNanos()
-            renderFrame()
-            val ms = (SystemClock.elapsedRealtimeNanos() - t0) / 1e6
-            engine?.frameStats?.addFrame(if (lastFrameNanos > 0) (frameTimeNanos - lastFrameNanos) / 1e6 else 16.7)
-            lastFrameNanos = frameTimeNanos
-            engine?.let { onFrameStats?.invoke(it.frameStats.fps, ms, it.lastSteps) }
-            choreographer?.postFrameCallback(this)
-        }
+    private fun postNext() {
+        val ch = choreographer ?: return
+        val v = vsyncCallback
+        if (Build.VERSION.SDK_INT >= 33 && v != null) VsyncCallbacks.post(ch, v) else ch.postFrameCallback(frameCallback)
     }
 
-    private fun renderFrame() {
+    private fun cancelNext() {
+        val ch = choreographer ?: return
+        val v = vsyncCallback
+        if (Build.VERSION.SDK_INT >= 33 && v != null) VsyncCallbacks.remove(ch, v) else ch.removeFrameCallback(frameCallback)
+    }
+
+    private val frameCallback = Choreographer.FrameCallback { frameTimeNanos ->
+        // Pre-33: HWUI + SurfaceFlinger typically present two vsyncs after the frame's vsync.
+        onFrame(frameTimeNanos, frameTimeNanos + 2 * vsyncNanos)
+    }
+
+    private val vsyncCallback: Any? = if (Build.VERSION.SDK_INT >= 33) VsyncCallbacks.create { frameTime, present -> onFrame(frameTime, present) } else null
+
+    private fun onFrame(frameTimeNanos: Long, expectedPresentNanos: Long) {
+        if (!active || !surfaceReady) return
+        val t0 = SystemClock.elapsedRealtimeNanos()
+        val lead = (expectedPresentNanos - System.nanoTime()).coerceIn(0L, 100_000_000L)
+        renderFrame(lead / 1e9)
+        val ms = (SystemClock.elapsedRealtimeNanos() - t0) / 1e6
+        engine?.frameStats?.addFrame(if (lastFrameNanos > 0) (frameTimeNanos - lastFrameNanos) / 1e6 else 16.7)
+        lastFrameNanos = frameTimeNanos
+        engine?.let { onFrameStats?.invoke(it.frameStats.fps, ms, it.lastSteps) }
+        postNext()
+    }
+
+    private fun renderFrame(presentLeadSec: Double = 0.0) {
         val e = engine
         val canvas = try { holder.surface.lockHardwareCanvas() } catch (ex: Exception) { return }
         try {
             if (e == null) { canvas.drawColor(0xFF000000.toInt()); return }
-            val t = clock?.positionSec() ?: e.renderTime
+            val c = clock
+            val t = if (c == null) e.renderTime
+                else if (c.isPlaying) (c.positionSec() + presentLeadSec - avOffsetMs / 1000.0).coerceAtLeast(0.0)
+                else c.positionSec()
+            presentLeadMs = if (c?.isPlaying == true) presentLeadSec * 1000 else 0.0
             e.update(t)
             e.render(drawList, renderSettings)
             val box = Letterbox.fit(e.frame.w, e.frame.h, surfaceW.toFloat(), surfaceH.toFloat())
@@ -103,6 +136,7 @@ class VisualizerView(context: Context) : SurfaceView(context), SurfaceHolder.Cal
     fun redraw() = post { if (surfaceReady && !active) renderFrame() }
 
     override fun surfaceCreated(h: SurfaceHolder) {
+        display?.refreshRate?.let { if (it > 1f) vsyncNanos = (1e9 / it).toLong() }
         if (Build.VERSION.SDK_INT >= 30) {
             val rate = display?.refreshRate ?: 60f
             try { h.surface.setFrameRate(rate, Surface.FRAME_RATE_COMPATIBILITY_DEFAULT) } catch (_: Exception) {}
@@ -112,7 +146,7 @@ class VisualizerView(context: Context) : SurfaceView(context), SurfaceHolder.Cal
     override fun surfaceChanged(h: SurfaceHolder, format: Int, width: Int, height: Int) {
         post {
             surfaceW = width; surfaceH = height; surfaceReady = true
-            if (active) choreographer?.postFrameCallback(frameCallback) else renderFrame()
+            if (active) postNext() else renderFrame()
         }
     }
 
@@ -121,7 +155,7 @@ class VisualizerView(context: Context) : SurfaceView(context), SurfaceHolder.Cal
         // Block until the render thread has stopped touching the surface.
         val lock = Object()
         synchronized(lock) {
-            handler.post { choreographer?.removeFrameCallback(frameCallback); synchronized(lock) { lock.notifyAll() } }
+            handler.post { cancelNext(); synchronized(lock) { lock.notifyAll() } }
             lock.wait(500)
         }
     }

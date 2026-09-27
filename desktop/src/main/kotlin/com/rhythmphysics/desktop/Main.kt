@@ -77,6 +77,7 @@ fun main(args: Array<String>) {
             val e = Scenes.engine(Scenes.demoSession(), args[1], aspect)
             Scenes.save(Scenes.frame(e, args[3].toDouble()), File(args.getOrElse(4) { "artifacts/tmp/frame.png" }))
         }
+        "gauntlet" -> Gauntlet.run(File(args[1]), args.getOrNull(2)?.let(::File))
         "batch" -> {
             // batch <list-file>; each line: <preset> <aspect> <time> <out.png>  (one JVM for many frames)
             File(args[1]).readLines().map { it.trim() }.filter { it.isNotEmpty() && !it.startsWith("#") }.forEach { line ->

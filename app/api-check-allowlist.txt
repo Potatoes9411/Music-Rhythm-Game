@@ -2,3 +2,6 @@
 # The OnThermalStatusChangedListener lambda class is only instantiated inside ThermalMonitor.start(),
 # which returns early below API 29.
 android/os/PowerManager$OnThermalStatusChangedListener <- com/rhythmphysics/app/platform/ThermalMonitor$start$l$1
+# VsyncCallbacks wraps the API 33 Choreographer vsync/FrameTimeline API; VisualizerView only calls it
+# (and only creates its callback) when Build.VERSION.SDK_INT >= 33.
+* <- com/rhythmphysics/app/render/VsyncCallbacks*

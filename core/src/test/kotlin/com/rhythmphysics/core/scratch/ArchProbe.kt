@@ -22,4 +22,14 @@ class ArchProbe {
         println("hs " + m.heroScreenPosition(e.frame, 30.0)?.toList())
         println("comp " + m.composition(e.frame, 30.0).toList())
     }
+
+    @Test
+    fun worstContact() {
+        if (System.getProperty("rp.probe") == null) return
+        val e = RhythmEngine(Fixtures.demoSession(), SceneConfig(focus = MechanicType.ARCH, presetIds = mapOf(MechanicType.ARCH to "arch.bounce_curve")))
+        var t = 0.0; while (t < 92) { e.update(t); t += 1 / 60.0 }
+        val worst = e.sync.samples().sortedByDescending { kotlin.math.abs(it.errorMs) }.take(3)
+        worst.forEach { println("worst id=${it.eventId} expected=%.4f actual=%.4f err=%.3f".format(it.expectedTimeSec, it.logicalContactTimeSec, it.errorMs)) }
+        println("first samples " + e.sync.samples().take(3).map { "%.3f".format(it.expectedTimeSec) })
+    }
 }

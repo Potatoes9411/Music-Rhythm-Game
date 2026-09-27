@@ -72,13 +72,17 @@ class ArchMechanic : MechanicController {
         planner.prune(songTime)
     }
 
-    /** Bisection on the hero's height above the target top along the evaluated path. */
+    /**
+     * Time at which the evaluated hero path is closest to the contact point (target top + radius).
+     * Euclidean distance has a single zero at the real touch; (a signed height + horizontal sum
+     * would also vanish below the top, which guided swoops pass through).
+     */
     private fun measureContact(tg: ArchTarget, t0: Double, t1: Double): Double {
         val top = tg.topY + planner.heroRadius
         fun gap(t: Double): Double {
             val p = planner.heroAt(t)
-            val horiz = kotlin.math.hypot(p.x - tg.x, p.z - tg.z)
-            return (p.y - top) + horiz
+            val dx = p.x - tg.x; val dy = p.y - top; val dz = p.z - tg.z
+            return kotlin.math.sqrt(dx * dx + dy * dy + dz * dz)
         }
         var lo = max(t0 - 0.02, tg.timeSec - 0.05); var hi = min(t1 + 0.02, tg.timeSec + 0.05)
         var best = tg.timeSec; var bestV = Double.MAX_VALUE
@@ -87,7 +91,9 @@ class ArchMechanic : MechanicController {
         lo = best - (hi - lo) / 40; hi = best + (hi - lo) / 40
         repeat(30) {
             val m1 = lo + (hi - lo) / 3; val m2 = hi - (hi - lo) / 3
-            if (abs(gap(m1)) < abs(gap(m2))) hi = m2 else lo = m1
+            // Ties go left: when the hero rests on the final target the distance is 0 over an
+            // interval and the contact is its start (the arrival), not its middle.
+            if (abs(gap(m1)) <= abs(gap(m2))) hi = m2 else lo = m1
         }
         return (lo + hi) / 2
     }

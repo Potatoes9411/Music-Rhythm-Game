@@ -151,6 +151,7 @@ class CreatorScreen(
         playback.muted = scene.audioMode == AudioMode.ANALYSIS_ONLY
         if (startSec > 0) playback.seek(startSec)
         visualizer.renderSettings = effectiveRender()
+        visualizer.avOffsetMs = app.settings.avOffsetMs
         visualizer.tapEnabled = isSandbox
         visualizer.onTap = { e, x, y -> e.input("tap", x, y) }
         visualizer.onPlainTap = { if (cleanMode) setCleanMode(false) }
@@ -267,6 +268,7 @@ class CreatorScreen(
             "clock ${if (ae != null) "AudioTrack timestamp" else "free-running (sandbox)"}  playing ${clock.isPlaying}",
             "quality ${effectiveRender().quality.label}${thermalCap?.let { " (thermal cap ${it.label})" } ?: ""}  thermal ${thermal.label}",
             "audio mode ${scene.audioMode.label}",
+            "present lead %.1f ms  A/V offset ${visualizer.avOffsetMs} ms".format(visualizer.presentLeadMs),
         )
     }
 
@@ -281,6 +283,13 @@ class CreatorScreen(
         app.settings.renderSettings = userRender
         pushRenderSettings()
         debugBtn.active = userRender.showDebug
+    }
+
+    fun setAvOffset(ms: Int) {
+        val v = ms.coerceIn(-150, 150)
+        app.settings.avOffsetMs = v
+        visualizer.avOffsetMs = v
+        visualizer.redraw()
     }
 
     private fun pushRenderSettings() {

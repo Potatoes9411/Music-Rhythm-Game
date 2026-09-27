@@ -1,0 +1,168 @@
+{
+    "schemaVersion": 1,
+    "appVersion": "0.1.0",
+    "sourceFingerprint": "sandbox",
+    "mediaType": "NONE",
+    "mediaTitle": "Sandbox",
+    "analysisVersion": 1,
+    "generatorVersions": {
+        "square": 1,
+        "circle": 1,
+        "arch": 1,
+        "platform": 1,
+        "journey": 1,
+        "events": 1
+    },
+    "scene": {
+        "seed": 11,
+        "aspect": "PORTRAIT_9_16",
+        "viewMode": "FOCUS",
+        "focus": "CIRCLE",
+        "presetIds": {
+            "CIRCLE": "circle.sandbox"
+        },
+        "journey": null,
+        "duet": [
+            "SQUARE",
+            "ARCH"
+        ],
+        "eventMapping": null,
+        "audioMode": "ORIGINAL_AND_VISUALS"
+    },
+    "presets": [
+        {
+            "schemaVersion": 1,
+            "id": "circle.sandbox",
+            "name": "Circle — Sandbox",
+            "mechanic": "CIRCLE",
+            "seed": null,
+            "description": "No song needed: tap inside the ring to add balls; collisions play notes.",
+            "generation": {
+                "style": "classic",
+                "speed": 9.0,
+                "surfaceLength": 2.4,
+                "surfaceThickness": 0.36,
+                "lookahead": 64,
+                "compactness": 0.6,
+                "drift": 0.9,
+                "showFutureSurfaces": true,
+                "futureVisibleSec": 3.0,
+                "surfaceLifetimeSec": 2.8,
+                "minContactGapSec": 0.09,
+                "corridorWidth": 9.0,
+                "apexMin": 0.9,
+                "apexMax": 4.2,
+                "apexDecay": 0.8,
+                "targetSpacing": 2.6,
+                "pillarMinHeight": 1.2,
+                "pillarMaxHeight": 4.5,
+                "stepDrop": 1.1,
+                "mode": "generative",
+                "bounceAngleDeg": 45.0
+            },
+            "physics": {
+                "gravity": 20.0,
+                "restitution": 1.0,
+                "ballCount": 1,
+                "ballRadius": 0.55,
+                "ringRadius": 10.0,
+                "ringThickness": 0.28,
+                "gapCount": 0,
+                "gapSizeDeg": 38.0,
+                "gapRotationDegPerSec": 0.0,
+                "ballGrowthPerHit": 0.0,
+                "ringShrinkPerHit": 0.0,
+                "minRingRadius": 2.5,
+                "maxBallRadius": 6.0,
+                "maxBalls": 80,
+                "spawnOnEscape": 0,
+                "initialSpeed": 13.0,
+                "maxSpeed": 60.0,
+                "substeps": 4,
+                "ballCollisions": true,
+                "attract": 0.0,
+                "orbit": 0.0
+            },
+            "camera": {
+                "zoom": 1.0,
+                "lookaheadSec": 0.8,
+                "pitchDeg": 16.0,
+                "height": 2.4,
+                "distance": 10.0,
+                "fovDeg": 46.0,
+                "shake": 0.35,
+                "follow": 1.0
+            },
+            "visuals": {
+                "palette": "circle_night",
+                "heroSize": 1.0,
+                "heroShape": "square",
+                "trailLengthSec": 0.35,
+                "trailWidth": 1.0,
+                "trailOpacity": 0.55,
+                "trailTaper": 0.9,
+                "trailColor": null,
+                "emissive": 1.0,
+                "bloom": 0.55,
+                "particles": 0.8,
+                "squashStretch": true,
+                "impactFlash": 1.0,
+                "colorShiftOnImpact": true,
+                "background": "gradient",
+                "reflections": true,
+                "noteLabels": false,
+                "outlineOnly": false,
+                "ghostTrail": false,
+                "surfaceMemoryTint": true,
+                "showStats": false
+            },
+            "eventMapping": {
+                "mode": "HYBRID",
+                "density": 0.55,
+                "polyphony": "HIGHEST_VOICE",
+                "selectedTracks": []
+            },
+            "anomalies": []
+        }
+    ],
+    "sandboxInputs": [
+        {
+            "step": 121,
+            "kind": "tap",
+            "x": 400.0,
+            "y": 800.0
+        },
+        {
+            "step": 303,
+            "kind": "tap",
+            "x": 460.0,
+            "y": 920.0
+        },
+        {
+            "step": 483,
+            "kind": "tap",
+            "x": 520.0,
+            "y": 1040.0
+        },
+        {
+            "step": 663,
+            "kind": "tap",
+            "x": 580.0,
+            "y": 800.0
+        },
+        {
+            "step": 843,
+            "kind": "tap",
+            "x": 640.0,
+            "y": 920.0
+        },
+        {
+            "step": 1021,
+            "kind": "tap",
+            "x": 700.0,
+            "y": 1040.0
+        }
+    ],
+    "verifyAtSec": 12.0,
+    "verifyHash": "7fdf3bc3824a4133da334ffdf427bbd66dc521246824296c651b5aa4e016c899"
+}

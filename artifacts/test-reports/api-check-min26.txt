@@ -6,6 +6,13 @@ guarded   android/os/PowerManager.addThermalStatusListener(Landroid/os/PowerMana
 guarded   android/os/PowerManager.getCurrentThermalStatus()I   <- com/rhythmphysics/app/platform/ThermalMonitor.start
 guarded   class android/os/PowerManager$OnThermalStatusChangedListener   <- com/rhythmphysics/app/platform/ThermalMonitor.stop
 guarded   android/os/PowerManager.removeThermalStatusListener(Landroid/os/PowerManager$OnThermalStatusChangedListener;)V   <- com/rhythmphysics/app/platform/ThermalMonitor.stop
+UNGUARDED class android/view/Choreographer$VsyncCallback   <- com/rhythmphysics/app/render/VsyncCallbacks$create$1
+UNGUARDED class android/view/Choreographer$FrameData   <- com/rhythmphysics/app/render/VsyncCallbacks$create$1.onVsync
+UNGUARDED class android/view/Choreographer$FrameTimeline   <- com/rhythmphysics/app/render/VsyncCallbacks$create$1.onVsync
+UNGUARDED class android/view/Choreographer$VsyncCallback   <- com/rhythmphysics/app/render/VsyncCallbacks.post
+UNGUARDED android/view/Choreographer.postVsyncCallback(Landroid/view/Choreographer$VsyncCallback;)V   <- com/rhythmphysics/app/render/VsyncCallbacks.post
+UNGUARDED class android/view/Choreographer$VsyncCallback   <- com/rhythmphysics/app/render/VsyncCallbacks.remove
+UNGUARDED android/view/Choreographer.removeVsyncCallback(Landroid/view/Choreographer$VsyncCallback;)V   <- com/rhythmphysics/app/render/VsyncCallbacks.remove
 guarded   android/view/Surface.setFrameRate(FI)V   <- com/rhythmphysics/app/render/VisualizerView.surfaceCreated
 guarded   class android/view/WindowInsets$Type   <- com/rhythmphysics/app/MainActivity$onCreate$2.onApplyWindowInsets
 guarded   android/view/WindowInsets.getInsets(I)Landroid/graphics/Insets;   <- com/rhythmphysics/app/MainActivity$onCreate$2.onApplyWindowInsets

@@ -1,0 +1,131 @@
+{
+    "schemaVersion": 1,
+    "appVersion": "0.1.0",
+    "sourceFingerprint": "9fe9e0b98663128670852a3bd3430154665d4cdd1627b017aad06100673ab6b2",
+    "mediaType": "MIDI",
+    "mediaTitle": "Orbit Lines (demo)",
+    "analysisVersion": 1,
+    "generatorVersions": {
+        "square": 1,
+        "circle": 1,
+        "arch": 1,
+        "platform": 1,
+        "journey": 1,
+        "events": 1
+    },
+    "scene": {
+        "seed": 1337,
+        "aspect": "PORTRAIT_9_16",
+        "viewMode": "FOCUS",
+        "focus": "SQUARE",
+        "presetIds": {
+            "SQUARE": "square.classic"
+        },
+        "journey": null,
+        "duet": [
+            "SQUARE",
+            "ARCH"
+        ],
+        "eventMapping": null,
+        "audioMode": "ORIGINAL_AND_VISUALS"
+    },
+    "presets": [
+        {
+            "schemaVersion": 1,
+            "id": "square.classic",
+            "name": "Square — Classic Planned",
+            "mechanic": "SQUARE",
+            "seed": null,
+            "description": "Creator-ready planned bounce course: large hero, short pegs placed exactly on the music, controlled trail.",
+            "generation": {
+                "style": "classic",
+                "speed": 9.0,
+                "surfaceLength": 2.4,
+                "surfaceThickness": 0.36,
+                "lookahead": 64,
+                "compactness": 0.6,
+                "drift": 0.9,
+                "showFutureSurfaces": true,
+                "futureVisibleSec": 3.0,
+                "surfaceLifetimeSec": 2.8,
+                "minContactGapSec": 0.09,
+                "corridorWidth": 9.0,
+                "apexMin": 0.9,
+                "apexMax": 4.2,
+                "apexDecay": 0.8,
+                "targetSpacing": 2.6,
+                "pillarMinHeight": 1.2,
+                "pillarMaxHeight": 4.5,
+                "stepDrop": 1.1,
+                "mode": "reactive",
+                "bounceAngleDeg": 45.0
+            },
+            "physics": {
+                "gravity": 30.0,
+                "restitution": 1.0,
+                "ballCount": 1,
+                "ballRadius": 0.6,
+                "ringRadius": 10.0,
+                "ringThickness": 0.28,
+                "gapCount": 0,
+                "gapSizeDeg": 38.0,
+                "gapRotationDegPerSec": 0.0,
+                "ballGrowthPerHit": 0.0,
+                "ringShrinkPerHit": 0.0,
+                "minRingRadius": 2.5,
+                "maxBallRadius": 6.0,
+                "maxBalls": 96,
+                "spawnOnEscape": 0,
+                "initialSpeed": 13.0,
+                "maxSpeed": 60.0,
+                "substeps": 4,
+                "ballCollisions": true,
+                "attract": 0.0,
+                "orbit": 0.0
+            },
+            "camera": {
+                "zoom": 1.0,
+                "lookaheadSec": 0.8,
+                "pitchDeg": 16.0,
+                "height": 2.4,
+                "distance": 10.0,
+                "fovDeg": 46.0,
+                "shake": 0.35,
+                "follow": 1.0
+            },
+            "visuals": {
+                "palette": "classic",
+                "heroSize": 1.0,
+                "heroShape": "square",
+                "trailLengthSec": 0.32,
+                "trailWidth": 1.0,
+                "trailOpacity": 0.42,
+                "trailTaper": 0.9,
+                "trailColor": null,
+                "emissive": 1.0,
+                "bloom": 0.35,
+                "particles": 1.0,
+                "squashStretch": true,
+                "impactFlash": 1.0,
+                "colorShiftOnImpact": true,
+                "background": "gradient",
+                "reflections": true,
+                "noteLabels": false,
+                "outlineOnly": false,
+                "ghostTrail": false,
+                "surfaceMemoryTint": true,
+                "showStats": false
+            },
+            "eventMapping": {
+                "mode": "HYBRID",
+                "density": 0.62,
+                "polyphony": "HIGHEST_VOICE",
+                "selectedTracks": []
+            },
+            "anomalies": []
+        }
+    ],
+    "sandboxInputs": [],
+    "verifyAtSec": 45.0,
+    "verifyHash": "ead75cebe772e769022401a121f9b239769c238ce582932da58c4665ea071133"
+}

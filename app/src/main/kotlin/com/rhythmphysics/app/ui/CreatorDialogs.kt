@@ -72,6 +72,18 @@ object CreatorDialogs {
         col.addView(Ui.switch(c, "Reduced bloom", rs.reducedBloom) { rs = rs.copy(reducedBloom = it); cs.setRenderSettings(rs) })
         col.addView(Ui.switch(c, "Reduced particles", rs.reducedParticles) { rs = rs.copy(reducedParticles = it); cs.setRenderSettings(rs) })
 
+        col.addView(Ui.label(c, "Timing"))
+        val offsetLabel = Ui.text(c, "", 13f)
+        fun offsetText(v: Int) = "Visual offset: ${if (v > 0) "+" else ""}$v ms" + if (v == 0) " (auto: audio timestamps + display latency)" else ""
+        offsetLabel.text = offsetText(app.settings.avOffsetMs)
+        col.addView(offsetLabel)
+        col.addView(Ui.slider(c, 300, app.settings.avOffsetMs + 150) { p, done ->
+            val v = (p - 150) / 5 * 5
+            offsetLabel.text = offsetText(v)
+            if (done) cs.setAvOffset(v)
+        })
+        col.addView(Ui.text(c, "Sync is automatic. Only adjust if impacts look early (+) or late (−) on your output, e.g. some Bluetooth headphones.", 12f, Ui.MUTED))
+
         col.addView(Ui.label(c, "Haptics"))
         if (app.haptics.available) {
             col.addView(ChipRow(c, HapticLevel.values().map { it.label to it }, app.haptics.level) { lv -> app.haptics.level = lv; app.settings.haptics = lv }.view)

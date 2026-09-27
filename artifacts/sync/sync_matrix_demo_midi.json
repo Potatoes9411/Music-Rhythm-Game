@@ -1,0 +1,2503 @@
+{
+    "source": "Orbit Lines (original demo MIDI), 112 BPM, 90.0 s",
+    "goal": "mean <= 5 ms, p95 <= 15 ms, max <= 30 ms",
+    "note": "Circle presets are free physics: collisions are not planned musical contacts, so they log no planned-contact samples.",
+    "runs": [
+        {
+            "preset": "square.classic",
+            "mechanic": "SQUARE",
+            "aspect": "9:16",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "square.classic",
+            "mechanic": "SQUARE",
+            "aspect": "16:9",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "square.classic",
+            "mechanic": "SQUARE",
+            "aspect": "1:1",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "square.midi_playground",
+            "mechanic": "SQUARE",
+            "aspect": "9:16",
+            "contacts": 244,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.78,
+                    "p95Ms": 14.33,
+                    "maxMs": 15.514
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.48,
+                    "p95Ms": 10.351,
+                    "maxMs": 10.757
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.613,
+                    "p95Ms": 7.169,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "square.midi_playground",
+            "mechanic": "SQUARE",
+            "aspect": "16:9",
+            "contacts": 244,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.78,
+                    "p95Ms": 14.33,
+                    "maxMs": 15.514
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.48,
+                    "p95Ms": 10.351,
+                    "maxMs": 10.757
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.613,
+                    "p95Ms": 7.169,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "square.midi_playground",
+            "mechanic": "SQUARE",
+            "aspect": "1:1",
+            "contacts": 244,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.78,
+                    "p95Ms": 14.33,
+                    "maxMs": 15.514
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.48,
+                    "p95Ms": 10.351,
+                    "maxMs": 10.757
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.613,
+                    "p95Ms": 7.169,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "square.dark_minimal",
+            "mechanic": "SQUARE",
+            "aspect": "9:16",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "square.dark_minimal",
+            "mechanic": "SQUARE",
+            "aspect": "16:9",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "square.dark_minimal",
+            "mechanic": "SQUARE",
+            "aspect": "1:1",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "square.neon_trail",
+            "mechanic": "SQUARE",
+            "aspect": "9:16",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "square.neon_trail",
+            "mechanic": "SQUARE",
+            "aspect": "16:9",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "square.neon_trail",
+            "mechanic": "SQUARE",
+            "aspect": "1:1",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "circle.classic",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.classic",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.classic",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.growing_ball",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.growing_ball",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.growing_ball",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.shrinking_ring",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.shrinking_ring",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.shrinking_ring",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.grow_shrink",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.grow_shrink",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.grow_shrink",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.escape_gap",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.escape_gap",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.escape_gap",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.rotating_gap",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.rotating_gap",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.rotating_gap",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.multiplication",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.multiplication",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.multiplication",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.gravity_chaos",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.gravity_chaos",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.gravity_chaos",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.melody_collision",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.melody_collision",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.melody_collision",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.collision_synth",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.collision_synth",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.collision_synth",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.orbit_force",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.orbit_force",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.orbit_force",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.ring_break",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.ring_break",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.ring_break",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.chaos",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.chaos",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.chaos",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.sandbox",
+            "mechanic": "CIRCLE",
+            "aspect": "9:16",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.sandbox",
+            "mechanic": "CIRCLE",
+            "aspect": "16:9",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "circle.sandbox",
+            "mechanic": "CIRCLE",
+            "aspect": "1:1",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 0.0,
+                    "p95Ms": 0.0,
+                    "maxMs": 0.0
+                }
+            ]
+        },
+        {
+            "preset": "arch.bounce_curve",
+            "mechanic": "ARCH",
+            "aspect": "9:16",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "arch.bounce_curve",
+            "mechanic": "ARCH",
+            "aspect": "16:9",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "arch.bounce_curve",
+            "mechanic": "ARCH",
+            "aspect": "1:1",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "arch.pillar_weave",
+            "mechanic": "ARCH",
+            "aspect": "9:16",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "arch.pillar_weave",
+            "mechanic": "ARCH",
+            "aspect": "16:9",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "arch.pillar_weave",
+            "mechanic": "ARCH",
+            "aspect": "1:1",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.music_ball",
+            "mechanic": "PLATFORM",
+            "aspect": "9:16",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.music_ball",
+            "mechanic": "PLATFORM",
+            "aspect": "16:9",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.music_ball",
+            "mechanic": "PLATFORM",
+            "aspect": "1:1",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.piano_tiles",
+            "mechanic": "PLATFORM",
+            "aspect": "9:16",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.piano_tiles",
+            "mechanic": "PLATFORM",
+            "aspect": "16:9",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.piano_tiles",
+            "mechanic": "PLATFORM",
+            "aspect": "1:1",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.staircase",
+            "mechanic": "PLATFORM",
+            "aspect": "9:16",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.staircase",
+            "mechanic": "PLATFORM",
+            "aspect": "16:9",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.staircase",
+            "mechanic": "PLATFORM",
+            "aspect": "1:1",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.minimal_bars",
+            "mechanic": "PLATFORM",
+            "aspect": "9:16",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.minimal_bars",
+            "mechanic": "PLATFORM",
+            "aspect": "16:9",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.minimal_bars",
+            "mechanic": "PLATFORM",
+            "aspect": "1:1",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.neon",
+            "mechanic": "PLATFORM",
+            "aspect": "9:16",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.neon",
+            "mechanic": "PLATFORM",
+            "aspect": "16:9",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.neon",
+            "mechanic": "PLATFORM",
+            "aspect": "1:1",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.block_terrain",
+            "mechanic": "PLATFORM",
+            "aspect": "9:16",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.block_terrain",
+            "mechanic": "PLATFORM",
+            "aspect": "16:9",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        },
+        {
+            "preset": "platform.block_terrain",
+            "mechanic": "PLATFORM",
+            "aspect": "1:1",
+            "contacts": 152,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "outliersOver30ms": 0,
+            "degraded": 0,
+            "passesGoal": true,
+            "frameQuantization": [
+                {
+                    "hz": 60,
+                    "meanMs": 7.274,
+                    "p95Ms": 14.314,
+                    "maxMs": 14.33
+                },
+                {
+                    "hz": 90,
+                    "meanMs": 5.264,
+                    "p95Ms": 10.327,
+                    "maxMs": 10.363
+                },
+                {
+                    "hz": 120,
+                    "meanMs": 3.656,
+                    "p95Ms": 7.17,
+                    "maxMs": 7.186
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,131 @@
+{
+    "schemaVersion": 1,
+    "appVersion": "0.1.0",
+    "sourceFingerprint": "9fe9e0b98663128670852a3bd3430154665d4cdd1627b017aad06100673ab6b2",
+    "mediaType": "MIDI",
+    "mediaTitle": "Orbit Lines (demo)",
+    "analysisVersion": 1,
+    "generatorVersions": {
+        "square": 1,
+        "circle": 1,
+        "arch": 1,
+        "platform": 1,
+        "journey": 1,
+        "events": 1
+    },
+    "scene": {
+        "seed": 5,
+        "aspect": "LANDSCAPE_16_9",
+        "viewMode": "FOCUS",
+        "focus": "ARCH",
+        "presetIds": {
+            "ARCH": "arch.bounce_curve"
+        },
+        "journey": null,
+        "duet": [
+            "SQUARE",
+            "ARCH"
+        ],
+        "eventMapping": null,
+        "audioMode": "ORIGINAL_AND_VISUALS"
+    },
+    "presets": [
+        {
+            "schemaVersion": 1,
+            "id": "arch.bounce_curve",
+            "name": "Arch — Bounce Curve",
+            "mechanic": "ARCH",
+            "seed": null,
+            "description": "White-hot hero on decaying ballistic bounces across separated teal pads; dark studio floor, low camera, warm comet trail with controlled bloom.",
+            "generation": {
+                "style": "bounce_curve",
+                "speed": 5.2,
+                "surfaceLength": 2.4,
+                "surfaceThickness": 0.36,
+                "lookahead": 64,
+                "compactness": 0.6,
+                "drift": 0.9,
+                "showFutureSurfaces": true,
+                "futureVisibleSec": 3.0,
+                "surfaceLifetimeSec": 2.8,
+                "minContactGapSec": 0.2,
+                "corridorWidth": 7.0,
+                "apexMin": 0.55,
+                "apexMax": 3.0,
+                "apexDecay": 0.76,
+                "targetSpacing": 2.6,
+                "pillarMinHeight": 1.2,
+                "pillarMaxHeight": 4.5,
+                "stepDrop": 1.1,
+                "mode": "reactive",
+                "bounceAngleDeg": 45.0
+            },
+            "physics": {
+                "gravity": 30.0,
+                "restitution": 1.0,
+                "ballCount": 1,
+                "ballRadius": 0.6,
+                "ringRadius": 10.0,
+                "ringThickness": 0.28,
+                "gapCount": 0,
+                "gapSizeDeg": 38.0,
+                "gapRotationDegPerSec": 0.0,
+                "ballGrowthPerHit": 0.0,
+                "ringShrinkPerHit": 0.0,
+                "minRingRadius": 2.5,
+                "maxBallRadius": 6.0,
+                "maxBalls": 96,
+                "spawnOnEscape": 0,
+                "initialSpeed": 13.0,
+                "maxSpeed": 60.0,
+                "substeps": 4,
+                "ballCollisions": true,
+                "attract": 0.0,
+                "orbit": 0.0
+            },
+            "camera": {
+                "zoom": 1.0,
+                "lookaheadSec": 0.8,
+                "pitchDeg": 14.0,
+                "height": 2.4,
+                "distance": 16.0,
+                "fovDeg": 30.0,
+                "shake": 0.3,
+                "follow": 1.0
+            },
+            "visuals": {
+                "palette": "studio_warm",
+                "heroSize": 1.0,
+                "heroShape": "square",
+                "trailLengthSec": 0.45,
+                "trailWidth": 0.8,
+                "trailOpacity": 0.7,
+                "trailTaper": 0.95,
+                "trailColor": null,
+                "emissive": 1.2,
+                "bloom": 0.8,
+                "particles": 0.8,
+                "squashStretch": true,
+                "impactFlash": 1.0,
+                "colorShiftOnImpact": true,
+                "background": "gradient",
+                "reflections": true,
+                "noteLabels": false,
+                "outlineOnly": false,
+                "ghostTrail": false,
+                "surfaceMemoryTint": true,
+                "showStats": false
+            },
+            "eventMapping": {
+                "mode": "HYBRID",
+                "density": 0.5,
+                "polyphony": "HIGHEST_VOICE",
+                "selectedTracks": []
+            },
+            "anomalies": []
+        }
+    ],
+    "sandboxInputs": [],
+    "verifyAtSec": 45.0,
+    "verifyHash": "9b3f68984236bf285b3093b0b96ee23e4ce1d420365a640186f92b8ca2c4a25a"
+}

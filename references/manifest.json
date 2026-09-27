@@ -1,0 +1,696 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-27T03:54Z",
+  "summary": "All 42 references were INACCESSIBLE from the build environment (egress policy). Nothing in this project was copied from them; mechanics, visuals and audio are original. \"observed\" is empty for every entry because no reference content could be viewed.",
+  "statusLegend": {
+    "OBSERVED": "seen directly in the reference",
+    "INFERRED": "deduced, not seen",
+    "INACCESSIBLE": "could not be opened; contents unknown"
+  },
+  "references": [
+    {
+      "id": "ref-001",
+      "url": "https://www.tiktok.com/@alis.2206/video/7330322262484077866",
+      "canonicalUrl": "https://www.tiktok.com/@alis.2206/video/7330322262484077866",
+      "videoKey": "tiktok:7330322262484077866",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @alis.2206 (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-002",
+      "url": "https://www.youtube.com/watch?v=jRUXxkgQgpY",
+      "canonicalUrl": "https://www.youtube.com/watch?v=jRUXxkgQgpY",
+      "videoKey": "youtube:jRUXxkgQgpY",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-003",
+      "url": "https://www.tiktok.com/@e.musicball/video/7523215206890163511",
+      "canonicalUrl": "https://www.tiktok.com/@e.musicball/video/7523215206890163511",
+      "videoKey": "tiktok:7523215206890163511",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @e.musicball (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-004",
+      "url": "https://www.tiktok.com/@ballfalling/video/7286276540378123563",
+      "canonicalUrl": "https://www.tiktok.com/@ballfalling/video/7286276540378123563",
+      "videoKey": "tiktok:7286276540378123563",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @ballfalling (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-005",
+      "url": "https://www.tiktok.com/@trialists/video/7321390942894869806",
+      "canonicalUrl": "https://www.tiktok.com/@trialists/video/7321390942894869806",
+      "videoKey": "tiktok:7321390942894869806",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @trialists (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-006",
+      "url": "https://www.tiktok.com/@e.musicball/video/7497995028141362478",
+      "canonicalUrl": "https://www.tiktok.com/@e.musicball/video/7497995028141362478",
+      "videoKey": "tiktok:7497995028141362478",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @e.musicball (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-007",
+      "url": "https://www.tiktok.com/@alis.2206/video/7351860297331789102",
+      "canonicalUrl": "https://www.tiktok.com/@alis.2206/video/7351860297331789102",
+      "videoKey": "tiktok:7351860297331789102",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @alis.2206 (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-008",
+      "url": "https://www.tiktok.com/@melotune.ball/video/7494627882057157919",
+      "canonicalUrl": "https://www.tiktok.com/@melotune.ball/video/7494627882057157919",
+      "videoKey": "tiktok:7494627882057157919",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @melotune.ball (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-009",
+      "url": "https://www.youtube.com/watch?v=S4cvh0SUoHE",
+      "canonicalUrl": "https://www.youtube.com/watch?v=S4cvh0SUoHE",
+      "videoKey": "youtube:S4cvh0SUoHE",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-010",
+      "url": "https://www.facebook.com/QuotesMadeWithLove/videos/bouncing-ball-dio-%EF%B8%8F-feliznavidad-merrychristmas-song/1227708565896467/",
+      "canonicalUrl": "https://www.facebook.com/QuotesMadeWithLove/videos/bouncing-ball-dio-%EF%B8%8F-feliznavidad-merrychristmas-song/1227708565896467",
+      "videoKey": "https://www.facebook.com/QuotesMadeWithLove/videos/bouncing-ball-dio-%EF%B8%8F-feliznavidad-merrychristmas-song/1227708565896467",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-011",
+      "url": "https://www.tiktok.com/@willsoongs/video/7313245545236122912",
+      "canonicalUrl": "https://www.tiktok.com/@willsoongs/video/7313245545236122912",
+      "videoKey": "tiktok:7313245545236122912",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @willsoongs (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-012",
+      "url": "https://www.tiktok.com/@e.musicball/video/7526186395140951351",
+      "canonicalUrl": "https://www.tiktok.com/@e.musicball/video/7526186395140951351",
+      "videoKey": "tiktok:7526186395140951351",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @e.musicball (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-013",
+      "url": "https://www.youtube.com/watch?v=4SQr6c0UouE",
+      "canonicalUrl": "https://www.youtube.com/watch?v=4SQr6c0UouE",
+      "videoKey": "youtube:4SQr6c0UouE",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-014",
+      "url": "https://www.tiktok.com/@yymusicball/video/7481645579651583278",
+      "canonicalUrl": "https://www.tiktok.com/@yymusicball/video/7481645579651583278",
+      "videoKey": "tiktok:7481645579651583278",
+      "aliases": [],
+      "originalCategory": "Platform Fall / Music Ball",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @yymusicball (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-015",
+      "url": "https://youtu.be/62cWXdxZaBM",
+      "canonicalUrl": "https://www.youtube.com/watch?v=62cWXdxZaBM",
+      "videoKey": "youtube:62cWXdxZaBM",
+      "aliases": [],
+      "originalCategory": "Background / how it works",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-016",
+      "url": "https://www.youtube.com/watch?v=4Mx9QmiEfjo",
+      "canonicalUrl": "https://www.youtube.com/watch?v=4Mx9QmiEfjo",
+      "videoKey": "youtube:4Mx9QmiEfjo",
+      "aliases": [],
+      "originalCategory": "Arch / trajectory",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-017",
+      "url": "https://www.youtube.com/watch?v=Jftn2Xk4S7Y",
+      "canonicalUrl": "https://www.youtube.com/watch?v=Jftn2Xk4S7Y",
+      "videoKey": "youtube:Jftn2Xk4S7Y",
+      "aliases": [],
+      "originalCategory": "Arch / trajectory",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-018",
+      "url": "https://www.youtube.com/watch?v=W9fdczla2ds",
+      "canonicalUrl": "https://www.youtube.com/watch?v=W9fdczla2ds",
+      "videoKey": "youtube:W9fdczla2ds",
+      "aliases": [],
+      "originalCategory": "Arch / trajectory",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-019",
+      "url": "https://github.com/quasar098/midi-playground",
+      "canonicalUrl": "https://github.com/quasar098/midi-playground",
+      "videoKey": "https://github.com/quasar098/midi-playground",
+      "aliases": [],
+      "originalCategory": "Music Square",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. HTTP 403 from the build environment's egress proxy (repository outside this session's GitHub scope). Source code was not read."
+    },
+    {
+      "id": "ref-020",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1jjsupv/gemini_25_pro_presents_python_ball_bouncing_in_a/",
+      "canonicalUrl": "https://www.reddit.com/r/LocalLLaMA/comments/1jjsupv/gemini_25_pro_presents_python_ball_bouncing_in_a",
+      "videoKey": "https://www.reddit.com/r/LocalLLaMA/comments/1jjsupv/gemini_25_pro_presents_python_ball_bouncing_in_a",
+      "aliases": [],
+      "originalCategory": "Music Square",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "URL slug reads \"gemini 25 pro presents python ball bouncing in a\" (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-021",
+      "url": "https://www.tiktok.com/@circle_rhythm/video/7628209676001316109",
+      "canonicalUrl": "https://www.tiktok.com/@circle_rhythm/video/7628209676001316109",
+      "videoKey": "tiktok:7628209676001316109",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @circle_rhythm (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-022",
+      "url": "https://www.tiktok.com/@circle_rhythm/video/7545451700304284958",
+      "canonicalUrl": "https://www.tiktok.com/@circle_rhythm/video/7545451700304284958",
+      "videoKey": "tiktok:7545451700304284958",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @circle_rhythm (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-023",
+      "url": "https://www.tiktok.com/@circle_rhythm/video/7622640569780587789",
+      "canonicalUrl": "https://www.tiktok.com/@circle_rhythm/video/7622640569780587789",
+      "videoKey": "tiktok:7622640569780587789",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @circle_rhythm (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-024",
+      "url": "https://www.tiktok.com/@circle_rhythm/video/7623744351914446094",
+      "canonicalUrl": "https://www.tiktok.com/@circle_rhythm/video/7623744351914446094",
+      "videoKey": "tiktok:7623744351914446094",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @circle_rhythm (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-025",
+      "url": "https://www.tiktok.com/@circle_rhythm/video/7525458584587554062",
+      "canonicalUrl": "https://www.tiktok.com/@circle_rhythm/video/7525458584587554062",
+      "videoKey": "tiktok:7525458584587554062",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @circle_rhythm (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-026",
+      "url": "https://www.facebook.com/61554253053556/posts/the-ball-grows-the-circle-shrinks-bouncingball-satisfyingvideo-physics/122264387714141768/",
+      "canonicalUrl": "https://www.facebook.com/61554253053556/posts/the-ball-grows-the-circle-shrinks-bouncingball-satisfyingvideo-physics/122264387714141768",
+      "videoKey": "https://www.facebook.com/61554253053556/posts/the-ball-grows-the-circle-shrinks-bouncingball-satisfyingvideo-physics/122264387714141768",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "URL slug reads \"the ball grows the circle shrinks bouncingball satisfyingvideo physics\" (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-027",
+      "url": "https://www.facebook.com/scipython3/videos/chaotic-balls-bouncing-around-inside-a-circle-in-python-with-matplotlib-after-a-/270078111272542/",
+      "canonicalUrl": "https://www.facebook.com/scipython3/videos/chaotic-balls-bouncing-around-inside-a-circle-in-python-with-matplotlib-after-a-/270078111272542",
+      "videoKey": "https://www.facebook.com/scipython3/videos/chaotic-balls-bouncing-around-inside-a-circle-in-python-with-matplotlib-after-a-/270078111272542",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "URL slug reads \"chaotic balls bouncing around inside a circle in python with matplotlib after a\" (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-028",
+      "url": "https://www.youtube.com/watch?v=_kxFLRkEqpQ",
+      "canonicalUrl": "https://www.youtube.com/watch?v=_kxFLRkEqpQ",
+      "videoKey": "youtube:_kxFLRkEqpQ",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-029",
+      "url": "https://www.tiktok.com/@soundpulsar/video/7686544934228315425",
+      "canonicalUrl": "https://www.tiktok.com/@soundpulsar/video/7686544934228315425",
+      "videoKey": "tiktok:7686544934228315425",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @soundpulsar (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-030",
+      "url": "https://www.tiktok.com/@soundpulsar/video/7683996045138791712",
+      "canonicalUrl": "https://www.tiktok.com/@soundpulsar/video/7683996045138791712",
+      "videoKey": "tiktok:7683996045138791712",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @soundpulsar (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-031",
+      "url": "https://www.tiktok.com/@music.bouncing.ba/video/7665044563437948192",
+      "canonicalUrl": "https://www.tiktok.com/@music.bouncing.ba/video/7665044563437948192",
+      "videoKey": "tiktok:7665044563437948192",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [
+        "Creator handle @music.bouncing.ba (URL text only; content not viewed)."
+      ],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-032",
+      "url": "https://www.youtube.com/watch?v=-VBOMY4v1uo",
+      "canonicalUrl": "https://www.youtube.com/watch?v=-VBOMY4v1uo",
+      "videoKey": "youtube:-VBOMY4v1uo",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-033",
+      "url": "https://www.youtube.com/watch?v=baKpqFfFVK0",
+      "canonicalUrl": "https://www.youtube.com/watch?v=baKpqFfFVK0",
+      "videoKey": "youtube:baKpqFfFVK0",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-034",
+      "url": "https://www.youtube.com/watch?v=n2I0CzCfOEU",
+      "canonicalUrl": "https://www.youtube.com/watch?v=n2I0CzCfOEU",
+      "videoKey": "youtube:n2I0CzCfOEU",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-035",
+      "url": "https://www.youtube.com/watch?v=6emfSUtWnOw",
+      "canonicalUrl": "https://www.youtube.com/watch?v=6emfSUtWnOw",
+      "videoKey": "youtube:6emfSUtWnOw",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-036",
+      "url": "https://www.youtube.com/watch?v=ZlHTx1q5fng",
+      "canonicalUrl": "https://www.youtube.com/watch?v=ZlHTx1q5fng",
+      "videoKey": "youtube:ZlHTx1q5fng",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-037",
+      "url": "https://www.youtube.com/watch?v=nBYWQ1RwqnY",
+      "canonicalUrl": "https://www.youtube.com/watch?v=nBYWQ1RwqnY",
+      "videoKey": "youtube:nBYWQ1RwqnY",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-038",
+      "url": "https://www.youtube.com/watch?v=ALfkcAvf7t4",
+      "canonicalUrl": "https://www.youtube.com/watch?v=ALfkcAvf7t4",
+      "videoKey": "youtube:ALfkcAvf7t4",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-039",
+      "url": "https://www.instagram.com/reel/ChH3fiPPpYi/",
+      "canonicalUrl": "https://www.instagram.com/reel/ChH3fiPPpYi/",
+      "videoKey": "instagram:ChH3fiPPpYi",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-040",
+      "url": "https://www.youtube.com/watch?v=cPfpBUrdkSU",
+      "canonicalUrl": "https://www.youtube.com/watch?v=cPfpBUrdkSU",
+      "videoKey": "youtube:cPfpBUrdkSU",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-041",
+      "url": "https://www.youtube.com/shorts/t4E7t7FXZmo",
+      "canonicalUrl": "https://www.youtube.com/watch?v=t4E7t7FXZmo",
+      "videoKey": "youtube:t4E7t7FXZmo",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    },
+    {
+      "id": "ref-042",
+      "url": "https://www.youtube.com/watch?v=6XYPlVyLWfQ",
+      "canonicalUrl": "https://www.youtube.com/watch?v=6XYPlVyLWfQ",
+      "videoKey": "youtube:6XYPlVyLWfQ",
+      "aliases": [],
+      "originalCategory": "Circle / physics / chaos",
+      "actualCategory": "UNVERIFIED (not inspectable)",
+      "status": "INACCESSIBLE",
+      "duplicateOf": null,
+      "observed": [],
+      "inferred": [],
+      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+    }
+  ],
+  "provisionalObservationsFromBrief": {
+    "note": "Facts the brief reports from earlier research. Kept as provisional guidance; NOT re-verified here and not tied to specific URLs by the brief.",
+    "archBounce": [
+      "Blender-style tutorial",
+      "white-hot glowing hero",
+      "yellow/warm trail",
+      "heavy bloom",
+      "low camera",
+      "dark floor",
+      "teal disc targets",
+      "decaying bounce path"
+    ],
+    "archPillar": [
+      "white-hot hero",
+      "long orange comet trail",
+      "cylinders/pillars",
+      "dark reflective floor",
+      "low camera",
+      "weaving/swooping movement"
+    ],
+    "midiPlaygroundSquare": [
+      "light-grey background",
+      "simple dark bounds/surfaces",
+      "solid square",
+      "square recolors",
+      "little/no bloom",
+      "little/no trail"
+    ],
+    "platformFallRecovered": [
+      "glowing object falling through dark blocky terrain with note markers"
+    ],
+    "misclassifications": "Some references originally thought to be Arch were reported to be music-ball tutorials, generic Blender tutorial intros or platform-fall footage; which ones is not stated, so no entry is reclassified here."
+  },
+  "negativeFixtures": {
+    "status": "NOT_RECEIVED",
+    "note": "The brief says two screenshots of bad implementations were attached; no image arrived with the message, only the text descriptions below. The corresponding regression checks are implemented as composition tests (SquareCompositionGauntletTest, ArchTest composition metrics) rather than image comparisons.",
+    "badSquare": [
+      "pale 9:16 grid",
+      "tiny purple square",
+      "small rectangular cage in the lower middle of a huge empty canvas",
+      "segmented dark borders",
+      "translucent tilted rectangle/diamond",
+      "random little coloured squares outside the arena",
+      "enormous unused space"
+    ],
+    "badArch": [
+      "giant unused black area",
+      "active content compressed near the bottom",
+      "tiny distant pillars",
+      "overly dominant bright trail",
+      "weak course readability",
+      "looks like a debug viewport"
+    ]
+  }
+}

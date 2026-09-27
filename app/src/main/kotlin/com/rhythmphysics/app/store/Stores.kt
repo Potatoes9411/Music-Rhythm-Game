@@ -37,6 +37,11 @@ class SettingsStore(context: Context) {
         get() = prefs.getString("scene", null)?.let { runCatching { storeJson.decodeFromString(SceneConfig.serializer(), it) }.getOrNull() } ?: SceneConfig()
         set(v) { prefs.edit().putString("scene", storeJson.encodeToString(SceneConfig.serializer(), v.copy(journey = null))).apply() }
 
+    /** Visual timing offset in ms (positive = visuals later), for outputs that misreport latency. */
+    var avOffsetMs: Int
+        get() = prefs.getInt("avOffsetMs", 0)
+        set(v) { prefs.edit().putInt("avOffsetMs", v.coerceIn(-150, 150)).apply() }
+
     var panelCollapsed: Boolean
         get() = prefs.getBoolean("panelCollapsed", false)
         set(v) { prefs.edit().putBoolean("panelCollapsed", v).apply() }

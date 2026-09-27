@@ -1,0 +1,236 @@
+{
+    "schemaVersion": 1,
+    "appVersion": "0.1.0",
+    "sourceFingerprint": "9fe9e0b98663128670852a3bd3430154665d4cdd1627b017aad06100673ab6b2",
+    "mediaType": "MIDI",
+    "mediaTitle": "Orbit Lines (demo)",
+    "analysisVersion": 1,
+    "generatorVersions": {
+        "square": 1,
+        "circle": 1,
+        "arch": 1,
+        "platform": 1,
+        "journey": 1,
+        "events": 1
+    },
+    "scene": {
+        "seed": 42,
+        "aspect": "PORTRAIT_9_16",
+        "viewMode": "FOCUS",
+        "focus": "CIRCLE",
+        "presetIds": {
+            "CIRCLE": "circle.chaos"
+        },
+        "journey": null,
+        "duet": [
+            "SQUARE",
+            "ARCH"
+        ],
+        "eventMapping": null,
+        "audioMode": "ORIGINAL_AND_VISUALS"
+    },
+    "presets": [
+        {
+            "schemaVersion": 1,
+            "id": "circle.chaos",
+            "name": "Circle — Chaos",
+            "mechanic": "CIRCLE",
+            "seed": null,
+            "description": "Seeded anomaly soup: gaps, gravity, growth, duplication and bursts driven by the song.",
+            "generation": {
+                "style": "classic",
+                "speed": 9.0,
+                "surfaceLength": 2.4,
+                "surfaceThickness": 0.36,
+                "lookahead": 64,
+                "compactness": 0.6,
+                "drift": 0.9,
+                "showFutureSurfaces": true,
+                "futureVisibleSec": 3.0,
+                "surfaceLifetimeSec": 2.8,
+                "minContactGapSec": 0.09,
+                "corridorWidth": 9.0,
+                "apexMin": 0.9,
+                "apexMax": 4.2,
+                "apexDecay": 0.8,
+                "targetSpacing": 2.6,
+                "pillarMinHeight": 1.2,
+                "pillarMaxHeight": 4.5,
+                "stepDrop": 1.1,
+                "mode": "reactive",
+                "bounceAngleDeg": 45.0
+            },
+            "physics": {
+                "gravity": 18.0,
+                "restitution": 1.0,
+                "ballCount": 2,
+                "ballRadius": 0.5,
+                "ringRadius": 10.0,
+                "ringThickness": 0.28,
+                "gapCount": 0,
+                "gapSizeDeg": 38.0,
+                "gapRotationDegPerSec": 0.0,
+                "ballGrowthPerHit": 0.0,
+                "ringShrinkPerHit": 0.0,
+                "minRingRadius": 2.5,
+                "maxBallRadius": 6.0,
+                "maxBalls": 90,
+                "spawnOnEscape": 1,
+                "initialSpeed": 13.0,
+                "maxSpeed": 60.0,
+                "substeps": 4,
+                "ballCollisions": true,
+                "attract": 0.0,
+                "orbit": 0.0
+            },
+            "camera": {
+                "zoom": 1.0,
+                "lookaheadSec": 0.8,
+                "pitchDeg": 16.0,
+                "height": 2.4,
+                "distance": 10.0,
+                "fovDeg": 46.0,
+                "shake": 0.35,
+                "follow": 1.0
+            },
+            "visuals": {
+                "palette": "circle_night",
+                "heroSize": 1.0,
+                "heroShape": "square",
+                "trailLengthSec": 0.3,
+                "trailWidth": 1.0,
+                "trailOpacity": 0.45,
+                "trailTaper": 0.9,
+                "trailColor": null,
+                "emissive": 1.0,
+                "bloom": 0.6,
+                "particles": 0.8,
+                "squashStretch": true,
+                "impactFlash": 1.0,
+                "colorShiftOnImpact": true,
+                "background": "gradient",
+                "reflections": true,
+                "noteLabels": false,
+                "outlineOnly": false,
+                "ghostTrail": false,
+                "surfaceMemoryTint": true,
+                "showStats": true
+            },
+            "eventMapping": {
+                "mode": "HYBRID",
+                "density": 0.55,
+                "polyphony": "HIGHEST_VOICE",
+                "selectedTracks": []
+            },
+            "anomalies": [
+                {
+                    "type": "GRAVITY_ROTATE",
+                    "trigger": "DOWNBEAT",
+                    "every": 1,
+                    "atSec": 0.0,
+                    "repeatSec": 0.0,
+                    "probability": 0.5,
+                    "params": {},
+                    "maxCount": 0
+                },
+                {
+                    "type": "GAP_OPEN",
+                    "trigger": "DOWNBEAT",
+                    "every": 4,
+                    "atSec": 0.0,
+                    "repeatSec": 0.0,
+                    "probability": 0.6,
+                    "params": {},
+                    "maxCount": 3
+                },
+                {
+                    "type": "GAP_CLOSE",
+                    "trigger": "DOWNBEAT",
+                    "every": 6,
+                    "atSec": 0.0,
+                    "repeatSec": 0.0,
+                    "probability": 0.6,
+                    "params": {},
+                    "maxCount": 0
+                },
+                {
+                    "type": "GAP_ROTATE",
+                    "trigger": "DOWNBEAT",
+                    "every": 5,
+                    "atSec": 0.0,
+                    "repeatSec": 0.0,
+                    "probability": 1.0,
+                    "params": {},
+                    "maxCount": 0
+                },
+                {
+                    "type": "SPLIT_BALL",
+                    "trigger": "MAJOR_EVENT",
+                    "every": 3,
+                    "atSec": 0.0,
+                    "repeatSec": 0.0,
+                    "probability": 0.7,
+                    "params": {},
+                    "maxCount": 0
+                },
+                {
+                    "type": "CHAOS_BURST",
+                    "trigger": "DOWNBEAT",
+                    "every": 8,
+                    "atSec": 0.0,
+                    "repeatSec": 0.0,
+                    "probability": 1.0,
+                    "params": {},
+                    "maxCount": 0
+                },
+                {
+                    "type": "COLOR_SHIFT",
+                    "trigger": "DOWNBEAT",
+                    "every": 2,
+                    "atSec": 0.0,
+                    "repeatSec": 0.0,
+                    "probability": 1.0,
+                    "params": {},
+                    "maxCount": 0
+                },
+                {
+                    "type": "RESTITUTION_CHANGE",
+                    "trigger": "COLLISION",
+                    "every": 50,
+                    "atSec": 0.0,
+                    "repeatSec": 0.0,
+                    "probability": 1.0,
+                    "params": {},
+                    "maxCount": 0
+                },
+                {
+                    "type": "SPEED_UP",
+                    "trigger": "BEAT",
+                    "every": 16,
+                    "atSec": 0.0,
+                    "repeatSec": 0.0,
+                    "probability": 1.0,
+                    "params": {
+                        "amount": 0.1
+                    },
+                    "maxCount": 0
+                },
+                {
+                    "type": "SLOW_DOWN",
+                    "trigger": "BEAT",
+                    "every": 24,
+                    "atSec": 0.0,
+                    "repeatSec": 0.0,
+                    "probability": 1.0,
+                    "params": {
+                        "amount": 0.1
+                    },
+                    "maxCount": 0
+                }
+            ]
+        }
+    ],
+    "sandboxInputs": [],
+    "verifyAtSec": 45.0,
+    "verifyHash": "60b769bb8874f2577c4d05e03e1c458f2b5494767d64cd49a9e4f43dcf83ab79"
+}

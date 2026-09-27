@@ -1,0 +1,36 @@
+{
+    "runs": [
+        {
+            "preset": "square.classic",
+            "contacts": 173,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "passesGoal": true
+        },
+        {
+            "preset": "circle.classic",
+            "contacts": 0,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "passesGoal": true
+        },
+        {
+            "preset": "arch.bounce_curve",
+            "contacts": 173,
+            "meanAbsMs": 0.0024,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.167,
+            "passesGoal": true
+        },
+        {
+            "preset": "platform.music_ball",
+            "contacts": 173,
+            "meanAbsMs": 0.0,
+            "p95AbsMs": 0.0,
+            "maxAbsMs": 0.0,
+            "passesGoal": true
+        }
+    ]
+}

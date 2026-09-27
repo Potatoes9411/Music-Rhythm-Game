@@ -45,7 +45,9 @@ fun main(args: Array<String>) {
             report.writeText("# :app:apiCheck — references missing on minSdk; 'guarded' = caller reads Build.VERSION.SDK_INT\n" +
                 findings.joinToString("\n", postfix = "\n") { it.toString() })
             val allowed = File(args[3]).takeIf { it.exists() }?.readLines()?.map { it.substringBefore('#').trim() }?.filter { it.isNotEmpty() }?.toSet() ?: emptySet()
-            val bad = findings.filter { !it.guarded && "${it.ref.removePrefix("class ")} <- ${it.caller}" !in allowed }
+            // Entries are "ref <- caller"; "* <- some/Prefix*" allows every finding in callers with that prefix.
+            val prefixes = allowed.filter { it.startsWith("* <- ") && it.endsWith("*") }.map { it.removePrefix("* <- ").removeSuffix("*") }
+            val bad = findings.filter { f -> !f.guarded && "${f.ref.removePrefix("class ")} <- ${f.caller}" !in allowed && prefixes.none { f.caller.startsWith(it) } }
             println("api-check: ${findings.size} references newer than min API, ${bad.size} unguarded and not allow-listed -> $report")
             bad.forEach { println("  $it") }
             if (bad.isNotEmpty()) { System.err.println("api-check FAILED"); kotlin.system.exitProcess(1) }

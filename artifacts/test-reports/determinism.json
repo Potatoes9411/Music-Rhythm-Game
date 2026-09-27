@@ -1,0 +1,82 @@
+{
+    "timeSec": 60.0,
+    "scenes": [
+        {
+            "scene": "Square",
+            "hashes": [
+                "e7c7455f7e0b6f46",
+                "e7c7455f7e0b6f46",
+                "e7c7455f7e0b6f46",
+                "e7c7455f7e0b6f46",
+                "e7c7455f7e0b6f46"
+            ],
+            "allEqual": true
+        },
+        {
+            "scene": "Circle",
+            "hashes": [
+                "b894a9c3f444f30f",
+                "b894a9c3f444f30f",
+                "b894a9c3f444f30f",
+                "b894a9c3f444f30f",
+                "b894a9c3f444f30f"
+            ],
+            "allEqual": true
+        },
+        {
+            "scene": "Arch",
+            "hashes": [
+                "21181b6c0f371d7f",
+                "21181b6c0f371d7f",
+                "21181b6c0f371d7f",
+                "21181b6c0f371d7f",
+                "21181b6c0f371d7f"
+            ],
+            "allEqual": true
+        },
+        {
+            "scene": "Platform",
+            "hashes": [
+                "970b32dc98a665e1",
+                "970b32dc98a665e1",
+                "970b32dc98a665e1",
+                "970b32dc98a665e1",
+                "970b32dc98a665e1"
+            ],
+            "allEqual": true
+        },
+        {
+            "scene": "Journey",
+            "hashes": [
+                "5d89aab35e6a4472",
+                "5d89aab35e6a4472",
+                "5d89aab35e6a4472",
+                "5d89aab35e6a4472",
+                "5d89aab35e6a4472"
+            ],
+            "allEqual": true
+        },
+        {
+            "scene": "Duet",
+            "hashes": [
+                "2799d714b3c03bcc",
+                "2799d714b3c03bcc",
+                "2799d714b3c03bcc",
+                "2799d714b3c03bcc",
+                "2799d714b3c03bcc"
+            ],
+            "allEqual": true
+        },
+        {
+            "scene": "Quad",
+            "hashes": [
+                "1d391e47565712ef",
+                "1d391e47565712ef",
+                "1d391e47565712ef",
+                "1d391e47565712ef",
+                "1d391e47565712ef"
+            ],
+            "allEqual": true
+        }
+    ]
+}
