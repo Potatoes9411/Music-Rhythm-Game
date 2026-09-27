@@ -6,10 +6,10 @@
             "aspect": "9:16",
             "seekMatches": true,
             "replayMatches": true,
-            "syncContacts": 74,
+            "syncContacts": 121,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 152,
+            "minDrawCommands": 16,
             "pass": true
         },
         {
@@ -18,34 +18,10 @@
             "aspect": "16:9",
             "seekMatches": true,
             "replayMatches": true,
-            "syncContacts": 74,
+            "syncContacts": 121,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 171,
-            "pass": true
-        },
-        {
-            "scene": "Square",
-            "source": "AUDIO",
-            "aspect": "9:16",
-            "seekMatches": true,
-            "replayMatches": true,
-            "syncContacts": 75,
-            "syncMaxMs": 0.0,
-            "syncGoal": true,
-            "minDrawCommands": 151,
-            "pass": true
-        },
-        {
-            "scene": "Square",
-            "source": "AUDIO",
-            "aspect": "16:9",
-            "seekMatches": true,
-            "replayMatches": true,
-            "syncContacts": 75,
-            "syncMaxMs": 0.0,
-            "syncGoal": true,
-            "minDrawCommands": 178,
+            "minDrawCommands": 17,
             "pass": true
         },
         {
@@ -57,7 +33,7 @@
             "syncContacts": 0,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 13,
+            "minDrawCommands": 8,
             "pass": true
         },
         {
@@ -69,31 +45,7 @@
             "syncContacts": 0,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 13,
-            "pass": true
-        },
-        {
-            "scene": "Circle",
-            "source": "AUDIO",
-            "aspect": "9:16",
-            "seekMatches": true,
-            "replayMatches": true,
-            "syncContacts": 0,
-            "syncMaxMs": 0.0,
-            "syncGoal": true,
-            "minDrawCommands": 13,
-            "pass": true
-        },
-        {
-            "scene": "Circle",
-            "source": "AUDIO",
-            "aspect": "16:9",
-            "seekMatches": true,
-            "replayMatches": true,
-            "syncContacts": 0,
-            "syncMaxMs": 0.0,
-            "syncGoal": true,
-            "minDrawCommands": 13,
+            "minDrawCommands": 8,
             "pass": true
         },
         {
@@ -121,30 +73,6 @@
             "pass": true
         },
         {
-            "scene": "Arch",
-            "source": "AUDIO",
-            "aspect": "9:16",
-            "seekMatches": true,
-            "replayMatches": true,
-            "syncContacts": 75,
-            "syncMaxMs": 0.167,
-            "syncGoal": true,
-            "minDrawCommands": 179,
-            "pass": true
-        },
-        {
-            "scene": "Arch",
-            "source": "AUDIO",
-            "aspect": "16:9",
-            "seekMatches": true,
-            "replayMatches": true,
-            "syncContacts": 75,
-            "syncMaxMs": 0.167,
-            "syncGoal": true,
-            "minDrawCommands": 179,
-            "pass": true
-        },
-        {
             "scene": "Platform",
             "source": "MIDI",
             "aspect": "9:16",
@@ -153,7 +81,7 @@
             "syncContacts": 74,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 39,
+            "minDrawCommands": 58,
             "pass": true
         },
         {
@@ -165,31 +93,7 @@
             "syncContacts": 74,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 29,
-            "pass": true
-        },
-        {
-            "scene": "Platform",
-            "source": "AUDIO",
-            "aspect": "9:16",
-            "seekMatches": true,
-            "replayMatches": true,
-            "syncContacts": 75,
-            "syncMaxMs": 0.0,
-            "syncGoal": true,
-            "minDrawCommands": 39,
-            "pass": true
-        },
-        {
-            "scene": "Platform",
-            "source": "AUDIO",
-            "aspect": "16:9",
-            "seekMatches": true,
-            "replayMatches": true,
-            "syncContacts": 75,
-            "syncMaxMs": 0.0,
-            "syncGoal": true,
-            "minDrawCommands": 27,
+            "minDrawCommands": 42,
             "pass": true
         },
         {
@@ -198,10 +102,10 @@
             "aspect": "9:16",
             "seekMatches": true,
             "replayMatches": true,
-            "syncContacts": 75,
+            "syncContacts": 103,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 152,
+            "minDrawCommands": 16,
             "pass": true
         },
         {
@@ -210,34 +114,10 @@
             "aspect": "16:9",
             "seekMatches": true,
             "replayMatches": true,
-            "syncContacts": 75,
+            "syncContacts": 103,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 172,
-            "pass": true
-        },
-        {
-            "scene": "Journey",
-            "source": "AUDIO",
-            "aspect": "9:16",
-            "seekMatches": true,
-            "replayMatches": true,
-            "syncContacts": 76,
-            "syncMaxMs": 0.0,
-            "syncGoal": true,
-            "minDrawCommands": 151,
-            "pass": true
-        },
-        {
-            "scene": "Journey",
-            "source": "AUDIO",
-            "aspect": "16:9",
-            "seekMatches": true,
-            "replayMatches": true,
-            "syncContacts": 76,
-            "syncMaxMs": 0.0,
-            "syncGoal": true,
-            "minDrawCommands": 176,
+            "minDrawCommands": 17,
             "pass": true
         }
     ]

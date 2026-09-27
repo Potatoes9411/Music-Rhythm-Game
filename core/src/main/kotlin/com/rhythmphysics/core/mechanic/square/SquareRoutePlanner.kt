@@ -300,7 +300,8 @@ class SquareRoutePlanner(
         // (d) stay framed.
         val a = c.leash + driftAt(e.timeSec) * nextDt
         val ex = (end.x - a.x) / rx; val ey = (end.y - a.y) / ry
-        val limit = if (strictFraming) 1.25 else 2.2
+        // Wander routes are followed by the camera, so only the loose bound applies.
+        val limit = if (strictFraming && !wander) 1.25 else 2.2
         if (ex * ex + ey * ey > limit * limit) { rejects[4]++; return false }
         val ap = c.leash
         val px = (c.pos.x - ap.x) / rx; val py = (c.pos.y - ap.y) / ry

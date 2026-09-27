@@ -4,363 +4,363 @@
     "scenes": [
         {
             "scene": "square.classic",
-            "simMicrosPerStep": 0.93,
-            "drawListMsAvg": 0.011,
-            "drawListMsP95": 0.038,
+            "simMicrosPerStep": 0.77,
+            "drawListMsAvg": 0.014,
+            "drawListMsP95": 0.044,
             "drawCommandsAvg": 185.0,
             "drawCommandsMax": 201,
-            "java2dRasterMsAvg": 15.5,
-            "allocBytesPerFrame": 5959
+            "java2dRasterMsAvg": 14.86,
+            "allocBytesPerFrame": 6024
         },
         {
             "scene": "square.midi_playground",
-            "simMicrosPerStep": 1.2,
-            "drawListMsAvg": 0.055,
-            "drawListMsP95": 0.117,
+            "simMicrosPerStep": 1.23,
+            "drawListMsAvg": 0.015,
+            "drawListMsP95": 0.033,
             "drawCommandsAvg": 150.4,
             "drawCommandsMax": 573,
-            "java2dRasterMsAvg": 1.45,
-            "allocBytesPerFrame": 9171
+            "java2dRasterMsAvg": 1.53,
+            "allocBytesPerFrame": 9075
         },
         {
             "scene": "square.carved_orange",
-            "simMicrosPerStep": 0.85,
-            "drawListMsAvg": 0.03,
-            "drawListMsP95": 0.063,
+            "simMicrosPerStep": 0.86,
+            "drawListMsAvg": 0.012,
+            "drawListMsP95": 0.028,
             "drawCommandsAvg": 90.7,
             "drawCommandsMax": 356,
-            "java2dRasterMsAvg": 1.24,
-            "allocBytesPerFrame": 6914
+            "java2dRasterMsAvg": 1.15,
+            "allocBytesPerFrame": 6894
         },
         {
             "scene": "square.carved_navy",
-            "simMicrosPerStep": 0.91,
-            "drawListMsAvg": 0.009,
-            "drawListMsP95": 0.018,
+            "simMicrosPerStep": 1.62,
+            "drawListMsAvg": 0.013,
+            "drawListMsP95": 0.028,
             "drawCommandsAvg": 106.7,
             "drawCommandsMax": 465,
-            "java2dRasterMsAvg": 1.12,
-            "allocBytesPerFrame": 6792
+            "java2dRasterMsAvg": 0.93,
+            "allocBytesPerFrame": 6878
         },
         {
             "scene": "square.stamp_walls",
-            "simMicrosPerStep": 1.5,
-            "drawListMsAvg": 0.006,
-            "drawListMsP95": 0.014,
+            "simMicrosPerStep": 1.15,
+            "drawListMsAvg": 0.007,
+            "drawListMsP95": 0.019,
             "drawCommandsAvg": 35.6,
             "drawCommandsMax": 36,
-            "java2dRasterMsAvg": 2.59,
-            "allocBytesPerFrame": 4760
+            "java2dRasterMsAvg": 2.77,
+            "allocBytesPerFrame": 4757
         },
         {
             "scene": "square.dark_minimal",
-            "simMicrosPerStep": 0.74,
+            "simMicrosPerStep": 1.15,
             "drawListMsAvg": 0.005,
-            "drawListMsP95": 0.013,
+            "drawListMsP95": 0.012,
             "drawCommandsAvg": 39.0,
             "drawCommandsMax": 43,
-            "java2dRasterMsAvg": 3.24,
-            "allocBytesPerFrame": 4694
+            "java2dRasterMsAvg": 3.97,
+            "allocBytesPerFrame": 4693
         },
         {
             "scene": "square.neon_trail",
-            "simMicrosPerStep": 0.78,
-            "drawListMsAvg": 0.009,
-            "drawListMsP95": 0.03,
+            "simMicrosPerStep": 0.77,
+            "drawListMsAvg": 0.015,
+            "drawListMsP95": 0.045,
             "drawCommandsAvg": 213.1,
             "drawCommandsMax": 229,
-            "java2dRasterMsAvg": 14.7,
-            "allocBytesPerFrame": 5910
+            "java2dRasterMsAvg": 16.51,
+            "allocBytesPerFrame": 5909
         },
         {
             "scene": "circle.classic",
-            "simMicrosPerStep": 0.37,
-            "drawListMsAvg": 0.004,
-            "drawListMsP95": 0.02,
+            "simMicrosPerStep": 2.36,
+            "drawListMsAvg": 0.007,
+            "drawListMsP95": 0.025,
             "drawCommandsAvg": 42.7,
             "drawCommandsMax": 61,
-            "java2dRasterMsAvg": 11.14,
-            "allocBytesPerFrame": 1147
+            "java2dRasterMsAvg": 14.71,
+            "allocBytesPerFrame": 906
         },
         {
             "scene": "circle.growing_ball",
             "simMicrosPerStep": 0.37,
             "drawListMsAvg": 0.003,
-            "drawListMsP95": 0.016,
+            "drawListMsP95": 0.019,
             "drawCommandsAvg": 39.5,
             "drawCommandsMax": 66,
-            "java2dRasterMsAvg": 13.14,
-            "allocBytesPerFrame": 989
+            "java2dRasterMsAvg": 14.08,
+            "allocBytesPerFrame": 866
         },
         {
             "scene": "circle.shrinking_ring",
-            "simMicrosPerStep": 0.38,
-            "drawListMsAvg": 0.002,
-            "drawListMsP95": 0.014,
+            "simMicrosPerStep": 0.58,
+            "drawListMsAvg": 0.003,
+            "drawListMsP95": 0.015,
             "drawCommandsAvg": 40.4,
             "drawCommandsMax": 67,
-            "java2dRasterMsAvg": 11.83,
-            "allocBytesPerFrame": 1005
+            "java2dRasterMsAvg": 13.31,
+            "allocBytesPerFrame": 845
         },
         {
             "scene": "circle.grow_shrink",
-            "simMicrosPerStep": 0.38,
-            "drawListMsAvg": 0.005,
-            "drawListMsP95": 0.026,
+            "simMicrosPerStep": 0.46,
+            "drawListMsAvg": 0.004,
+            "drawListMsP95": 0.023,
             "drawCommandsAvg": 40.6,
             "drawCommandsMax": 68,
-            "java2dRasterMsAvg": 12.43,
-            "allocBytesPerFrame": 1286
+            "java2dRasterMsAvg": 11.98,
+            "allocBytesPerFrame": 1096
         },
         {
             "scene": "circle.escape_gap",
-            "simMicrosPerStep": 62.13,
-            "drawListMsAvg": 0.009,
-            "drawListMsP95": 0.04,
+            "simMicrosPerStep": 296.15,
+            "drawListMsAvg": 0.015,
+            "drawListMsP95": 0.05,
             "drawCommandsAvg": 135.6,
             "drawCommandsMax": 351,
-            "java2dRasterMsAvg": 12.98,
-            "allocBytesPerFrame": 36479
+            "java2dRasterMsAvg": 20.27,
+            "allocBytesPerFrame": 36279
         },
         {
             "scene": "circle.rotating_gap",
-            "simMicrosPerStep": 0.36,
-            "drawListMsAvg": 0.004,
-            "drawListMsP95": 0.027,
+            "simMicrosPerStep": 2.34,
+            "drawListMsAvg": 0.007,
+            "drawListMsP95": 0.034,
             "drawCommandsAvg": 39.9,
             "drawCommandsMax": 59,
-            "java2dRasterMsAvg": 12.85,
-            "allocBytesPerFrame": 1477
+            "java2dRasterMsAvg": 15.15,
+            "allocBytesPerFrame": 1285
         },
         {
             "scene": "circle.multiplication",
-            "simMicrosPerStep": 89.43,
-            "drawListMsAvg": 0.007,
-            "drawListMsP95": 0.024,
+            "simMicrosPerStep": 475.89,
+            "drawListMsAvg": 0.009,
+            "drawListMsP95": 0.028,
             "drawCommandsAvg": 152.4,
             "drawCommandsMax": 401,
-            "java2dRasterMsAvg": 13.18,
-            "allocBytesPerFrame": 49726
+            "java2dRasterMsAvg": 15.25,
+            "allocBytesPerFrame": 49531
         },
         {
             "scene": "circle.gravity_chaos",
-            "simMicrosPerStep": 11.41,
-            "drawListMsAvg": 0.007,
+            "simMicrosPerStep": 12.44,
+            "drawListMsAvg": 0.006,
             "drawListMsP95": 0.026,
             "drawCommandsAvg": 113.6,
             "drawCommandsMax": 176,
-            "java2dRasterMsAvg": 12.94,
-            "allocBytesPerFrame": 18417
+            "java2dRasterMsAvg": 12.71,
+            "allocBytesPerFrame": 18223
         },
         {
             "scene": "circle.melody_collision",
-            "simMicrosPerStep": 0.4,
+            "simMicrosPerStep": 0.43,
             "drawListMsAvg": 0.003,
-            "drawListMsP95": 0.016,
+            "drawListMsP95": 0.014,
             "drawCommandsAvg": 39.0,
             "drawCommandsMax": 56,
-            "java2dRasterMsAvg": 11.24,
-            "allocBytesPerFrame": 1079
+            "java2dRasterMsAvg": 12.32,
+            "allocBytesPerFrame": 887
         },
         {
             "scene": "circle.collision_synth",
-            "simMicrosPerStep": 14.54,
-            "drawListMsAvg": 0.006,
-            "drawListMsP95": 0.022,
+            "simMicrosPerStep": 15.77,
+            "drawListMsAvg": 0.007,
+            "drawListMsP95": 0.025,
             "drawCommandsAvg": 162.6,
             "drawCommandsMax": 186,
-            "java2dRasterMsAvg": 12.21,
-            "allocBytesPerFrame": 30044
+            "java2dRasterMsAvg": 13.09,
+            "allocBytesPerFrame": 29852
         },
         {
             "scene": "circle.orbit_force",
-            "simMicrosPerStep": 26.23,
-            "drawListMsAvg": 0.019,
-            "drawListMsP95": 0.044,
+            "simMicrosPerStep": 26.87,
+            "drawListMsAvg": 0.018,
+            "drawListMsP95": 0.041,
             "drawCommandsAvg": 360.9,
             "drawCommandsMax": 587,
-            "java2dRasterMsAvg": 18.65,
-            "allocBytesPerFrame": 37961
+            "java2dRasterMsAvg": 18.31,
+            "allocBytesPerFrame": 37749
         },
         {
             "scene": "circle.ring_break",
-            "simMicrosPerStep": 11.17,
+            "simMicrosPerStep": 8.33,
             "drawListMsAvg": 0.006,
-            "drawListMsP95": 0.024,
+            "drawListMsP95": 0.021,
             "drawCommandsAvg": 70.7,
             "drawCommandsMax": 89,
-            "java2dRasterMsAvg": 11.44,
-            "allocBytesPerFrame": 12814
+            "java2dRasterMsAvg": 11.05,
+            "allocBytesPerFrame": 12648
         },
         {
             "scene": "circle.chaos",
-            "simMicrosPerStep": 25.89,
+            "simMicrosPerStep": 38.36,
             "drawListMsAvg": 0.01,
-            "drawListMsP95": 0.035,
+            "drawListMsP95": 0.032,
             "drawCommandsAvg": 194.7,
             "drawCommandsMax": 376,
-            "java2dRasterMsAvg": 13.85,
-            "allocBytesPerFrame": 49238
+            "java2dRasterMsAvg": 16.61,
+            "allocBytesPerFrame": 49043
         },
         {
             "scene": "circle.rainbow_rings",
-            "simMicrosPerStep": 0.48,
-            "drawListMsAvg": 0.006,
-            "drawListMsP95": 0.026,
+            "simMicrosPerStep": 0.46,
+            "drawListMsAvg": 0.002,
+            "drawListMsP95": 0.019,
             "drawCommandsAvg": 8.6,
             "drawCommandsMax": 11,
-            "java2dRasterMsAvg": 125.97,
-            "allocBytesPerFrame": 1422
+            "java2dRasterMsAvg": 123.28,
+            "allocBytesPerFrame": 1222
         },
         {
             "scene": "circle.rainbow_trails",
-            "simMicrosPerStep": 67.99,
-            "drawListMsAvg": 0.003,
-            "drawListMsP95": 0.012,
+            "simMicrosPerStep": 80.23,
+            "drawListMsAvg": 0.005,
+            "drawListMsP95": 0.026,
             "drawCommandsAvg": 12.6,
             "drawCommandsMax": 22,
-            "java2dRasterMsAvg": 14.83,
-            "allocBytesPerFrame": 50115
+            "java2dRasterMsAvg": 20.25,
+            "allocBytesPerFrame": 49892
         },
         {
             "scene": "circle.sandbox",
-            "simMicrosPerStep": 0.35,
+            "simMicrosPerStep": 0.37,
             "drawListMsAvg": 0.002,
-            "drawListMsP95": 0.013,
+            "drawListMsP95": 0.015,
             "drawCommandsAvg": 37.8,
             "drawCommandsMax": 50,
-            "java2dRasterMsAvg": 11.55,
-            "allocBytesPerFrame": 1034
+            "java2dRasterMsAvg": 11.97,
+            "allocBytesPerFrame": 842
         },
         {
             "scene": "arch.bounce_curve",
-            "simMicrosPerStep": 0.4,
-            "drawListMsAvg": 0.109,
-            "drawListMsP95": 0.17,
+            "simMicrosPerStep": 0.36,
+            "drawListMsAvg": 0.113,
+            "drawListMsP95": 0.179,
             "drawCommandsAvg": 232.3,
             "drawCommandsMax": 248,
-            "java2dRasterMsAvg": 11.02,
-            "allocBytesPerFrame": 51571
+            "java2dRasterMsAvg": 12.19,
+            "allocBytesPerFrame": 52924
         },
         {
             "scene": "arch.pillar_weave",
-            "simMicrosPerStep": 0.39,
-            "drawListMsAvg": 0.139,
-            "drawListMsP95": 0.204,
+            "simMicrosPerStep": 0.41,
+            "drawListMsAvg": 0.143,
+            "drawListMsP95": 0.215,
             "drawCommandsAvg": 586.9,
             "drawCommandsMax": 662,
-            "java2dRasterMsAvg": 31.94,
-            "allocBytesPerFrame": 62603
+            "java2dRasterMsAvg": 39.3,
+            "allocBytesPerFrame": 62638
         },
         {
             "scene": "platform.music_ball",
-            "simMicrosPerStep": 0.28,
-            "drawListMsAvg": 0.007,
-            "drawListMsP95": 0.023,
-            "drawCommandsAvg": 55.5,
-            "drawCommandsMax": 71,
-            "java2dRasterMsAvg": 7.82,
-            "allocBytesPerFrame": 1676
+            "simMicrosPerStep": 0.29,
+            "drawListMsAvg": 0.008,
+            "drawListMsP95": 0.03,
+            "drawCommandsAvg": 82.1,
+            "drawCommandsMax": 105,
+            "java2dRasterMsAvg": 11.51,
+            "allocBytesPerFrame": 1697
         },
         {
             "scene": "platform.pastel",
-            "simMicrosPerStep": 0.3,
-            "drawListMsAvg": 0.006,
-            "drawListMsP95": 0.027,
-            "drawCommandsAvg": 61.2,
-            "drawCommandsMax": 79,
-            "java2dRasterMsAvg": 10.64,
-            "allocBytesPerFrame": 1760
+            "simMicrosPerStep": 0.29,
+            "drawListMsAvg": 0.007,
+            "drawListMsP95": 0.029,
+            "drawCommandsAvg": 87.8,
+            "drawCommandsMax": 113,
+            "java2dRasterMsAvg": 13.5,
+            "allocBytesPerFrame": 1735
         },
         {
             "scene": "platform.stones",
-            "simMicrosPerStep": 0.3,
-            "drawListMsAvg": 0.018,
-            "drawListMsP95": 0.046,
-            "drawCommandsAvg": 135.3,
-            "drawCommandsMax": 157,
-            "java2dRasterMsAvg": 19.1,
-            "allocBytesPerFrame": 5402
+            "simMicrosPerStep": 0.31,
+            "drawListMsAvg": 0.022,
+            "drawListMsP95": 0.056,
+            "drawCommandsAvg": 161.9,
+            "drawCommandsMax": 191,
+            "java2dRasterMsAvg": 20.23,
+            "allocBytesPerFrame": 5377
         },
         {
             "scene": "platform.marble_machine",
-            "simMicrosPerStep": 0.29,
-            "drawListMsAvg": 0.008,
-            "drawListMsP95": 0.018,
-            "drawCommandsAvg": 63.0,
-            "drawCommandsMax": 78,
-            "java2dRasterMsAvg": 4.08,
-            "allocBytesPerFrame": 1760
+            "simMicrosPerStep": 0.27,
+            "drawListMsAvg": 0.017,
+            "drawListMsP95": 0.043,
+            "drawCommandsAvg": 269.0,
+            "drawCommandsMax": 296,
+            "java2dRasterMsAvg": 6.42,
+            "allocBytesPerFrame": 4015
         },
         {
             "scene": "platform.piano_tiles",
             "simMicrosPerStep": 0.27,
-            "drawListMsAvg": 0.009,
-            "drawListMsP95": 0.026,
+            "drawListMsAvg": 0.007,
+            "drawListMsP95": 0.023,
             "drawCommandsAvg": 104.9,
             "drawCommandsMax": 112,
-            "java2dRasterMsAvg": 8.48,
-            "allocBytesPerFrame": 2706
+            "java2dRasterMsAvg": 8.23,
+            "allocBytesPerFrame": 2697
         },
         {
             "scene": "platform.staircase",
-            "simMicrosPerStep": 0.26,
-            "drawListMsAvg": 0.007,
-            "drawListMsP95": 0.024,
+            "simMicrosPerStep": 0.41,
+            "drawListMsAvg": 0.006,
+            "drawListMsP95": 0.021,
             "drawCommandsAvg": 118.1,
             "drawCommandsMax": 129,
-            "java2dRasterMsAvg": 11.62,
-            "allocBytesPerFrame": 2654
+            "java2dRasterMsAvg": 10.93,
+            "allocBytesPerFrame": 2632
         },
         {
             "scene": "platform.minimal_bars",
-            "simMicrosPerStep": 0.35,
-            "drawListMsAvg": 0.007,
-            "drawListMsP95": 0.016,
+            "simMicrosPerStep": 0.31,
+            "drawListMsAvg": 0.008,
+            "drawListMsP95": 0.018,
             "drawCommandsAvg": 63.7,
             "drawCommandsMax": 67,
-            "java2dRasterMsAvg": 2.42,
-            "allocBytesPerFrame": 2680
+            "java2dRasterMsAvg": 2.19,
+            "allocBytesPerFrame": 2658
         },
         {
             "scene": "platform.neon",
-            "simMicrosPerStep": 0.38,
-            "drawListMsAvg": 0.009,
-            "drawListMsP95": 0.034,
+            "simMicrosPerStep": 0.37,
+            "drawListMsAvg": 0.008,
+            "drawListMsP95": 0.036,
             "drawCommandsAvg": 96.6,
             "drawCommandsMax": 110,
-            "java2dRasterMsAvg": 22.59,
-            "allocBytesPerFrame": 3168
+            "java2dRasterMsAvg": 23.37,
+            "allocBytesPerFrame": 3146
         },
         {
             "scene": "platform.block_terrain",
-            "simMicrosPerStep": 0.28,
-            "drawListMsAvg": 0.009,
+            "simMicrosPerStep": 0.29,
+            "drawListMsAvg": 0.008,
             "drawListMsP95": 0.026,
             "drawCommandsAvg": 133.3,
             "drawCommandsMax": 144,
-            "java2dRasterMsAvg": 10.09,
-            "allocBytesPerFrame": 4803
+            "java2dRasterMsAvg": 10.57,
+            "allocBytesPerFrame": 4738
         },
         {
             "scene": "journey",
-            "simMicrosPerStep": 0.43,
-            "drawListMsAvg": 0.045,
-            "drawListMsP95": 0.12,
-            "drawCommandsAvg": 206.5,
-            "drawCommandsMax": 393,
-            "java2dRasterMsAvg": 10.67,
-            "allocBytesPerFrame": 27505
+            "simMicrosPerStep": 0.53,
+            "drawListMsAvg": 0.058,
+            "drawListMsP95": 0.14,
+            "drawCommandsAvg": 151.8,
+            "drawCommandsMax": 371,
+            "java2dRasterMsAvg": 6.17,
+            "allocBytesPerFrame": 28521
         },
         {
             "scene": "quad",
-            "simMicrosPerStep": 1.81,
-            "drawListMsAvg": 0.104,
-            "drawListMsP95": 0.173,
-            "drawCommandsAvg": 527.3,
-            "drawCommandsMax": 565,
-            "java2dRasterMsAvg": 12.22,
-            "allocBytesPerFrame": 57670
+            "simMicrosPerStep": 2.41,
+            "drawListMsAvg": 0.106,
+            "drawListMsP95": 0.179,
+            "drawCommandsAvg": 490.6,
+            "drawCommandsMax": 912,
+            "java2dRasterMsAvg": 58.91,
+            "allocBytesPerFrame": 60987
         }
     ]
 }

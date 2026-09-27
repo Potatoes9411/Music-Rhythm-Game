@@ -60,7 +60,8 @@ also handles *Open with…* and *Share* for audio and MIDI files.
 - *Mechanic:* Square · Circle · Arch · Platform · Journey.
 - *Layout:* Single · Duet (with a partner picker) · Quad. *Journey:* Auto (song sections) or
   Scripted (an editor for each segment's mechanic and preset; tap a segment's time to jump there).
-- *Preset:* built-in and imported presets. In Duet, Quad and Journey, pick which mechanic's preset
+- *Preset:* built-in and imported presets. Each mechanic (and Journey, Duet, Quad) starts on its
+  reference look: MIDI Playground, Rainbow Rings, Bounce Curve and Music Ball. In Duet, Quad and Journey, pick which mechanic's preset
   you are editing.
 - *Seed* (with a dice button) and *Aspect ratio*: 9:16, 16:9 or 1:1. The scene is recomposed for
   each aspect, not cropped.

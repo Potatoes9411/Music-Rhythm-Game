@@ -23,7 +23,16 @@ object PresetManager {
 
     fun forMechanic(type: MechanicType) = builtIns.filter { it.mechanic == type }
 
-    fun defaultFor(type: MechanicType): Preset = forMechanic(type).first()
+    /** Defaults are the looks rebuilt from the reference frames; falls back to the first preset. */
+    private val defaultIds = mapOf(
+        MechanicType.SQUARE to "square.midi_playground",
+        MechanicType.CIRCLE to "circle.rainbow_rings",
+        MechanicType.ARCH to "arch.bounce_curve",
+        MechanicType.PLATFORM to "platform.music_ball",
+    )
+
+    fun defaultFor(type: MechanicType): Preset =
+        defaultIds[type]?.let(::byId)?.takeIf { it.mechanic == type } ?: forMechanic(type).first()
 
     fun export(p: Preset): String = json.encodeToString(Preset.serializer(), p)
 

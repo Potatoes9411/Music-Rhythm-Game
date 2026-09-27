@@ -7,23 +7,5 @@
         "onsetsDetected": 63,
         "onsetErrorMedianMs": 1.29,
         "onsetErrorP95Ms": 2.56
-    },
-    "demoAudio": {
-        "source": "Orbit Lines demo rendered with GeneralUser GS (real mixed audio, analysed without the MIDI)",
-        "bpmTruth": 112.0,
-        "bpmDetected": 112.14,
-        "beatsMatched": 166,
-        "beatsTruth": 166,
-        "downbeatsOnBarLines": 41,
-        "downbeatsDetected": 44,
-        "onsetPrecision": 0.936,
-        "onsets": 188,
-        "sections": [
-            8.57,
-            25.72,
-            60.0,
-            77.16
-        ],
-        "keyPitchClass": 9
     }
 }

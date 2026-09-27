@@ -115,14 +115,7 @@ Planned mechanics solve every contact exactly on the fixed 120 Hz step grid, so 
 ## Audio analysis
 
 - Click track (120 BPM, 63 clicks): detected 120.08 BPM, onset error median 1.29 ms, p95 2.56 ms
-- Demo song rendered to audio and analysed blind: 112.14 BPM (truth 112), beats 166/166, downbeats on bar lines 41/44, onset precision 94%, key pc 9
-
-| audio-driven preset | contacts | mean ms | p95 ms | max ms | goal |
-|---|---|---|---|---|---|
-| square.classic | 173 | 0.000 | 0.000 | 0.000 | pass |
-| circle.classic | 0 | 0.000 | 0.000 | 0.000 | pass |
-| arch.bounce_curve | 173 | 0.002 | 0.000 | 0.167 | pass |
-| platform.music_ball | 173 | 0.000 | 0.000 | 0.000 | pass |
+- (SoundFont not supplied: demo audio analysis skipped)
 
 ## Functional matrix
 
@@ -130,64 +123,64 @@ Each cell: play to 40 s at 60 Hz, then seek-from-scratch hash == played hash, re
 
 | scene | MIDI 9:16 | MIDI 16:9 | AUDIO 9:16 | AUDIO 16:9 |
 |---|---|---|---|---|
-| Square | pass | pass | pass | pass |
-| Circle | pass | pass | pass | pass |
-| Arch | pass | pass | pass | pass |
-| Platform | pass | pass | pass | pass |
-| Journey | pass | pass | pass | pass |
+| Square | pass | pass | n/a | n/a |
+| Circle | pass | pass | n/a | n/a |
+| Arch | pass | pass | n/a | n/a |
+| Platform | pass | pass | n/a | n/a |
+| Journey | pass | pass | n/a | n/a |
 
 ## Determinism (state hash at t = 60 s)
 
 | scene | 60 Hz | 90 Hz | 120 Hz | 144 Hz | seek | all equal |
 |---|---|---|---|---|---|---|
-| Square | 6d7156be | 6d7156be | 6d7156be | 6d7156be | 6d7156be | yes |
-| Circle | 126cc23a | 126cc23a | 126cc23a | 126cc23a | 126cc23a | yes |
+| Square | e5e70004 | e5e70004 | e5e70004 | e5e70004 | e5e70004 | yes |
+| Circle | e3dd1be6 | e3dd1be6 | e3dd1be6 | e3dd1be6 | e3dd1be6 | yes |
 | Arch | 21181b6c | 21181b6c | 21181b6c | 21181b6c | 21181b6c | yes |
 | Platform | 970b32dc | 970b32dc | 970b32dc | 970b32dc | 970b32dc | yes |
-| Journey | 5c0ea83c | 5c0ea83c | 5c0ea83c | 5c0ea83c | 5c0ea83c | yes |
-| Duet | d462865e | d462865e | d462865e | d462865e | d462865e | yes |
-| Quad | 63b22b7b | 63b22b7b | 63b22b7b | 63b22b7b | 63b22b7b | yes |
+| Journey | 977b34da | 977b34da | 977b34da | 977b34da | 977b34da | yes |
+| Duet | db13a86e | db13a86e | db13a86e | db13a86e | db13a86e | yes |
+| Quad | c2276145 | c2276145 | c2276145 | c2276145 | c2276145 | yes |
 
 ## Host performance (JVM, not a device)
 
 | scene | sim µs/step | DrawList ms/frame (avg / p95) | draw cmds (avg / max) | alloc bytes/frame (update+DrawList) | Java2D raster ms @540×960 |
 |---|---|---|---|---|---|
-| square.classic | 0.9 | 0.011 / 0.038 | 185 / 201 | 5959 | 15.5 |
-| square.midi_playground | 1.2 | 0.055 / 0.117 | 150 / 573 | 9171 | 1.4 |
-| square.carved_orange | 0.9 | 0.030 / 0.063 | 91 / 356 | 6914 | 1.2 |
-| square.carved_navy | 0.9 | 0.009 / 0.018 | 107 / 465 | 6792 | 1.1 |
-| square.stamp_walls | 1.5 | 0.006 / 0.014 | 36 / 36 | 4760 | 2.6 |
-| square.dark_minimal | 0.7 | 0.005 / 0.013 | 39 / 43 | 4694 | 3.2 |
-| square.neon_trail | 0.8 | 0.009 / 0.030 | 213 / 229 | 5910 | 14.7 |
-| circle.classic | 0.4 | 0.004 / 0.020 | 43 / 61 | 1147 | 11.1 |
-| circle.growing_ball | 0.4 | 0.003 / 0.016 | 39 / 66 | 989 | 13.1 |
-| circle.shrinking_ring | 0.4 | 0.002 / 0.014 | 40 / 67 | 1005 | 11.8 |
-| circle.grow_shrink | 0.4 | 0.005 / 0.026 | 41 / 68 | 1286 | 12.4 |
-| circle.escape_gap | 62.1 | 0.009 / 0.040 | 136 / 351 | 36479 | 13.0 |
-| circle.rotating_gap | 0.4 | 0.004 / 0.027 | 40 / 59 | 1477 | 12.8 |
-| circle.multiplication | 89.4 | 0.007 / 0.024 | 152 / 401 | 49726 | 13.2 |
-| circle.gravity_chaos | 11.4 | 0.007 / 0.026 | 114 / 176 | 18417 | 12.9 |
-| circle.melody_collision | 0.4 | 0.003 / 0.016 | 39 / 56 | 1079 | 11.2 |
-| circle.collision_synth | 14.5 | 0.006 / 0.022 | 163 / 186 | 30044 | 12.2 |
-| circle.orbit_force | 26.2 | 0.019 / 0.044 | 361 / 587 | 37961 | 18.6 |
-| circle.ring_break | 11.2 | 0.006 / 0.024 | 71 / 89 | 12814 | 11.4 |
-| circle.chaos | 25.9 | 0.010 / 0.035 | 195 / 376 | 49238 | 13.9 |
-| circle.rainbow_rings | 0.5 | 0.006 / 0.026 | 9 / 11 | 1422 | 126.0 |
-| circle.rainbow_trails | 68.0 | 0.003 / 0.012 | 13 / 22 | 50115 | 14.8 |
-| circle.sandbox | 0.4 | 0.002 / 0.013 | 38 / 50 | 1034 | 11.6 |
-| arch.bounce_curve | 0.4 | 0.109 / 0.170 | 232 / 248 | 51571 | 11.0 |
-| arch.pillar_weave | 0.4 | 0.139 / 0.204 | 587 / 662 | 62603 | 31.9 |
-| platform.music_ball | 0.3 | 0.007 / 0.023 | 56 / 71 | 1676 | 7.8 |
-| platform.pastel | 0.3 | 0.006 / 0.027 | 61 / 79 | 1760 | 10.6 |
-| platform.stones | 0.3 | 0.018 / 0.046 | 135 / 157 | 5402 | 19.1 |
-| platform.marble_machine | 0.3 | 0.008 / 0.018 | 63 / 78 | 1760 | 4.1 |
-| platform.piano_tiles | 0.3 | 0.009 / 0.026 | 105 / 112 | 2706 | 8.5 |
-| platform.staircase | 0.3 | 0.007 / 0.024 | 118 / 129 | 2654 | 11.6 |
-| platform.minimal_bars | 0.3 | 0.007 / 0.016 | 64 / 67 | 2680 | 2.4 |
-| platform.neon | 0.4 | 0.009 / 0.034 | 97 / 110 | 3168 | 22.6 |
-| platform.block_terrain | 0.3 | 0.009 / 0.026 | 133 / 144 | 4803 | 10.1 |
-| journey | 0.4 | 0.045 / 0.120 | 206 / 393 | 27505 | 10.7 |
-| quad | 1.8 | 0.104 / 0.173 | 527 / 565 | 57670 | 12.2 |
+| square.classic | 0.8 | 0.014 / 0.044 | 185 / 201 | 6024 | 14.9 |
+| square.midi_playground | 1.2 | 0.015 / 0.033 | 150 / 573 | 9075 | 1.5 |
+| square.carved_orange | 0.9 | 0.012 / 0.028 | 91 / 356 | 6894 | 1.1 |
+| square.carved_navy | 1.6 | 0.013 / 0.028 | 107 / 465 | 6878 | 0.9 |
+| square.stamp_walls | 1.2 | 0.007 / 0.019 | 36 / 36 | 4757 | 2.8 |
+| square.dark_minimal | 1.2 | 0.005 / 0.012 | 39 / 43 | 4693 | 4.0 |
+| square.neon_trail | 0.8 | 0.015 / 0.045 | 213 / 229 | 5909 | 16.5 |
+| circle.classic | 2.4 | 0.007 / 0.025 | 43 / 61 | 906 | 14.7 |
+| circle.growing_ball | 0.4 | 0.003 / 0.019 | 39 / 66 | 866 | 14.1 |
+| circle.shrinking_ring | 0.6 | 0.003 / 0.015 | 40 / 67 | 845 | 13.3 |
+| circle.grow_shrink | 0.5 | 0.004 / 0.023 | 41 / 68 | 1096 | 12.0 |
+| circle.escape_gap | 296.2 | 0.015 / 0.050 | 136 / 351 | 36279 | 20.3 |
+| circle.rotating_gap | 2.3 | 0.007 / 0.034 | 40 / 59 | 1285 | 15.2 |
+| circle.multiplication | 475.9 | 0.009 / 0.028 | 152 / 401 | 49531 | 15.3 |
+| circle.gravity_chaos | 12.4 | 0.006 / 0.026 | 114 / 176 | 18223 | 12.7 |
+| circle.melody_collision | 0.4 | 0.003 / 0.014 | 39 / 56 | 887 | 12.3 |
+| circle.collision_synth | 15.8 | 0.007 / 0.025 | 163 / 186 | 29852 | 13.1 |
+| circle.orbit_force | 26.9 | 0.018 / 0.041 | 361 / 587 | 37749 | 18.3 |
+| circle.ring_break | 8.3 | 0.006 / 0.021 | 71 / 89 | 12648 | 11.1 |
+| circle.chaos | 38.4 | 0.010 / 0.032 | 195 / 376 | 49043 | 16.6 |
+| circle.rainbow_rings | 0.5 | 0.002 / 0.019 | 9 / 11 | 1222 | 123.3 |
+| circle.rainbow_trails | 80.2 | 0.005 / 0.026 | 13 / 22 | 49892 | 20.3 |
+| circle.sandbox | 0.4 | 0.002 / 0.015 | 38 / 50 | 842 | 12.0 |
+| arch.bounce_curve | 0.4 | 0.113 / 0.179 | 232 / 248 | 52924 | 12.2 |
+| arch.pillar_weave | 0.4 | 0.143 / 0.215 | 587 / 662 | 62638 | 39.3 |
+| platform.music_ball | 0.3 | 0.008 / 0.030 | 82 / 105 | 1697 | 11.5 |
+| platform.pastel | 0.3 | 0.007 / 0.029 | 88 / 113 | 1735 | 13.5 |
+| platform.stones | 0.3 | 0.022 / 0.056 | 162 / 191 | 5377 | 20.2 |
+| platform.marble_machine | 0.3 | 0.017 / 0.043 | 269 / 296 | 4015 | 6.4 |
+| platform.piano_tiles | 0.3 | 0.007 / 0.023 | 105 / 112 | 2697 | 8.2 |
+| platform.staircase | 0.4 | 0.006 / 0.021 | 118 / 129 | 2632 | 10.9 |
+| platform.minimal_bars | 0.3 | 0.008 / 0.018 | 64 / 67 | 2658 | 2.2 |
+| platform.neon | 0.4 | 0.008 / 0.036 | 97 / 110 | 3146 | 23.4 |
+| platform.block_terrain | 0.3 | 0.008 / 0.026 | 133 / 144 | 4738 | 10.6 |
+| journey | 0.5 | 0.058 / 0.140 | 152 / 371 | 28521 | 6.2 |
+| quad | 2.4 | 0.106 / 0.179 | 491 / 912 | 60987 | 58.9 |
 
 ## Replays (export → import → verify)
 
