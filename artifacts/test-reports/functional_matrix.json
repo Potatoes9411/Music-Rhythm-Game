@@ -57,7 +57,7 @@
             "syncContacts": 74,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 184,
+            "minDrawCommands": 186,
             "pass": true
         },
         {
@@ -69,7 +69,7 @@
             "syncContacts": 74,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 183,
+            "minDrawCommands": 185,
             "pass": true
         },
         {
@@ -81,7 +81,7 @@
             "syncContacts": 74,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 58,
+            "minDrawCommands": 78,
             "pass": true
         },
         {
@@ -93,7 +93,7 @@
             "syncContacts": 74,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 42,
+            "minDrawCommands": 56,
             "pass": true
         },
         {

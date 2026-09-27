@@ -257,7 +257,10 @@ class ArchMechanic : MechanicController {
         for (tg in visible) if (cam.depthOf(tg.x, tg.topY, tg.z) > heroDepth) drawTarget(d3, tg, t, rs, false)
         drawTrail(dl, t, warm, vis, rs)
         d3.orb(hero.x, hero.y, hero.z, planner.heroRadius * vis.heroSize, heroColor, warm, 1f, bloom * vis.emissive.toFloat())
-        for (tg in visible) if (cam.depthOf(tg.x, tg.topY, tg.z) <= heroDepth) drawTarget(d3, tg, t, rs, false)
+        var nearer = false
+        for (tg in visible) if (cam.depthOf(tg.x, tg.topY, tg.z) <= heroDepth) { drawTarget(d3, tg, t, rs, false); nearer = true }
+        // A pillar in front can hide the hero for a whole flight; show it through at reduced opacity.
+        if (nearer) d3.orb(hero.x, hero.y, hero.z, planner.heroRadius * vis.heroSize, Colors.withAlpha(heroColor, 0.6f), warm, 1f, 0f)
 
         // Contact effects: floor ripples + sparks.
         for (tg in planner.targets) {

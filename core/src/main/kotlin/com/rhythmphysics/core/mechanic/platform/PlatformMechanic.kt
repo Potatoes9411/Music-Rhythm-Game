@@ -235,7 +235,10 @@ class PlatformMechanic : MechanicController {
         val bpx = (planner.ballRadius * ppu * vis.heroSize).toFloat()
         // Shadow of the marble on the wall (light from the upper left).
         val shOff = ppu * 0.35f
-        if (look != "neon") for (k in 4 downTo 0) dl.circle(cam.sx(ball.x) + shOff * (0.9f + k * 0.1f), cam.sy(ball.y) + shOff * (1.2f + k * 0.12f), bpx * (0.95f + k * 0.12f), 0x14000000)
+        if (look != "neon") {
+            val bsx = cam.sx(ball.x) + shOff * 1.1f; val bsy = cam.sy(ball.y) + shOff * 1.45f
+            for (k in 9 downTo 0) dl.circle(bsx, bsy, bpx * (0.9f + k * 0.07f), 0x0B000000)
+        }
         for (i in cs.indices) {
             val c = cs[i]
             val age = t - c.timeSec
@@ -270,9 +273,12 @@ class PlatformMechanic : MechanicController {
             // Soft drop shadow on the wall.
             if (look != "neon") {
                 // Soft penumbra: stacked, growing, fainter layers (the references use soft area lights).
-                for (k in 4 downTo 0) {
-                    val g = 1f + k * 0.28f
-                    dl.rectCentered(sx + shOff * (1.2f + k * 0.15f), sy + shOff * (1.6f + k * 0.2f), wp * (1f + k * 0.05f), hp * g * 1.3f, 0x12000000, hp * g * 0.6f, deg)
+                // Concentric layers around one offset centre, so the edge fades out instead of
+                // showing stepped copies.
+                val cxS = sx + shOff * 1.4f; val cyS = sy + shOff * 1.9f
+                for (k in 7 downTo 0) {
+                    val grow = k * hp * 0.22f
+                    dl.rectCentered(cxS, cyS, wp + grow, hp * 1.2f + grow, 0x0C000000, (hp * 1.2f + grow) * 0.5f, deg)
                 }
             }
             when (look) {
