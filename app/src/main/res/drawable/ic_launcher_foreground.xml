@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- ballistic arc -->
+    <path android:strokeColor="#FFFFB547" android:strokeWidth="3.5" android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M30,72 Q42,30 54,62 Q64,40 76,58" />
+    <!-- target pads -->
+    <path android:fillColor="#FF2EC4B6" android:pathData="M26,74 h10 v3 h-10 z" />
+    <path android:fillColor="#FF2EC4B6" android:pathData="M49,64 h10 v3 h-10 z" />
+    <path android:fillColor="#FF2EC4B6" android:pathData="M71,60 h10 v3 h-10 z" />
+    <!-- hero orb -->
+    <path android:fillColor="#FFFFF4DA" android:pathData="M76,52 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" />
+</vector>
