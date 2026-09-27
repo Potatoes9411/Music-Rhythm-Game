@@ -42,3 +42,8 @@ tasks.test {
         outputs.upToDateWhen { false }
     }
 }
+
+tasks.test {
+    dependsOn(rootProject.tasks.named("fetchSoundFont"))
+    systemProperty("rp.soundfont", rootProject.layout.buildDirectory.file("soundfont/GeneralUser-GS.sf2").get().asFile.absolutePath)
+}
