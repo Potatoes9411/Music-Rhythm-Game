@@ -201,7 +201,7 @@ class ArchMechanic : MechanicController {
             val mx = vp.w * 0.14f; val my = vp.h * 0.12f
             // Portrait: keep the hero out of the bottom quarter (it was hugging the lower edge while
             // the camera looked ahead down the course).
-            val myBottom = if (vp.isPortrait) vp.h * 0.25f else my
+            val myBottom = if (!vp.isLandscape) vp.h * 0.25f else my
             val dx = when { cam.outX < vp.x + mx -> cam.outX - (vp.x + mx); cam.outX > vp.x + vp.w - mx -> cam.outX - (vp.x + vp.w - mx); else -> 0f }
             val dy = when { cam.outY < vp.y + my -> cam.outY - (vp.y + my); cam.outY > vp.y + vp.h - myBottom -> cam.outY - (vp.y + vp.h - myBottom); else -> 0f }
             if (dx == 0f && dy == 0f) return@repeat
