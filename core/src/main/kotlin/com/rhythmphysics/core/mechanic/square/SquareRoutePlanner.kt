@@ -77,8 +77,8 @@ class SquareRoutePlanner(
     /** Framed world size (w,h). */
     val frameW: Double = if (aspect >= 1f) viewShort * aspect else viewShort
     val frameH: Double = if (aspect >= 1f) viewShort else viewShort / aspect
-    private val rx = frameW * (0.46 - 0.10 * gen.compactness.coerceIn(0.0, 1.0))
-    private val ry = frameH * (0.46 - 0.10 * gen.compactness.coerceIn(0.0, 1.0))
+    private val rx = frameW * (if (aspect > 1.25f) 0.30 else 0.40 - 0.06 * gen.compactness.coerceIn(0.0, 1.0))
+    private val ry = frameH * (if (aspect <= 1.25f) 0.30 else 0.40 - 0.06 * gen.compactness.coerceIn(0.0, 1.0))
     /** Long gaps travel slower instead of shooting across the frame. */
     private val maxSegment = 0.62 * minOf(frameW, frameH)
     /** Minimum travel between contacts (dense passages move faster rather than jitter in place). */
@@ -104,16 +104,25 @@ class SquareRoutePlanner(
     var degradedCount = 0; private set
 
     /** Scroll direction/speed of the framed region (course keeps generating new space). */
-    private val driftVec: Vec2 = when {
-        aspect < 0.8f -> Vec2(0.0, -gen.drift)
+    val driftVec: Vec2 = when {
         aspect > 1.25f -> Vec2(gen.drift, 0.0)
-        else -> Vec2(gen.drift * 0.7, -gen.drift * 0.45)
+        else -> Vec2(0.0, -gen.drift)
     }
-    private val leashTau = 0.8
+    private val leashTau = 0.35
 
-    private fun advanceLeash(leash: Vec2, target: Vec2, dt: Double): Vec2 {
+    /**
+     * Portrait: the leash holds a gently swaying lane across the short axis and only follows the
+     * route lazily along the scroll axis, so the course zig-zags *down* the tall frame (never a
+     * sideways band). Landscape mirrors this; 1:1 follows on both axes.
+     */
+    private fun advanceLeash(leash: Vec2, target: Vec2, dt: Double, t: Double): Vec2 {
         val lambda = 1 - kotlin.math.exp(-dt / leashTau)
-        return leash + (target - leash) * lambda + driftVec * dt
+        val free = leash + (target - leash) * lambda + driftVec * dt
+        val u = t - startTime
+        return when {
+            aspect > 1.25f -> Vec2(free.x, frameH * 0.10 * sin(u * 0.29))
+            else -> Vec2(frameW * 0.10 * sin(u * 0.31), free.y)
+        }
     }
 
     /** Framing center at time t (interpolated leash). */
@@ -193,7 +202,8 @@ class SquareRoutePlanner(
         val nextDt = if (k + 1 < events.size) (events[k + 1].timeSec - e.timeSec).coerceAtLeast(1e-3) else 1.0
         val out = ArrayList<Candidate>(10)
         val sx = sign(fromVel.x); val sy = sign(fromVel.y)
-        val leashK = advanceLeash(curLeash, p, dt)
+        val leashK = advanceLeash(curLeash, p, dt, e.timeSec)
+        val driftDir = driftVec.normalized()
         val distIn = (fromVel * dt).length
         for (axis in BounceAxis.values()) {
             val normal: Vec2; val newDir: Vec2
@@ -211,11 +221,13 @@ class SquareRoutePlanner(
                 val end = p + newDir * len
                 val a = leashK + driftVec * nextDt
                 val ex = (end.x - a.x) / rx; val ey = (end.y - a.y) / ry
-                val framing = sqrt(ex * ex + ey * ey)
+                // Flat inside the framed region (the route may use the whole width), rising near edges.
+                val framing = maxOf(0.0, sqrt(ex * ex + ey * ey) - 0.55) * 3.0
                 val noise = if (axis == BounceAxis.X) noiseX else noiseY
                 val repeatPenalty = if (axis == prevAxis) 0.18 else 0.0
+                val backtrackPenalty = if ((newDir dot driftDir) < -0.1) 0.35 else 0.0
                 val speedPenalty = abs(f - 1.0) * 0.6 + (if (fi > 0) 0.12 * ((speedNoise * 7 + fi) % 1.0) else 0.0)
-                out += Candidate(axis, p, fromVel, newDir, len, rect, normal, 2.0 * framing + 0.4 * noise + repeatPenalty + speedPenalty, leashK)
+                out += Candidate(axis, p, fromVel, newDir, len, rect, normal, 2.0 * framing + 0.4 * noise + repeatPenalty + speedPenalty + backtrackPenalty, leashK)
             }
         }
         out.sortBy { it.score }
@@ -276,7 +288,7 @@ class SquareRoutePlanner(
         val prev = if (k > 0) events[k].timeSec - events[k - 1].timeSec else 0.6
         val next = if (k + 1 < events.size) events[k + 1].timeSec - events[k].timeSec else prev
         val local = MathUtil.clamp((prev + next) / 2, 0.05, 2.0)
-        return MathUtil.clamp(4.0 * local, 0.35, futureSec) to MathUtil.clamp(8.0 * local, 0.8, lifeSec)
+        return MathUtil.clamp(7.0 * local, 0.35, futureSec) to MathUtil.clamp(7.0 * local, 0.8, lifeSec)
     }
 
     private fun overlapMargin(a: Rect, b: Rect) = MathUtil.clamp(0.12 * (maxOf(a.w, a.h) + maxOf(b.w, b.h)) / 2, 0.08, 0.3)

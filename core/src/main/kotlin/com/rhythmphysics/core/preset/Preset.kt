@@ -43,8 +43,8 @@ data class GenerationParams(
     /** Scroll speed of the framed region, world units per second. */
     val drift: Double = 0.9,
     val showFutureSurfaces: Boolean = true,
-    val futureVisibleSec: Double = 1.6,
-    val surfaceLifetimeSec: Double = 3.2,
+    val futureVisibleSec: Double = 3.0,
+    val surfaceLifetimeSec: Double = 2.8,
     /** Mechanic-specific minimum time between physical contacts. */
     val minContactGapSec: Double = 0.09,
     val corridorWidth: Double = 9.0,
@@ -118,6 +118,8 @@ data class VisualParams(
     val noteLabels: Boolean = false,
     val outlineOnly: Boolean = false,
     val ghostTrail: Boolean = false,
+    /** Hit surfaces keep a tint of the note color ("course memory"). */
+    val surfaceMemoryTint: Boolean = true,
 )
 
 @Serializable

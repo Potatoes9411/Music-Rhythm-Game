@@ -124,3 +124,37 @@ class SquareTest {
         assertTrue(degraded < 12, "degraded $degraded")
     }
 }
+
+class SquareCompositionGauntletTest {
+    /**
+     * Negative-fixture regression: the bad Square had a tiny hero, a small permanent cage in a huge
+     * empty 9:16 canvas, random decorative squares and a ghost rectangle. Assert the opposite for
+     * every Square preset and aspect, sampled across the whole demo song.
+     */
+    @Test
+    fun heroLargeCourseFillsFrameNoCage() {
+        for (preset in com.rhythmphysics.core.preset.PresetManager.forMechanic(com.rhythmphysics.core.mechanic.MechanicType.SQUARE)) {
+            for (aspect in com.rhythmphysics.core.render.AspectRatio.values()) {
+                val engine = com.rhythmphysics.core.engine.RhythmEngine(
+                    Fixtures.demoSession(),
+                    com.rhythmphysics.core.session.SceneConfig(aspect = aspect, presetIds = mapOf(preset.mechanic to preset.id)),
+                )
+                val m = engine.director.slots[0].mechanic as com.rhythmphysics.core.mechanic.square.SquareMechanic
+                var t = 10.0
+                val coverages = ArrayList<Double>(); val counts = ArrayList<Int>(); var minHero = 1.0
+                while (t < 88.0) {
+                    engine.update(t)
+                    val (hero, cov, n) = m.composition(engine.frame, t)
+                    minHero = minOf(minHero, hero); coverages += cov; counts += n
+                    t += 0.37
+                }
+                val medianCov = coverages.sorted()[coverages.size / 2]
+                val medianN = counts.sorted()[counts.size / 2]
+                println("${preset.id} ${aspect.label}: minHero=%.3f medianCoverage=%.2f medianVisible=$medianN".format(minHero, medianCov))
+                assertTrue(minHero >= 0.065, "${preset.id} ${aspect.label}: hero too small ($minHero of short side)")
+                assertTrue(medianCov >= 0.30, "${preset.id} ${aspect.label}: course covers only $medianCov of the frame")
+                assertTrue(medianN >= 5, "${preset.id} ${aspect.label}: only $medianN surfaces visible")
+            }
+        }
+    }
+}

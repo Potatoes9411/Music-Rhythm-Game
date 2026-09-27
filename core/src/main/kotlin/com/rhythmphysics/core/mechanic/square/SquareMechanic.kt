@@ -102,22 +102,53 @@ class SquareMechanic : MechanicController {
 
     // ---- rendering -------------------------------------------------------------------------
 
-    private fun cameraCenter(t: Double, follow: Double): Vec2 {
+    private fun cameraCenter(t: Double, follow: Double, zoom: Double = 1.0): Vec2 {
         var sx = 0.0; var sy = 0.0; var sw = 0.0
-        for (i in -6..9) {
+        // Predictive: frame where the planned route goes over the next ~1.5 s (plus a little history).
+        for (i in -4..16) {
             val d = i * 0.1
-            val w = MathUtil.gaussian(d - 0.15, 0.45)
+            val w = MathUtil.gaussian(d - 0.45, 0.6)
             val p = planner.positionAt(t + d)
             sx += p.x * w; sy += p.y * w; sw += w
         }
         val avg = Vec2(sx / sw, sy / sw)
         val a = planner.anchor(t)
-        var c = avg * (0.72) + a * 0.28
+        // Look ahead along the scroll direction so upcoming pegs get the larger share of the frame.
+        var c = avg * (0.8) + a * 0.2
         val hero = planner.positionAt(t)
-        val mx = planner.frameW * 0.30 / follow.coerceIn(0.3, 3.0)
-        val my = planner.frameH * 0.30 / follow.coerceIn(0.3, 3.0)
+        val mx = planner.frameW * 0.30 / zoom / follow.coerceIn(0.3, 3.0)
+        val my = planner.frameH * 0.30 / zoom / follow.coerceIn(0.3, 3.0)
         c = Vec2(MathUtil.clamp(c.x, hero.x - mx, hero.x + mx), MathUtil.clamp(c.y, hero.y - my, hero.y + my))
         return c
+    }
+
+    /**
+     * Stateless adaptive zoom: tight passages (small spread of the planned path around now) zoom in
+     * so the course fills the frame; wide passages zoom out. Clamped so the hero never gets small.
+     */
+    fun zoomAt(t: Double): Double {
+        var sx = 0.0; var sy = 0.0; var sw = 0.0
+        val xs = DoubleArray(23); val ys = DoubleArray(23); val ws = DoubleArray(23)
+        for (i in 0 until 23) {
+            val d = -0.8 + i * 0.1
+            val w = MathUtil.gaussian(d - 0.3, 0.7)
+            val p = planner.positionAt(t + d)
+            xs[i] = p.x; ys[i] = p.y; ws[i] = w
+            sx += p.x * w; sy += p.y * w; sw += w
+        }
+        val mx = sx / sw; val my = sy / sw
+        var vx = 0.0; var vy = 0.0
+        for (i in 0 until 23) { vx += ws[i] * (xs[i] - mx) * (xs[i] - mx); vy += ws[i] * (ys[i] - my) * (ys[i] - my) }
+        val sdx = kotlin.math.sqrt(vx / sw); val sdy = kotlin.math.sqrt(vy / sw)
+        val need = maxOf((4.4 * sdx + 4.0) / planner.frameW, (3.4 * sdy + 6.0) / planner.frameH)
+        return MathUtil.clamp(1.0 / need, 1.0, 1.6)
+    }
+
+    private fun setupCamera(vp: Viewport, t: Double) {
+        camera.vp = vp
+        camera.pixelsPerUnit = vp.unit / planner.viewShort * zoomAt(t)
+        val c = cameraCenter(t, ctx.preset.camera.follow, camera.pixelsPerUnit / (vp.unit / planner.viewShort))
+        camera.centerX = c.x; camera.centerY = c.y
     }
 
     override fun render(dl: DrawList, vp: Viewport, renderTime: Double, alpha: Float, rs: RenderSettings) {
@@ -125,10 +156,7 @@ class SquareMechanic : MechanicController {
         val vis = ctx.preset.visuals
         val gen = ctx.preset.generation
         val light = Colors.luminance(palette.bgTop) > 0.5f
-        camera.vp = vp
-        camera.pixelsPerUnit = vp.unit / planner.viewShort
-        val c = cameraCenter(t, ctx.preset.camera.follow)
-        camera.centerX = c.x; camera.centerY = c.y
+        setupCamera(vp, t)
 
         // Camera impulse on major impacts (disabled by accessibility settings).
         val lastImp = planner.impactAtOrBefore(t)
@@ -178,7 +206,7 @@ class SquareMechanic : MechanicController {
         if (lastImp != null && lastImp.role == EventRole.MAJOR && vis.impactFlash > 0) {
             val age = t - lastImp.eventTimeSec
             if (age in 0.0..0.18) {
-                val a = ((1 - age / 0.18) * 0.07 * vis.impactFlash * rs.flashScale).toFloat()
+                val a = ((1 - age / 0.18) * 0.045 * vis.impactFlash * rs.flashScale).toFloat()
                 dl.rect(vp.x, vp.y, vp.w, vp.h, Colors.withAlpha(heroColor, a))
             }
         }
@@ -194,7 +222,7 @@ class SquareMechanic : MechanicController {
         val ppu = camera.pixelsPerUnit
         val left = camera.centerX - vp.w / 2 / ppu
         val bottom = camera.centerY - vp.h / 2 / ppu
-        val dotColor = if (light) Colors.withAlpha(palette.surface, 0.10f) else Colors.withAlpha(palette.text, 0.055f)
+        val dotColor = if (light) Colors.withAlpha(palette.surface, 0.10f) else Colors.withAlpha(palette.text, 0.09f)
         val gx0 = floor(left / spacing) * spacing
         val gy0 = floor(bottom / spacing) * spacing
         val r = max(1.2f, vp.unit * 0.0022f)
@@ -232,7 +260,7 @@ class SquareMechanic : MechanicController {
         } else {
             val hit = MathUtil.clamp(age / 0.45, 0.0, 1.0).toFloat()
             color = Colors.lerp(palette.surfaceLit, Colors.lerp(accent, palette.surface, 0.55f), hit)
-            if (!vis.colorShiftOnImpact) color = Colors.lerp(palette.surfaceLit, palette.surface, hit)
+            if (!vis.colorShiftOnImpact || !vis.surfaceMemoryTint) color = Colors.lerp(palette.surfaceLit, palette.surface, hit)
             val pulse = if (age < 0.2) (1 - age / 0.2).toFloat() else 0f
             scale = 1f + 0.12f * pulse * rs.motionScale
             val fadeOut = MathUtil.clamp((life - age) / 1.0, 0.0, 1.0).toFloat()
@@ -321,6 +349,8 @@ class SquareMechanic : MechanicController {
         val light = Colors.luminance(palette.bgTop) > 0.5f
         if (!light) dl.rect(x - w / 2 + 3, y - h / 2 + 6, w, h, 0x55000000, radius)
         if (vis.outlineOnly) {
+            dl.rect(x - w / 2, y - h / 2, w, h, palette.bgBottom, radius) // hides the trail inside
+            dl.rect(x - w / 2, y - h / 2, w, h, Colors.withAlpha(color, 0.18f), radius)
             dl.rectStroke(x - w / 2, y - h / 2, w, h, heroPx * 0.12f, color, radius)
         } else {
             dl.rect(x - w / 2, y - h / 2, w, h, color, radius)
@@ -363,17 +393,41 @@ class SquareMechanic : MechanicController {
     }
 
     override fun heroScreenPosition(vp: Viewport, renderTime: Double): FloatArray {
-        camera.vp = vp
-        camera.pixelsPerUnit = vp.unit / planner.viewShort
-        val c = cameraCenter(renderTime, ctx.preset.camera.follow)
-        camera.centerX = c.x; camera.centerY = c.y
+        setupCamera(vp, renderTime)
         val p = planner.positionAt(renderTime)
-        return floatArrayOf(camera.sx(p.x), camera.sy(p.y), (vp.unit / planner.viewShort * ctx.preset.visuals.heroSize).toFloat())
+        return floatArrayOf(camera.sx(p.x), camera.sy(p.y), (camera.pixelsPerUnit * ctx.preset.visuals.heroSize).toFloat())
     }
 
     override fun heroColor(renderTime: Double): Int {
         val imp = planner.impactAtOrBefore(renderTime)
         return if (ctx.preset.visuals.colorShiftOnImpact) palette.accent(imp?.colorRole ?: 0) else palette.hero
+    }
+
+    /**
+     * Composition metrics used by the regression gauntlet (the "bad Square" negative fixture had a
+     * tiny hero, a permanent cage and a mostly dead canvas).
+     * Returns: heroFraction (hero px / short side), coverage (bbox of hero+visible surfaces / viewport
+     * area), visibleSurfaces.
+     */
+    fun composition(vp: Viewport, t: Double): Triple<Double, Double, Int> {
+        setupCamera(vp, t)
+        val hero = planner.positionAt(t)
+        var minX = camera.sx(hero.x).toDouble(); var maxX = minX
+        var minY = camera.sy(hero.y).toDouble(); var maxY = minY
+        var n = 0
+        for (imp in planner.impacts) {
+            val age = t - imp.eventTimeSec
+            if (age < -imp.futureSec || age > imp.lifeSec) continue
+            val r = imp.surfaceRect
+            val x0 = camera.sx(r.x).toDouble(); val x1 = camera.sx(r.right).toDouble()
+            val y0 = camera.sy(r.top).toDouble(); val y1 = camera.sy(r.y).toDouble()
+            if (x1 < vp.x || x0 > vp.x + vp.w || y1 < vp.y || y0 > vp.y + vp.h) continue
+            n++
+            minX = minOf(minX, x0.coerceAtLeast(vp.x.toDouble())); maxX = maxOf(maxX, x1.coerceAtMost((vp.x + vp.w).toDouble()))
+            minY = minOf(minY, y0.coerceAtLeast(vp.y.toDouble())); maxY = maxOf(maxY, y1.coerceAtMost((vp.y + vp.h).toDouble()))
+        }
+        val heroFrac = camera.pixelsPerUnit * ctx.preset.visuals.heroSize / vp.unit
+        return Triple(heroFrac, (maxX - minX) * (maxY - minY) / (vp.w * vp.h), n)
     }
 
     override fun debugLines(): List<String> {

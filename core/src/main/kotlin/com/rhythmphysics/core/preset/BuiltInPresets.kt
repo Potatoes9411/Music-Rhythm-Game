@@ -24,7 +24,7 @@ object BuiltInPresets {
             generation = GenerationParams(style = "playground", speed = 10.0, surfaceLength = 2.0, surfaceThickness = 0.3, compactness = 0.45, drift = 0.7),
             visuals = VisualParams(
                 palette = "playground", background = "flat", trailOpacity = 0.0, bloom = 0.0, particles = 0.0,
-                impactFlash = 0.35, squashStretch = false, heroSize = 0.85,
+                impactFlash = 0.35, squashStretch = false, heroSize = 0.85, surfaceMemoryTint = false,
             ),
             eventMapping = EventMappingSettings(mode = EventMode.MELODIC, density = 0.75f),
         ),

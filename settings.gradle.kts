@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "rhythm-physics"
 
-include(":core", ":buildtools", ":app")
+include(":core", ":buildtools", ":app", ":desktop")
