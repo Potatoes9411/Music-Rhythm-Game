@@ -8,7 +8,32 @@ import com.rhythmphysics.core.music.EventMode
  * Built-in recipes. Every preset configures one of the four engines; none of them is a separate game.
  */
 object BuiltInPresets {
-    fun all(): List<Preset> = square()
+    fun all(): List<Preset> = square() + arch()
+
+    private fun arch() = listOf(
+        Preset(
+            id = "arch.bounce_curve", name = "Arch — Bounce Curve", mechanic = MechanicType.ARCH,
+            description = "White-hot hero on decaying ballistic bounces across separated teal pads; dark studio floor, low camera, warm comet trail with controlled bloom.",
+            generation = GenerationParams(style = "bounce_curve", speed = 5.2, apexMin = 0.55, apexMax = 3.0, apexDecay = 0.76, corridorWidth = 7.0, minContactGapSec = 0.2),
+            camera = CameraParams(pitchDeg = 14.0, distance = 16.0, fovDeg = 30.0, shake = 0.3),
+            visuals = VisualParams(
+                palette = "studio_warm", heroSize = 1.0, trailLengthSec = 0.45, trailWidth = 0.8, trailOpacity = 0.7, trailTaper = 0.95,
+                bloom = 0.8, emissive = 1.2, particles = 0.8, reflections = true,
+            ),
+            eventMapping = EventMappingSettings(mode = EventMode.HYBRID, density = 0.5f),
+        ),
+        Preset(
+            id = "arch.pillar_weave", name = "Arch — Pillar Weave", mechanic = MechanicType.ARCH,
+            description = "Glowing hero swoops between and onto cylindrical pillars of musical height (guided curves), long orange comet trail, reflective floor.",
+            generation = GenerationParams(style = "pillar_weave", speed = 4.4, pillarMinHeight = 1.0, pillarMaxHeight = 4.0, corridorWidth = 6.0, minContactGapSec = 0.24),
+            camera = CameraParams(pitchDeg = 12.0, distance = 18.0, fovDeg = 32.0, shake = 0.25),
+            visuals = VisualParams(
+                palette = "studio_pillars", heroSize = 1.05, trailLengthSec = 0.7, trailWidth = 0.8, trailOpacity = 0.75, trailTaper = 0.95,
+                bloom = 0.85, emissive = 1.25, particles = 0.6, reflections = true,
+            ),
+            eventMapping = EventMappingSettings(mode = EventMode.HYBRID, density = 0.45f),
+        ),
+    )
 
     private fun square() = listOf(
         Preset(

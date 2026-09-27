@@ -26,6 +26,7 @@ object Mechanics {
 
     init {
         register(MechanicType.SQUARE) { SquareMechanic() }
+        register(MechanicType.ARCH) { com.rhythmphysics.core.mechanic.arch.ArchMechanic() }
     }
 
     fun register(type: MechanicType, f: () -> MechanicController) { factories[type] = f }
