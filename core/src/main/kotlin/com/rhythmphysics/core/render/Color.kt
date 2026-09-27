@@ -81,6 +81,17 @@ data class Palette(
                 Palette("classic", c("#FF161A2E"), c("#FF0C0E1A"), c("#FFE8EAF2"), c("#FFFFFFFF"), c("#FFFF5470"),
                     intArrayOf(c("#FFFF5470"), c("#FFFFB547"), c("#FF3DDC97"), c("#FF4CC9F0"), c("#FF9D7CFF"), c("#FFFF7AD9")),
                     c("#FFFF5470")),
+                // Platform tilted-pad looks (user reference frames). text = bracket/rod color.
+                Palette("pad_studio", c("#FFC4C1BC"), c("#FFB3B0AA"), c("#FF3E6FD6"), c("#FFFFFFFF"), c("#FFE3AE1E"),
+                    intArrayOf(c("#FF3E6FD6"), c("#FF3DBB47"), c("#FFFF8A5B"), c("#FFEDEDED"), c("#FF2F5FCC")), c("#FFE3AE1E"), text = c("#FFC9A227")),
+                Palette("pad_neon", c("#FF0D1C2B"), c("#FF081018"), c("#FF3FA8FF"), c("#FFBFE6FF"), c("#FFE8FBFF"),
+                    intArrayOf(c("#FF3FA8FF"), c("#FF4FC3FF"), c("#FF3F8CFF")), c("#FF9BE8FF"), text = c("#FF1A2A3A")),
+                Palette("pad_pastel", c("#FF63BDBB"), c("#FF3F8F90"), c("#FFD3E0E0"), c("#FFFFFFFF"), c("#FFC6FF5E"),
+                    intArrayOf(c("#FFFF8AD8"), c("#FF7FF3F0"), c("#FFFFF08A"), c("#FFB9A7FF"), c("#FF8AF0FF")), c("#FFC6FF5E"), text = c("#FF2A4A4A")),
+                Palette("pad_stones", c("#FF151A24"), c("#FF0E121A"), c("#FF3FF0FF"), c("#FFE8FFFF"), c("#FFFFD6F4"),
+                    intArrayOf(c("#FF3FF0FF"), c("#FF6FD8FF"), c("#FFB070FF"), c("#FFFF60D0")), c("#FFFF7AE0"), text = c("#FF2A3040")),
+                Palette("pad_marble", c("#FFD8D0C4"), c("#FFCBC2B5"), c("#FFE9E9E6"), c("#FFFFFFFF"), c("#FFDDA23A"),
+                    intArrayOf(c("#FFA8673C"), c("#FFE9E9E6"), c("#FFB57446"), c("#FFD9D9D6")), c("#FFDDA23A"), text = c("#FF8D8A86")),
                 // Arch studio (6emfSUtWnOw): grey spotlit floor, bright teal discs, yellow comet.
                 Palette("studio_grey", c("#FF858585"), c("#FF121212"), c("#FF16C4BA"), c("#FF8CFFF7"), c("#FFFFFFF2"),
                     intArrayOf(c("#FFF4D83A")), c("#FFF4D83A")),

@@ -124,6 +124,7 @@ object PresetManager {
                 persist = if (v.persist in setOf("none", "rings", "trails")) v.persist else "none",
                 carveWidth = d(v.carveWidth, 1.0, 8.0, 1.7),
                 targetScale = d(v.targetScale, 0.2, 2.0, 1.0),
+                padLook = if (v.padLook in setOf("none", "studio", "neon", "pastel", "stones", "marble")) v.padLook else "none",
                 stampCount = v.stampCount.coerceIn(0, 40),
                 stampSpacingSec = d(v.stampSpacingSec, 0.03, 1.0, 0.1),
             ),

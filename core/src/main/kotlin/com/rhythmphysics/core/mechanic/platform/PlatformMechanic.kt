@@ -12,6 +12,7 @@ import com.rhythmphysics.core.music.MusicEvent
 import com.rhythmphysics.core.render.Bursts
 import com.rhythmphysics.core.render.Camera2D
 import com.rhythmphysics.core.render.Colors
+import com.rhythmphysics.core.render.Hash
 import com.rhythmphysics.core.render.DrawList
 import com.rhythmphysics.core.render.Palette
 import com.rhythmphysics.core.render.RenderSettings
@@ -117,6 +118,7 @@ class PlatformMechanic : MechanicController {
             if (age < 0.18) cam.centerY += (1 - age / 0.18) * 0.12 * ctx.preset.camera.shake * rs.shakeScale
         }
         dl.pushClip(vp.x, vp.y, vp.w, vp.h)
+        if (vis.padLook != "none") { renderPads(dl, vp, t, rs); dl.popClip(); return }
         dl.gradientRect(vp.x, vp.y, vp.w, vp.h, palette.bgTop, palette.bgBottom)
         if (planner.style != PlatformStyle.MINIMAL_BARS) {
             dl.radialRect(vp.x, vp.y, vp.w, vp.h, vp.cx, vp.y + vp.h * 0.35f, max(vp.w, vp.h) * 0.8f, Colors.withAlpha(palette.accent(last?.colorRole ?: 0), 0.10f), 0)
@@ -166,6 +168,165 @@ class PlatformMechanic : MechanicController {
         dl.circle(cam.sx(ball.x), cam.sy(ball.y), bpx, palette.hero)
         if (planner.style != PlatformStyle.MINIMAL_BARS) dl.circle(cam.sx(ball.x) - bpx * 0.3f, cam.sy(ball.y) - bpx * 0.3f, bpx * 0.4f, Colors.withAlpha(Colors.WHITE, 0.6f))
         dl.popClip()
+    }
+
+    // ---- tilted-pad looks (studio / neon / pastel / stones / marble machine) ---------------------
+
+    /** Pad normal at contact i: parallel to (v_out - v_in), so the pad reflects the marble exactly. */
+    private fun padNormal(i: Int): Vec2 {
+        val cs = planner.contacts
+        val c = cs[i]
+        val prevT = if (i > 0) cs[i - 1].timeSec else c.timeSec - 0.5
+        val T = (c.timeSec - prevT).coerceAtLeast(1e-3)
+        val vin = Vec2(c.launch.x, c.launch.y - planner.gravity * T)
+        val vout = if (i + 1 < cs.size) cs[i + 1].launch else Vec2(c.launch.x, -vin.y)
+        val d = vout - vin
+        val len = d.length
+        return if (len < 1e-6 || d.y <= 0) Vec2(0.0, 1.0) else d * (1.0 / len)
+    }
+
+    private fun renderPads(dl: DrawList, vp: Viewport, t: Double, rs: RenderSettings) {
+        val vis = ctx.preset.visuals
+        val look = vis.padLook
+        val ppu = cam.pixelsPerUnit.toFloat()
+        dl.gradientRect(vp.x, vp.y, vp.w, vp.h, palette.bgTop, palette.bgBottom)
+        val left = cam.centerX - vp.w / 2 / ppu; val top = cam.centerY + vp.h / 2 / ppu
+        val right = left + vp.w / ppu; val bottom = top - vp.h / ppu
+        when (look) {
+            "marble" -> {
+                // World-anchored wall tiles.
+                val tile = 3.0
+                val lc = Colors.withAlpha(Colors.scale(palette.bgBottom, 0.9f), 0.9f)
+                var gx = kotlin.math.floor(left / tile) * tile
+                while (gx < right) { dl.line(cam.sx(gx), vp.y, cam.sx(gx), vp.y + vp.h, max(1f, ppu * 0.03f), lc, false); gx += tile }
+                var gy = kotlin.math.floor(bottom / tile) * tile
+                while (gy < top) { dl.line(vp.x, cam.sy(gy), vp.x + vp.w, cam.sy(gy), max(1f, ppu * 0.03f), lc, false); gy += tile }
+            }
+            "stones" -> {
+                // Soft pastel stones on the dark wall, seeded per world cell (stable while scrolling).
+                val cell = 2.6
+                val cols = intArrayOf(0xFF6E6A78.toInt(), 0xFF8A7A6A.toInt(), 0xFF2E6E6A.toInt(), 0xFF3A4F8A.toInt(), 0xFF9A8E86.toInt(), 0xFF5A5060.toInt(), 0xFFB8B4AE.toInt())
+                var cx0 = kotlin.math.floor(left / cell).toLong()
+                while (cx0 * cell < right + cell) {
+                    var cy0 = kotlin.math.floor(bottom / cell).toLong()
+                    while (cy0 * cell < top + cell) {
+                        val h1 = Hash.unit(ctx.seed, cx0, cy0); val h2 = Hash.unit(ctx.seed + 7, cx0, cy0); val h3 = Hash.unit(ctx.seed + 13, cx0, cy0)
+                        if (h3 < 0.8) {
+                            val wx = (cx0 + 0.2 + 0.6 * h1) * cell; val wy = (cy0 + 0.2 + 0.6 * h2) * cell
+                            val rr = cell * (0.22 + 0.25 * h3)
+                            val xs = FloatArray(7); val ys = FloatArray(7)
+                            for (k in 0 until 7) {
+                                val a = 2 * Math.PI * k / 7 + h1 * 3
+                                val rk = rr * (0.75 + 0.35 * Hash.unit(ctx.seed + 31, cx0 * 7 + k, cy0))
+                                xs[k] = cam.sx(wx + kotlin.math.cos(a) * rk); ys[k] = cam.sy(wy + kotlin.math.sin(a) * rk * 0.8)
+                            }
+                            dl.poly(xs, ys, 7, Colors.withAlpha(cols[((h1 * 97).toInt()) % cols.size], 0.55f))
+                        }
+                        cy0++
+                    }
+                    cx0++
+                }
+            }
+            "studio", "pastel" -> dl.radialRect(vp.x, vp.y, vp.w, vp.h, vp.cx, vp.y + vp.h * 0.3f, max(vp.w, vp.h) * 0.9f, 0x22FFFFFF, 0x22000000)
+            "neon" -> dl.radialRect(vp.x, vp.y, vp.w, vp.h, vp.cx, vp.cy, max(vp.w, vp.h) * 0.8f, 0x183FA8FF, 0x00000000)
+        }
+        val cs = planner.contacts
+        val ball = planner.ballAt(t)
+        val bpx = (planner.ballRadius * ppu * vis.heroSize).toFloat()
+        // Shadow of the marble on the wall (light from the upper left).
+        val shOff = ppu * 0.35f
+        if (look != "neon") dl.circle(cam.sx(ball.x) + shOff, cam.sy(ball.y) + shOff * 1.3f, bpx * 1.05f, 0x33000000)
+        for (i in cs.indices) {
+            val c = cs[i]
+            val age = t - c.timeSec
+            if (age > 4.0 || age < -5.0) continue
+            val n = padNormal(i)
+            // Chunky slabs sized from the drawn marble (references: ~2.5 marble widths long).
+            val vr = planner.ballRadius * vis.heroSize
+            val w = vr * (if (look == "marble") 5.6 else 5.0)
+            val th = vr * (if (look == "marble") 0.6 else if (look == "neon") 0.7 else 0.9)
+            // Pad surface centre sits one (drawn) marble radius below the marble centre along the normal.
+            val px = c.position.x - n.x * (vr + th / 2); val py = c.position.y - n.y * (vr + th / 2)
+            val sx = cam.sx(px); val sy = cam.sy(py)
+            if (sx < vp.x - 200 || sx > vp.x + vp.w + 200 || sy < vp.y - 200 || sy > vp.y + vp.h + 200) continue
+            val deg = (-Math.toDegrees(kotlin.math.atan2(n.y, n.x) - Math.PI / 2)).toFloat()
+            val wp = cam.len(w); val hp = cam.len(th)
+            val lit = if (age >= 0 && age < 0.6) (1 - age / 0.6).toFloat() else 0f
+            val role = c.colorRole
+            val accent = palette.accent(role)
+            val base = when (look) {
+                "pastel" -> if (age >= 0) Colors.lerp(accent, palette.surface, 0.25f) else palette.surface
+                "marble" -> palette.accent(i % 2 * 2 + (role and 1))
+                "stones" -> palette.accent(role)
+                "neon" -> palette.surface
+                else -> accent
+            }
+            // Bracket + rod into the wall.
+            if (look != "neon" && look != "stones") {
+                val rx = px - n.x * 0.55; val ry = py - n.y * 0.55
+                dl.line(sx, sy, cam.sx(rx) + shOff * 0.3f, cam.sy(ry) + shOff * 0.3f, max(1.5f, ppu * 0.05f), palette.text, true)
+                dl.circle(cam.sx(rx) + shOff * 0.3f, cam.sy(ry) + shOff * 0.3f, max(2f, ppu * 0.07f), palette.text)
+            }
+            // Soft drop shadow on the wall.
+            if (look != "neon") {
+                dl.rectCentered(sx + shOff * 1.4f, sy + shOff * 1.9f, wp * 1.02f, hp * 1.6f, 0x2A000000, hp * 0.5f, deg)
+                dl.rectCentered(sx + shOff * 1.1f, sy + shOff * 1.4f, wp, hp * 1.2f, 0x22000000, hp * 0.4f, deg)
+            }
+            when (look) {
+                "neon", "stones" -> {
+                    val glowA = 0.25f + 0.75f * lit
+                    if (vis.bloom > 0) dl.glow(sx, sy, wp * 0.9f, base, glowA * 0.5f * vis.bloom.toFloat() * rs.bloomScale)
+                    dl.rectCentered(sx, sy, wp, hp, Colors.withAlpha(Colors.scale(base, 0.25f), 0.85f), hp * 0.25f, deg)
+                    dl.rectStroke(sx - wp / 2, sy - hp / 2, wp, hp, max(1.5f, hp * 0.22f), Colors.lerp(base, Colors.WHITE, 0.5f * lit), hp * 0.25f, deg)
+                }
+                else -> {
+                    val bevel = Colors.scale(base, 0.72f)
+                    val topC = Colors.lerp(base, palette.surfaceLit, 0.45f * lit)
+                    // Thickness side (toward the viewer's lower right), then the lit face.
+                    dl.rectCentered(sx + hp * 0.18f, sy + hp * 0.32f, wp, hp, bevel, hp * 0.2f, deg)
+                    dl.rectCentered(sx, sy, wp, hp * 0.8f, topC, hp * 0.2f, deg)
+                    if (lit > 0 && (look == "pastel") && vis.bloom > 0) dl.glow(sx, sy, wp * 0.8f, accent, lit * 0.6f * vis.bloom.toFloat() * rs.bloomScale)
+                }
+            }
+        }
+        // Trail (neon / stones glow trails), then the marble.
+        val trailColor = vis.trailColor?.let { Colors.parse(it) } ?: palette.trail
+        if (vis.trailOpacity > 0.01) {
+            val nS = rs.quality.trailSamples.coerceAtMost(80)
+            ribbon.clear()
+            for (k in 0 until nS) { val p = planner.ballAt(t - vis.trailLengthSec * k / (nS - 1)); ribbon.add(cam.sx(p.x), cam.sy(p.y)) }
+            ribbon.draw(dl, trailColor, bpx * 2 * vis.trailWidth.toFloat(), vis.trailTaper.toFloat(), vis.trailOpacity.toFloat(), look == "neon" || look == "stones")
+        }
+        val bx = cam.sx(ball.x); val by = cam.sy(ball.y)
+        val bloom = (vis.bloom * rs.bloomScale).toFloat()
+        when (look) {
+            "neon", "stones" -> {
+                if (bloom > 0) { dl.glow(bx, by, bpx * 6f, trailColor, 0.5f * bloom); dl.glow(bx, by, bpx * 2.5f, palette.hero, 0.9f * bloom) }
+                dl.circle(bx, by, bpx, palette.hero)
+            }
+            "pastel" -> {
+                // Glass marble: translucent body, bright rim and highlight.
+                if (bloom > 0) dl.glow(bx, by, bpx * 3f, palette.hero, 0.35f * bloom)
+                dl.circle(bx, by, bpx, Colors.withAlpha(palette.hero, 0.45f))
+                dl.circleStroke(bx, by, bpx * 0.95f, max(1.5f, bpx * 0.14f), Colors.withAlpha(palette.hero, 0.95f))
+                dl.circle(bx - bpx * 0.35f, by - bpx * 0.35f, bpx * 0.22f, Colors.withAlpha(Colors.WHITE, 0.8f))
+            }
+            else -> {
+                // Polished marble: base, darker lower rim, specular highlight.
+                dl.circle(bx, by, bpx, Colors.scale(palette.hero, 0.72f))
+                dl.circle(bx - bpx * 0.12f, by - bpx * 0.12f, bpx * 0.86f, palette.hero)
+                dl.circle(bx - bpx * 0.38f, by - bpx * 0.38f, bpx * 0.28f, Colors.withAlpha(Colors.WHITE, 0.75f))
+                if (look == "marble") dl.circleStroke(bx, by, bpx, max(1f, bpx * 0.08f), Colors.withAlpha(Colors.WHITE, 0.5f))
+            }
+        }
+        // Impact sparkles (studio looks keep them subtle).
+        for (c in cs) {
+            val age = t - c.timeSec
+            if (age < 0 || age > 0.6 || vis.particles <= 0.01) continue
+            Bursts.draw(dl, ctx.seed, c.eventId, c.timeSec, t, cam.sx(c.position.x), cam.sy(c.position.y - planner.ballRadius), (8 * vis.particles * (0.5 + c.importance)).toInt(),
+                speed = ppu * 5f, size = ppu * 0.1f, color = if (look == "neon" || look == "stones") trailColor else palette.surfaceLit, life = 0.5, gravity = ppu * 12f, drag = 3f,
+                dirX = 0f, dirY = -1f, spread = 1.4f, shape = Bursts.SHAPE_CIRCLE, settings = rs)
+        }
     }
 
     private fun drawPlatform(dl: DrawList, c: PlatformContact, age: Double, vp: Viewport, rs: RenderSettings) {

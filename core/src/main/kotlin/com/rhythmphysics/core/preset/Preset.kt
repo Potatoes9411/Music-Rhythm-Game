@@ -133,6 +133,8 @@ data class VisualParams(
     val persist: String = "none",
     /** Render scale for Arch targets (contact geometry is unchanged). */
     val targetScale: Double = 1.0,
+    /** Platform tilted-pad looks: "none" | "studio" | "neon" | "pastel" | "stones" | "marble". */
+    val padLook: String = "none",
 )
 
 @Serializable
