@@ -77,5 +77,8 @@ interface MechanicController {
     /** Primary hero color at [renderTime] (for journey transitions). */
     fun heroColor(renderTime: Double): Int = -1
     fun debugLines(): List<String> = emptyList()
+
+    /** Sandbox interaction in viewport pixels (applied inside a fixed step, recorded for replay). */
+    fun onInput(kind: String, x: Float, y: Float, vp: Viewport) {}
     val bodyCount: Int get() = 1
 }

@@ -42,6 +42,9 @@ class RhythmEngine(
     var lastSteps = 0; private set
 
     private val checkpoints = TreeMap<Long, ByteArray>()
+    /** Recorded sandbox inputs (step-stamped). Replayed identically on seek and in replays. */
+    val inputLog = ArrayList<com.rhythmphysics.core.session.SandboxInput>()
+    private var inputCursor = 0
     private var checkpointBytes = 0L
     var checkpointIntervalSteps = fixedHz.toLong()
     var maxCheckpointBytes = 48L * 1024 * 1024
@@ -75,8 +78,38 @@ class RhythmEngine(
         return steps
     }
 
+    /** Queues a user input for the next fixed step (viewport pixels of the creator frame). */
+    fun input(kind: String, x: Float, y: Float) {
+        val step = stepIndex + 1
+        // Inputs after the playhead are superseded by new interaction (like re-recording).
+        inputLog.removeAll { it.step >= step }
+        inputLog += com.rhythmphysics.core.session.SandboxInput(step, kind, x, y)
+        inputCursor = inputLog.size - 1
+    }
+
+    fun loadInputs(inputs: List<com.rhythmphysics.core.session.SandboxInput>) {
+        inputLog.clear(); inputLog.addAll(inputs.sortedBy { it.step }); inputCursor = 0
+    }
+
+    private fun applyInputs() {
+        if (inputLog.isEmpty()) return
+        // find inputs for this step
+        var lo = 0; var hi = inputLog.size
+        while (lo < hi) { val m = (lo + hi) ushr 1; if (inputLog[m].step < stepIndex) lo = m + 1 else hi = m }
+        var i = lo
+        while (i < inputLog.size && inputLog[i].step == stepIndex) {
+            val inp = inputLog[i]
+            for (slot in director.slots) {
+                val vp = slot.viewport(frame)
+                if (inp.x >= vp.x && inp.x <= vp.x + vp.w && inp.y >= vp.y && inp.y <= vp.y + vp.h) slot.mechanic?.onInput(inp.kind, inp.x, inp.y, vp)
+            }
+            i++
+        }
+    }
+
     private fun step() {
         stepIndex++
+        applyInputs()
         director.fixedUpdate(dt, simTime)
         if (stepIndex % checkpointIntervalSteps == 0L && !checkpoints.containsKey(stepIndex)) {
             val cp = director.checkpoint()

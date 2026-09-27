@@ -4,11 +4,82 @@ import com.rhythmphysics.core.mechanic.MechanicType
 import com.rhythmphysics.core.music.EventMappingSettings
 import com.rhythmphysics.core.music.EventMode
 
+
 /**
  * Built-in recipes. Every preset configures one of the four engines; none of them is a separate game.
  */
 object BuiltInPresets {
-    fun all(): List<Preset> = square() + arch()
+    fun all(): List<Preset> = square() + circle() + arch()
+
+    private fun rule(type: AnomalyType, trigger: AnomalyTrigger, every: Int = 1, p: Double = 1.0, params: Map<String, Float> = emptyMap(), max: Int = 0, at: Double = 0.0, repeat: Double = 0.0) =
+        AnomalyRule(type, trigger, every, at, repeat, p, params, max)
+
+    private fun circle(): List<Preset> {
+        fun c(id: String, name: String, desc: String, gen: GenerationParams = GenerationParams(mode = "reactive"), ph: PhysicsParams, vis: VisualParams = VisualParams(palette = "circle_night", trailOpacity = 0.55, trailLengthSec = 0.35, bloom = 0.55, particles = 0.8),
+                     rules: List<AnomalyRule> = emptyList(), mapping: EventMappingSettings = EventMappingSettings(EventMode.HYBRID, 0.55f)) =
+            Preset(id = id, name = name, mechanic = MechanicType.CIRCLE, description = desc, generation = gen, physics = ph, visuals = vis, anomalies = rules, eventMapping = mapping)
+        return listOf(
+            c("circle.classic", "Circle — Classic Elastic", "One ball, gravity, perfectly elastic ring; the song drives kicks and colors.",
+                ph = PhysicsParams(gravity = 24.0, restitution = 1.0, ballRadius = 0.95, initialSpeed = 12.0),
+                vis = VisualParams(palette = "circle_night", trailOpacity = 0.6, trailLengthSec = 0.4, trailWidth = 0.9, bloom = 0.6, particles = 0.9)),
+            c("circle.growing_ball", "Circle — Growing Ball", "Every bounce plays the next melody note and the ball grows until it fills the ring.",
+                gen = GenerationParams(mode = "generative"),
+                ph = PhysicsParams(gravity = 22.0, ballRadius = 0.45, ballGrowthPerHit = 0.06, maxBallRadius = 8.5, initialSpeed = 13.0)),
+            c("circle.shrinking_ring", "Circle — Shrinking Ring", "The ring tightens on every hit, speeding up the rhythm.",
+                ph = PhysicsParams(gravity = 20.0, ballRadius = 0.6, ringShrinkPerHit = 0.05, minRingRadius = 2.2, initialSpeed = 12.0),
+                rules = listOf(rule(AnomalyType.RING_GROW, AnomalyTrigger.DOWNBEAT, every = 8, params = mapOf("amount" to 3f)))),
+            c("circle.grow_shrink", "Circle — Growing Ball / Shrinking Ring", "Ball grows, ring shrinks: tension builds to the drop.",
+                gen = GenerationParams(mode = "generative"),
+                ph = PhysicsParams(gravity = 20.0, ballRadius = 0.5, ballGrowthPerHit = 0.035, ringShrinkPerHit = 0.03, minRingRadius = 3.0, maxBallRadius = 7.0),
+                vis = VisualParams(palette = "circle_night", trailOpacity = 0.5, bloom = 0.6, particles = 0.9, showStats = true)),
+            c("circle.escape_gap", "Circle — Escape the Gap", "A gap in the ring rotates; every escaping ball spawns two more.",
+                ph = PhysicsParams(gravity = 18.0, ballRadius = 0.5, gapCount = 1, gapSizeDeg = 34.0, gapRotationDegPerSec = 55.0, spawnOnEscape = 2, maxBalls = 160, ballCollisions = true),
+                vis = VisualParams(palette = "circle_night", trailOpacity = 0.35, trailLengthSec = 0.25, bloom = 0.5, particles = 0.6, showStats = true)),
+            c("circle.rotating_gap", "Circle — Rotating Gap", "Fast-rotating opening; beats reverse the rotation.",
+                ph = PhysicsParams(gravity = 16.0, ballRadius = 0.55, gapCount = 1, gapSizeDeg = 42.0, gapRotationDegPerSec = 120.0, spawnOnEscape = 1, maxBalls = 40),
+                rules = listOf(rule(AnomalyType.GAP_ROTATE, AnomalyTrigger.DOWNBEAT, params = mapOf("degPerSec" to 130f))),
+                vis = VisualParams(palette = "circle_night", trailOpacity = 0.5, bloom = 0.55, particles = 0.8, showStats = true)),
+            c("circle.multiplication", "Circle — Multiplication", "Balls duplicate on strong beats; ball-ball collisions everywhere.",
+                ph = PhysicsParams(gravity = 12.0, ballRadius = 0.45, maxBalls = 128, ballCollisions = true, initialSpeed = 11.0),
+                rules = listOf(rule(AnomalyType.DUPLICATION_CASCADE, AnomalyTrigger.DOWNBEAT, every = 4, max = 6), rule(AnomalyType.BALL_SHRINK, AnomalyTrigger.DOWNBEAT, every = 4, params = mapOf("amount" to 0.12f))),
+                vis = VisualParams(palette = "circle_night", trailOpacity = 0.3, trailLengthSec = 0.2, bloom = 0.45, particles = 0.5, showStats = true)),
+            c("circle.gravity_chaos", "Circle — Gravity Chaos", "Gravity rotates on every beat and flips on downbeats.",
+                ph = PhysicsParams(gravity = 26.0, ballCount = 3, ballRadius = 0.55, ballCollisions = true),
+                rules = listOf(rule(AnomalyType.GRAVITY_ROTATE, AnomalyTrigger.BEAT, params = mapOf("degrees" to 90f)), rule(AnomalyType.GRAVITY_FLIP, AnomalyTrigger.DOWNBEAT, every = 2))),
+            c("circle.melody_collision", "Circle — Melody Collision", "Each collision plays the next note of the melody (MIDI) — the ball performs the song.",
+                gen = GenerationParams(mode = "generative"),
+                ph = PhysicsParams(gravity = 26.0, ballRadius = 0.6, initialSpeed = 14.0),
+                mapping = EventMappingSettings(EventMode.MELODIC, 0.8f)),
+            c("circle.collision_synth", "Circle — Collision Synth", "Several balls; every ring hit plays a pitched note (angle-mapped scale without a song).",
+                gen = GenerationParams(mode = "generative"),
+                ph = PhysicsParams(gravity = 0.0, ballCount = 5, ballRadius = 0.5, initialSpeed = 9.0, ballCollisions = true),
+                vis = VisualParams(palette = "neon", trailOpacity = 0.6, trailLengthSec = 0.4, bloom = 0.8, particles = 0.8)),
+            c("circle.orbit_force", "Circle — Orbit Force", "Tangential and attractive forces make balls swirl; downbeats flip the orbit.",
+                ph = PhysicsParams(gravity = 0.0, ballCount = 6, ballRadius = 0.4, orbit = 28.0, attract = 6.0, initialSpeed = 8.0, ballCollisions = true),
+                rules = listOf(rule(AnomalyType.ORBIT, AnomalyTrigger.DOWNBEAT, every = 2, params = mapOf("amount" to 30f)), rule(AnomalyType.REPEL, AnomalyTrigger.MAJOR_EVENT, every = 8, params = mapOf("amount" to 14f)), rule(AnomalyType.ATTRACT, AnomalyTrigger.MAJOR_EVENT, every = 8, params = mapOf("amount" to 8f)))),
+            c("circle.ring_break", "Circle — Ring Break", "The ring shatters on big hits and reforms — balls that fly out are replaced.",
+                ph = PhysicsParams(gravity = 20.0, ballCount = 2, ballRadius = 0.55, spawnOnEscape = 1, maxBalls = 24),
+                rules = listOf(rule(AnomalyType.RING_BREAK, AnomalyTrigger.DOWNBEAT, every = 8, params = mapOf("seconds" to 0.5f)))),
+            c("circle.chaos", "Circle — Chaos", "Seeded anomaly soup: gaps, gravity, growth, duplication and bursts driven by the song.",
+                ph = PhysicsParams(gravity = 18.0, ballCount = 2, ballRadius = 0.5, maxBalls = 90, spawnOnEscape = 1, ballCollisions = true),
+                rules = listOf(
+                    rule(AnomalyType.GRAVITY_ROTATE, AnomalyTrigger.DOWNBEAT, p = 0.5),
+                    rule(AnomalyType.GAP_OPEN, AnomalyTrigger.DOWNBEAT, every = 4, p = 0.6, max = 3),
+                    rule(AnomalyType.GAP_CLOSE, AnomalyTrigger.DOWNBEAT, every = 6, p = 0.6),
+                    rule(AnomalyType.GAP_ROTATE, AnomalyTrigger.DOWNBEAT, every = 5),
+                    rule(AnomalyType.SPLIT_BALL, AnomalyTrigger.MAJOR_EVENT, every = 3, p = 0.7),
+                    rule(AnomalyType.CHAOS_BURST, AnomalyTrigger.DOWNBEAT, every = 8),
+                    rule(AnomalyType.COLOR_SHIFT, AnomalyTrigger.DOWNBEAT, every = 2),
+                    rule(AnomalyType.RESTITUTION_CHANGE, AnomalyTrigger.COLLISION, every = 50),
+                    rule(AnomalyType.SPEED_UP, AnomalyTrigger.BEAT, every = 16, params = mapOf("amount" to 0.1f)),
+                    rule(AnomalyType.SLOW_DOWN, AnomalyTrigger.BEAT, every = 24, params = mapOf("amount" to 0.1f)),
+                ),
+                vis = VisualParams(palette = "circle_night", trailOpacity = 0.45, trailLengthSec = 0.3, bloom = 0.6, particles = 0.8, showStats = true)),
+            c("circle.sandbox", "Circle — Sandbox", "No song needed: tap inside the ring to add balls; collisions play notes.",
+                gen = GenerationParams(mode = "generative"),
+                ph = PhysicsParams(gravity = 20.0, ballRadius = 0.55, ballCollisions = true, maxBalls = 80)),
+        )
+    }
 
     private fun arch() = listOf(
         Preset(

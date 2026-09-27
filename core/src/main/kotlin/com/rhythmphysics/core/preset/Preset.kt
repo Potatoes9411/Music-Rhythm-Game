@@ -120,6 +120,8 @@ data class VisualParams(
     val ghostTrail: Boolean = false,
     /** Hit surfaces keep a tint of the note color ("course memory"). */
     val surfaceMemoryTint: Boolean = true,
+    /** Shows counters (balls, hits, escapes) under the ring — common in circle-chaos videos. */
+    val showStats: Boolean = false,
 )
 
 @Serializable
