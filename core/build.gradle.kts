@@ -34,3 +34,11 @@ tasks.test {
     }
     systemProperty("rp.artifacts", rootProject.file("artifacts").absolutePath)
 }
+
+tasks.test {
+    System.getProperty("rp.probe")?.let {
+        systemProperty("rp.probe", it)
+        testLogging.showStandardStreams = true
+        outputs.upToDateWhen { false }
+    }
+}
