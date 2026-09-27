@@ -235,7 +235,7 @@ class PlatformMechanic : MechanicController {
         val bpx = (planner.ballRadius * ppu * vis.heroSize).toFloat()
         // Shadow of the marble on the wall (light from the upper left).
         val shOff = ppu * 0.35f
-        if (look != "neon") dl.circle(cam.sx(ball.x) + shOff, cam.sy(ball.y) + shOff * 1.3f, bpx * 1.05f, 0x33000000)
+        if (look != "neon") for (k in 4 downTo 0) dl.circle(cam.sx(ball.x) + shOff * (0.9f + k * 0.1f), cam.sy(ball.y) + shOff * (1.2f + k * 0.12f), bpx * (0.95f + k * 0.12f), 0x14000000)
         for (i in cs.indices) {
             val c = cs[i]
             val age = t - c.timeSec
