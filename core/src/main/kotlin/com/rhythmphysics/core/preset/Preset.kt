@@ -122,6 +122,8 @@ data class VisualParams(
     val surfaceMemoryTint: Boolean = true,
     /** Shows counters (balls, hits, escapes) under the ring — common in circle-chaos videos. */
     val showStats: Boolean = false,
+    /** Carved-route styles: corridor width in hero sizes. */
+    val carveWidth: Double = 1.7,
 )
 
 @Serializable

@@ -170,6 +170,7 @@ class SquareMechanic : MechanicController {
         }
 
         dl.pushClip(vp.x, vp.y, vp.w, vp.h)
+        if (vis.background == "carved") { renderCarved(dl, vp, t, rs); dl.popClip(); return }
         drawBackground(dl, vp, t, light)
 
         val heroPos = planner.positionAt(t)
@@ -211,6 +212,70 @@ class SquareMechanic : MechanicController {
             }
         }
         dl.popClip()
+    }
+
+    /**
+     * MIDI-Playground look: a solid field with the route carved out of it. Every position the square
+     * has occupied (swept as a blocky, axis-aligned corridor wider than the square) stays carved;
+     * each bounce leaves a colored tick on the corridor wall; the hero is a small outline square.
+     */
+    private fun renderCarved(dl: DrawList, vp: Viewport, t: Double, rs: RenderSettings) {
+        val vis = ctx.preset.visuals
+        dl.rect(vp.x, vp.y, vp.w, vp.h, palette.bgTop)
+        // The reference keeps the square near the middle of the frame with the carved past around it.
+        val focus = planner.positionAt(t)
+        camera.centerX = focus.x; camera.centerY = focus.y
+        val ppu = camera.pixelsPerUnit
+        val halfW = vp.w / ppu / 2 + 2; val halfH = vp.h / ppu / 2 + 2
+        val cx = camera.centerX; val cy = camera.centerY
+        val half = vis.heroSize * 0.5 * vis.carveWidth.coerceIn(1.0, 8.0) // corridor half-width in world units
+        val carve = palette.bgBottom
+        // Route points up to t: pruned history, live impacts, then the hero itself.
+        val pts = ArrayList<DoubleArray>(planner.history.size + planner.impacts.size + 2)
+        pts += doubleArrayOf(planner.positionAt(0.0).x, planner.positionAt(0.0).y)
+        for (h in planner.history) if (h[0] <= t) pts += doubleArrayOf(h[1], h[2])
+        for (imp in planner.impacts) if (imp.eventTimeSec <= t) pts += doubleArrayOf(imp.position.x, imp.position.y)
+        val hero = planner.positionAt(t)
+        pts += doubleArrayOf(hero.x, hero.y)
+        // Each segment between bounces is cut into short pieces and every piece carves its
+        // axis-aligned bounding box (inflated by the corridor half-width): straight runs where the
+        // square travels along an axis, blocky staircases on diagonals, as in the reference footage.
+        val piece = half * 1.5
+        for (i in 1 until pts.size) {
+            val ax = pts[i - 1][0]; val ay = pts[i - 1][1]; val bx = pts[i][0]; val by = pts[i][1]
+            if (maxOf(ax, bx) + half < cx - halfW || minOf(ax, bx) - half > cx + halfW ||
+                maxOf(ay, by) + half < cy - halfH || minOf(ay, by) - half > cy + halfH) continue
+            val n = kotlin.math.max(1, kotlin.math.ceil(kotlin.math.hypot(bx - ax, by - ay) / piece).toInt())
+            for (k in 0 until n) {
+                val px0 = ax + (bx - ax) * k / n; val py0 = ay + (by - ay) * k / n
+                val px1 = ax + (bx - ax) * (k + 1) / n; val py1 = ay + (by - ay) * (k + 1) / n
+                val x0 = minOf(px0, px1) - half; val x1 = maxOf(px0, px1) + half
+                val y0 = minOf(py0, py1) - half; val y1 = maxOf(py0, py1) + half
+                dl.rect(camera.sx(x0), camera.sy(y1), camera.len(x1 - x0), camera.len(y1 - y0), carve)
+            }
+        }
+        // Bounce ticks on the corridor wall (persist for the whole song).
+        val tickLen = camera.len(vis.heroSize * 0.9); val tickW = kotlin.math.max(3f, camera.len(vis.heroSize * 0.18))
+        fun tick(x: Double, y: Double, nx: Double, ny: Double, role: Int) {
+            val wx = x - nx * half; val wy = y - ny * half
+            val sx = camera.sx(wx); val sy = camera.sy(wy)
+            val col = palette.accent(role)
+            if (kotlin.math.abs(nx) > kotlin.math.abs(ny)) dl.rect(sx - tickW / 2, sy - tickLen / 2, tickW, tickLen, col)
+            else dl.rect(sx - tickLen / 2, sy - tickW / 2, tickLen, tickW, col)
+        }
+        for (h in planner.history) if (h[0] <= t) tick(h[1], h[2], h[3], h[4], h[5].toInt())
+        for (imp in planner.impacts) if (imp.eventTimeSec <= t) tick(imp.position.x, imp.position.y, imp.surfaceNormal.x, imp.surfaceNormal.y, imp.colorRole)
+        // Impact sparks.
+        val heroPx = (vis.heroSize * ppu).toFloat()
+        for (imp in planner.impacts) {
+            val age = t - imp.eventTimeSec
+            if (age < 0 || age > 0.8) continue
+            drawImpactFx(dl, imp, age, t, heroPx, rs)
+        }
+        // Hero: outline square with a soft glow.
+        val x = camera.sx(hero.x); val y = camera.sy(hero.y)
+        if (vis.bloom > 0) dl.glow(x, y, heroPx * 1.8f, palette.hero, (0.5 * vis.bloom).toFloat() * rs.bloomScale)
+        dl.rectStroke(x - heroPx / 2, y - heroPx / 2, heroPx, heroPx, kotlin.math.max(2f, heroPx * 0.16f), palette.hero)
     }
 
     private fun drawBackground(dl: DrawList, vp: Viewport, t: Double, light: Boolean) {

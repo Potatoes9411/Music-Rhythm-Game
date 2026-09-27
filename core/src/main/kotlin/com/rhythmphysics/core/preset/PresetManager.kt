@@ -120,7 +120,7 @@ object PresetManager {
                 bloom = d(v.bloom, 0.0, 1.5, 0.35),
                 particles = d(v.particles, 0.0, 3.0, 1.0),
                 impactFlash = d(v.impactFlash, 0.0, 2.0, 1.0),
-                background = if (v.background in setOf("gradient", "flat", "grid")) v.background else "gradient",
+                background = if (v.background in setOf("gradient", "flat", "grid", "carved")) v.background else "gradient",
             ),
             eventMapping = p.eventMapping.validated(),
             anomalies = p.anomalies.take(64).map { r ->

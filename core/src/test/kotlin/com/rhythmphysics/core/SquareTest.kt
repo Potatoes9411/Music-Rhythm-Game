@@ -151,6 +151,13 @@ class SquareCompositionGauntletTest {
                 val medianCov = coverages.sorted()[coverages.size / 2]
                 val medianN = counts.sorted()[counts.size / 2]
                 println("${preset.id} ${aspect.label}: minHero=%.3f medianCoverage=%.2f medianVisible=$medianN".format(minHero, medianCov))
+                if (preset.visuals.background == "carved") {
+                    // Carved-route looks follow the user-supplied midi-playground footage, where the
+                    // outline square is ~2.5-5 % of the short side inside a wide carved corridor; the
+                    // camera keeps it centred, and surfaces are wall ticks rather than pegs.
+                    assertTrue(minHero >= 0.02, "${preset.id} ${aspect.label}: hero too small ($minHero of short side)")
+                    continue
+                }
                 assertTrue(minHero >= 0.065, "${preset.id} ${aspect.label}: hero too small ($minHero of short side)")
                 assertTrue(medianCov >= 0.30, "${preset.id} ${aspect.label}: course covers only $medianCov of the frame")
                 assertTrue(medianN >= 5, "${preset.id} ${aspect.label}: only $medianN surfaces visible")

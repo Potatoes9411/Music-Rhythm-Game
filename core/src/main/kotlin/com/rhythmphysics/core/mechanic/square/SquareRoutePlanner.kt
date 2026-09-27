@@ -111,13 +111,27 @@ class SquareRoutePlanner(
     private val leashTau = 0.35
 
     /**
+     * "wander" style (carved-route looks): the camera follows the hero, so there is no lane to hold;
+     * instead the drift direction turns slowly (seeded) and the route roams in every direction.
+     */
+    private val wander = gen.style == "wander"
+    private val wanderPhase = SeededRng.stream(seed, "square.wander").nextDouble() * 2 * Math.PI
+
+    fun driftAt(t: Double): Vec2 {
+        if (!wander) return driftVec
+        val a = wanderPhase + (t - startTime) * 0.13 + 0.9 * sin((t - startTime) * 0.041)
+        return Vec2(cos(a) * gen.drift, sin(a) * gen.drift)
+    }
+
+    /**
      * Portrait: the leash holds a gently swaying lane across the short axis and only follows the
      * route lazily along the scroll axis, so the course zig-zags *down* the tall frame (never a
      * sideways band). Landscape mirrors this; 1:1 follows on both axes.
      */
     private fun advanceLeash(leash: Vec2, target: Vec2, dt: Double, t: Double): Vec2 {
         val lambda = 1 - kotlin.math.exp(-dt / leashTau)
-        val free = leash + (target - leash) * lambda + driftVec * dt
+        val free = leash + (target - leash) * lambda + driftAt(t) * dt
+        if (wander) return free
         val u = t - startTime
         return when {
             aspect > 1.25f -> Vec2(free.x, frameH * 0.10 * sin(u * 0.29))
@@ -128,8 +142,8 @@ class SquareRoutePlanner(
     /** Framing center at time t (interpolated leash). */
     fun anchor(t: Double): Vec2 {
         if (impacts.isEmpty() || t <= impacts[0].eventTimeSec) {
-            val f = impacts.firstOrNull() ?: return startPos + driftVec * (t - startTime)
-            return f.leash + driftVec * (t - f.eventTimeSec)
+            val f = impacts.firstOrNull() ?: return startPos + driftAt(t) * (t - startTime)
+            return f.leash + driftAt(t) * (t - f.eventTimeSec)
         }
         var lo = 0; var hi = impacts.size - 1
         while (lo < hi) { val mid = (lo + hi + 1) ushr 1; if (impacts[mid].eventTimeSec <= t) lo = mid else hi = mid - 1 }
@@ -139,7 +153,7 @@ class SquareRoutePlanner(
             val u = (t - a.eventTimeSec) / (b.eventTimeSec - a.eventTimeSec)
             return a.leash + (b.leash - a.leash) * u
         }
-        return a.leash + driftVec * (t - a.eventTimeSec)
+        return a.leash + driftAt(t) * (t - a.eventTimeSec)
     }
 
     private fun initialSpeed(): Double {
@@ -167,10 +181,21 @@ class SquareRoutePlanner(
     }
 
     /** Drops impacts that can no longer be seen or constrain planning. */
+    /**
+     * Compact record of pruned impacts (time, x, y, normal x, normal y, color role) so styles that
+     * show the whole route so far (carved corridors, stamp trails) survive pruning and checkpoints.
+     */
+    val history = ArrayList<DoubleArray>()
+
     fun prune(now: Double) {
         val cutoff = now - lifeSec - futureSec - 2.0
         var n = 0
         while (n < impacts.size - 2 && impacts[n].eventTimeSec < cutoff) n++
+        for (k in 0 until n) {
+            val p = impacts[k]
+            history += doubleArrayOf(p.eventTimeSec, p.position.x, p.position.y, p.surfaceNormal.x, p.surfaceNormal.y, p.colorRole.toDouble())
+        }
+        if (history.size > MAX_HISTORY) history.subList(0, history.size - MAX_HISTORY).clear()
         if (n > 0) impacts.subList(0, n).clear()
     }
 
@@ -203,7 +228,7 @@ class SquareRoutePlanner(
         val out = ArrayList<Candidate>(10)
         val sx = sign(fromVel.x); val sy = sign(fromVel.y)
         val leashK = advanceLeash(curLeash, p, dt, e.timeSec)
-        val driftDir = driftVec.normalized()
+        val driftDir = driftAt(e.timeSec).normalized()
         val distIn = (fromVel * dt).length
         for (axis in BounceAxis.values()) {
             val normal: Vec2; val newDir: Vec2
@@ -219,7 +244,7 @@ class SquareRoutePlanner(
                     Rect.centered(p.x + sx * (half + thickness / 2), p.y + offsetY * slide, thickness, pegLen)
                 else Rect.centered(p.x + offsetX * slide, p.y + sy * (half + thickness / 2), pegLen, thickness)
                 val end = p + newDir * len
-                val a = leashK + driftVec * nextDt
+                val a = leashK + driftAt(e.timeSec) * nextDt
                 val ex = (end.x - a.x) / rx; val ey = (end.y - a.y) / ry
                 // Flat inside the framed region (the route may use the whole width), rising near edges.
                 val framing = maxOf(0.0, sqrt(ex * ex + ey * ey) - 0.55) * 3.0
@@ -273,7 +298,7 @@ class SquareRoutePlanner(
             if (segmentHitsRect(c.pos, end, half + 0.05, o.surfaceRect)) { rejects[3]++; return false }
         }
         // (d) stay framed.
-        val a = c.leash + driftVec * nextDt
+        val a = c.leash + driftAt(e.timeSec) * nextDt
         val ex = (end.x - a.x) / rx; val ey = (end.y - a.y) / ry
         val limit = if (strictFraming) 1.25 else 2.2
         if (ex * ex + ey * ey > limit * limit) { rejects[4]++; return false }
@@ -400,6 +425,8 @@ class SquareRoutePlanner(
         w.d(lastPos.x); w.d(lastPos.y); w.d(lastVel.x); w.d(lastVel.y); w.d(lastTime)
         w.i(lastAxis?.ordinal ?: -1)
         w.d(lastLeash.x); w.d(lastLeash.y)
+        w.i(history.size)
+        for (h in history) for (v in h) w.d(v)
         w.i(impacts.size)
         for (p in impacts) {
             w.i(p.index); w.l(p.eventId); w.d(p.eventTimeSec); w.d(p.position.x); w.d(p.position.y)
@@ -415,6 +442,8 @@ class SquareRoutePlanner(
         lastPos = Vec2(r.d(), r.d()); lastVel = Vec2(r.d(), r.d()); lastTime = r.d()
         lastAxis = r.i().let { if (it < 0) null else BounceAxis.values()[it] }
         lastLeash = Vec2(r.d(), r.d())
+        history.clear()
+        repeat(r.i()) { history += DoubleArray(6) { r.d() } }
         impacts.clear()
         repeat(r.i()) {
             val index = r.i(); val id = r.l(); val t = r.d(); val pos = Vec2(r.d(), r.d())
@@ -428,6 +457,8 @@ class SquareRoutePlanner(
     }
 
     companion object {
+        const val MAX_HISTORY = 4000
+
         /** Liang-Barsky: does segment a->b, inflated by [inflate], intersect [r]? */
         fun segmentHitsRect(a: Vec2, b: Vec2, inflate: Double, r: Rect): Boolean {
             val x0 = r.x - inflate; val x1 = r.right + inflate
@@ -448,4 +479,5 @@ class SquareRoutePlanner(
             return t0 <= t1
         }
     }
+
 }
