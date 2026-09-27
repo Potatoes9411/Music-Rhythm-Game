@@ -268,6 +268,7 @@ class CreatorScreen(
             "clock ${if (ae != null) "AudioTrack timestamp" else "free-running (sandbox)"}  playing ${clock.isPlaying}",
             "quality ${effectiveRender().quality.label}${thermalCap?.let { " (thermal cap ${it.label})" } ?: ""}  thermal ${thermal.label}",
             "audio mode ${scene.audioMode.label}",
+            "surface ${visualizer.surfaceSize} (x%.1f)  heap %d MB".format(visualizer.resolutionScale, (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (1024 * 1024)),
             "present lead %.1f ms  A/V offset ${visualizer.avOffsetMs} ms".format(visualizer.presentLeadMs),
         )
     }
@@ -292,8 +293,12 @@ class CreatorScreen(
         visualizer.redraw()
     }
 
+    /** Render-buffer scale per effective quality tier (visual only). */
+    private fun resolutionScaleFor(q: Quality) = when (q) { Quality.LOW -> 0.6f; Quality.MEDIUM -> 0.8f; else -> 1f }
+
     private fun pushRenderSettings() {
         val rs = effectiveRender()
+        visualizer.setResolutionScale(resolutionScaleFor(rs.quality))
         visualizer.post { visualizer.renderSettings = rs }
         visualizer.redraw()
     }

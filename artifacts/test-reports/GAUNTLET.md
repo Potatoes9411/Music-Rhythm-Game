@@ -100,6 +100,18 @@ Planned mechanics solve every contact exactly on the fixed 120 Hz step grid, so 
 | arch.bounce_curve | 173 | 0.002 | 0.000 | 0.167 | pass |
 | platform.music_ball | 173 | 0.000 | 0.000 | 0.000 | pass |
 
+## Functional matrix
+
+Each cell: play to 40 s at 60 Hz, then seek-from-scratch hash == played hash, replay round-trip hash == played hash, sync goal met, frames non-empty.
+
+| scene | MIDI 9:16 | MIDI 16:9 | AUDIO 9:16 | AUDIO 16:9 |
+|---|---|---|---|---|
+| Square | pass | pass | pass | pass |
+| Circle | pass | pass | pass | pass |
+| Arch | pass | pass | pass | pass |
+| Platform | pass | pass | pass | pass |
+| Journey | pass | pass | pass | pass |
+
 ## Determinism (state hash at t = 60 s)
 
 | scene | 60 Hz | 90 Hz | 120 Hz | 144 Hz | seek | all equal |
@@ -114,36 +126,36 @@ Planned mechanics solve every contact exactly on the fixed 120 Hz step grid, so 
 
 ## Host performance (JVM, not a device)
 
-| scene | sim µs/step | DrawList ms/frame (avg / p95) | draw cmds (avg / max) | Java2D raster ms @540×960 |
-|---|---|---|---|---|
-| square.classic | 0.8 | 0.015 / 0.051 | 185 / 201 | 13.5 |
-| square.midi_playground | 1.4 | 0.005 / 0.013 | 20 / 25 | 2.8 |
-| square.dark_minimal | 0.7 | 0.005 / 0.014 | 39 / 43 | 3.3 |
-| square.neon_trail | 0.7 | 0.008 / 0.016 | 213 / 229 | 14.9 |
-| circle.classic | 0.5 | 0.003 / 0.009 | 43 / 61 | 12.3 |
-| circle.growing_ball | 0.5 | 0.002 / 0.007 | 39 / 66 | 13.0 |
-| circle.shrinking_ring | 0.3 | 0.001 / 0.004 | 40 / 67 | 10.5 |
-| circle.grow_shrink | 0.4 | 0.003 / 0.009 | 41 / 68 | 11.2 |
-| circle.escape_gap | 67.4 | 0.006 / 0.016 | 136 / 351 | 12.8 |
-| circle.rotating_gap | 0.3 | 0.002 / 0.010 | 40 / 59 | 9.8 |
-| circle.multiplication | 80.3 | 0.005 / 0.012 | 152 / 401 | 12.3 |
-| circle.gravity_chaos | 10.9 | 0.004 / 0.011 | 114 / 176 | 12.2 |
-| circle.melody_collision | 0.3 | 0.003 / 0.007 | 39 / 56 | 11.5 |
-| circle.collision_synth | 15.2 | 0.005 / 0.012 | 163 / 186 | 12.0 |
-| circle.orbit_force | 26.4 | 0.015 / 0.029 | 361 / 587 | 17.4 |
-| circle.ring_break | 8.6 | 0.005 / 0.013 | 71 / 89 | 10.4 |
-| circle.chaos | 23.9 | 0.007 / 0.015 | 195 / 376 | 12.5 |
-| circle.sandbox | 0.5 | 0.001 / 0.005 | 38 / 50 | 9.5 |
-| arch.bounce_curve | 0.4 | 0.107 / 0.172 | 569 / 690 | 19.6 |
-| arch.pillar_weave | 0.7 | 0.114 / 0.208 | 545 / 607 | 22.1 |
-| platform.music_ball | 0.3 | 0.007 / 0.019 | 123 / 136 | 9.4 |
-| platform.piano_tiles | 0.4 | 0.004 / 0.010 | 105 / 112 | 6.6 |
-| platform.staircase | 0.3 | 0.005 / 0.011 | 118 / 129 | 9.2 |
-| platform.minimal_bars | 0.3 | 0.006 / 0.014 | 64 / 67 | 2.1 |
-| platform.neon | 0.3 | 0.005 / 0.012 | 135 / 147 | 15.1 |
-| platform.block_terrain | 0.3 | 0.007 / 0.016 | 133 / 144 | 9.4 |
-| journey | 0.5 | 0.044 / 0.116 | 332 / 690 | 13.6 |
-| quad | 1.7 | 0.109 / 0.151 | 922 / 1059 | 16.3 |
+| scene | sim µs/step | DrawList ms/frame (avg / p95) | draw cmds (avg / max) | alloc bytes/frame (update+DrawList) | Java2D raster ms @540×960 |
+|---|---|---|---|---|---|
+| square.classic | 0.7 | 0.009 / 0.023 | 185 / 201 | 5782 | 13.6 |
+| square.midi_playground | 1.6 | 0.005 / 0.013 | 20 / 25 | 6617 | 2.2 |
+| square.dark_minimal | 0.6 | 0.006 / 0.015 | 39 / 43 | 4459 | 2.9 |
+| square.neon_trail | 0.8 | 0.007 / 0.015 | 213 / 229 | 5632 | 14.0 |
+| circle.classic | 0.5 | 0.002 / 0.008 | 43 / 61 | 979 | 10.7 |
+| circle.growing_ball | 0.4 | 0.001 / 0.006 | 39 / 66 | 924 | 11.4 |
+| circle.shrinking_ring | 0.4 | 0.002 / 0.006 | 40 / 67 | 940 | 12.0 |
+| circle.grow_shrink | 0.9 | 0.002 / 0.009 | 41 / 68 | 1133 | 10.1 |
+| circle.escape_gap | 58.4 | 0.006 / 0.016 | 136 / 351 | 36387 | 10.8 |
+| circle.rotating_gap | 0.3 | 0.002 / 0.009 | 40 / 59 | 1380 | 9.8 |
+| circle.multiplication | 77.3 | 0.005 / 0.013 | 152 / 401 | 49629 | 12.0 |
+| circle.gravity_chaos | 13.7 | 0.004 / 0.011 | 114 / 176 | 18321 | 11.3 |
+| circle.melody_collision | 0.4 | 0.002 / 0.007 | 39 / 56 | 982 | 11.0 |
+| circle.collision_synth | 14.4 | 0.005 / 0.011 | 163 / 186 | 29948 | 11.3 |
+| circle.orbit_force | 21.6 | 0.015 / 0.028 | 361 / 587 | 37864 | 15.7 |
+| circle.ring_break | 10.6 | 0.006 / 0.012 | 71 / 89 | 12770 | 10.5 |
+| circle.chaos | 19.8 | 0.006 / 0.015 | 195 / 376 | 49141 | 11.4 |
+| circle.sandbox | 0.3 | 0.001 / 0.006 | 38 / 50 | 937 | 8.3 |
+| arch.bounce_curve | 0.3 | 0.100 / 0.153 | 569 / 690 | 43712 | 18.7 |
+| arch.pillar_weave | 0.5 | 0.106 / 0.135 | 545 / 607 | 53812 | 19.7 |
+| platform.music_ball | 0.3 | 0.008 / 0.015 | 123 / 136 | 2662 | 10.1 |
+| platform.piano_tiles | 0.4 | 0.005 / 0.012 | 105 / 112 | 2621 | 6.8 |
+| platform.staircase | 0.3 | 0.004 / 0.011 | 118 / 129 | 2593 | 8.2 |
+| platform.minimal_bars | 0.2 | 0.006 / 0.015 | 64 / 67 | 2715 | 1.8 |
+| platform.neon | 0.3 | 0.005 / 0.012 | 135 / 147 | 2613 | 14.2 |
+| platform.block_terrain | 0.3 | 0.006 / 0.014 | 133 / 144 | 4758 | 7.7 |
+| journey | 0.4 | 0.044 / 0.123 | 332 / 690 | 24920 | 12.2 |
+| quad | 1.8 | 0.108 / 0.150 | 922 / 1059 | 52736 | 15.0 |
 
 ## Replays (export → import → verify)
 

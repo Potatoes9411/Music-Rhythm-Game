@@ -29,9 +29,10 @@ no internet, storage or microphone permission.
 | Engine, planners, physics, analysis, synth, replays | 47 JVM tests (`:core:test`) + 5 pure app-logic tests (`:app:test`) | pass |
 | Sync (logical contact vs musical event) | `desktop gauntlet`: all 26 presets × 3 aspect ratios on the demo MIDI, plus audio-driven runs | every planned contact 0.000 ms (goal: mean ≤ 5, p95 ≤ 15, max ≤ 30) |
 | Determinism | State hash at t = 60 s identical at 60/90/120/144 Hz rendering and after a seek, for Square/Circle/Arch/Platform/Journey/Duet/Quad | pass |
+| Functional matrix | Square/Circle/Arch/Platform/Journey × MIDI/audio × 9:16/16:9: play, seek-from-scratch, replay round-trip, sync goal, non-empty frames (`artifacts/test-reports/functional_matrix.json`) | 20/20 cells pass |
 | Replays | Export → import → re-simulate for 6 scenes, including sandbox taps | hashes match |
 | Audio analysis | Click track; the demo song rendered to audio and analysed blind | 120.08 BPM, onset p95 2.6 ms; 112.14 BPM (truth 112), beats 166/166, downbeats 41/44, onset precision 94 % |
-| Android app (activity, screens, dialogs, stores, loader, packaged assets) | 7 Robolectric tests (`:app:roboTest`) that drive the real `MainActivity` with native Skia graphics | pass; screenshots in `artifacts/screenshots/android/` |
+| Android app (activity, screens, dialogs, stores, loader, packaged assets, thread cleanup) | 8 Robolectric tests (`:app:roboTest`) that drive the real `MainActivity` with native Skia graphics | pass; screenshots in `artifacts/screenshots/android/` |
 | Android Canvas backend | Every preset rendered through `CanvasRenderer` (Robolectric/Skia) and compared with the Java2D reference renderer | mean difference 1.2/255, worst 4.7/255 (`artifacts/test-reports/backend_parity.csv`) |
 | minSdk 26 API safety | `:app:apiCheck`: every framework and `java.*` reference is checked against API 26 and Java 8 signatures | 0 unguarded references (this check found and fixed a real `ByteBuffer` crash on older Android) |
 | **On a real device** | **Not done.** No emulator or device was available. | **unverified**: AudioTrack latency, real touch, MediaCodec video export, performance, thermals, haptics |
@@ -75,7 +76,7 @@ times with the same renderer as the preview. They are encoded with MediaCodec (H
 muxed with MediaMuxer into a file you pick. The UI and debug overlay are never recorded.
 
 **Settings.**
-- *Visual quality:* Low, Medium, High or Ultra. This affects visuals only, never timing or physics.
+- *Visual quality:* Low, Medium, High or Ultra. Low and Medium also render at 60 % and 80 % resolution. Quality affects visuals only, never timing or physics, and a hot device is capped automatically (thermal status, API 29+).
 - *Accessibility:* reduced flash, reduced motion, disable camera shake, reduced bloom, reduced
   particles.
 - *Timing:* an optional visual offset for outputs that misreport latency.

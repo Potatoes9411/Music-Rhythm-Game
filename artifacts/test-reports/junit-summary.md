@@ -61,21 +61,22 @@
 
 | class | test | s | result |
 |---|---|---|---|
-| PureLogicTest | snifferNeverTreatsAudioAsMidi() | 0.06 | pass |
+| PureLogicTest | snifferNeverTreatsAudioAsMidi() | 0.04 | pass |
 | PureLogicTest | clockIsMonotonicAndFollowsTheDevice() | 0.01 | pass |
 | PureLogicTest | collisionLayerNotes() | 0.00 | pass |
-| PureLogicTest | thermalCapOnlyLowersQuality() | 0.01 | pass |
-| PureLogicTest | letterboxAndPts() | 0.02 | pass |
+| PureLogicTest | thermalCapOnlyLowersQuality() | 0.00 | pass |
+| PureLogicTest | letterboxAndPts() | 0.01 | pass |
 
-## app on Robolectric (:app:roboTest): 7/7 passed
+## app on Robolectric (:app:roboTest): 8/8 passed
 
 | class | test | s | result |
 |---|---|---|---|
-| AppFlowTest | demoSongCreatorWorkflow | 12.54 | pass |
-| AppFlowTest | homeScreenLaunches | 0.22 | pass |
-| AppFlowTest | importedFilesAreRoutedByContentNotName | 2.49 | pass |
-| AppFlowTest | bundledSoundFontIsPackagedAsAsset | 0.37 | pass |
-| AppFlowTest | sandboxIsCircleOnlyAndRecordsTaps | 1.01 | pass |
-| AppFlowTest | landscapeCreatorUsesSidePanel | 3.26 | pass |
-| CanvasBackendTest | everyPresetRendersThroughAndroidCanvas | 4.76 | pass |
+| AppFlowTest | demoSongCreatorWorkflow | 12.08 | pass |
+| AppFlowTest | homeScreenLaunches | 0.18 | pass |
+| AppFlowTest | importedFilesAreRoutedByContentNotName | 2.56 | pass |
+| AppFlowTest | bundledSoundFontIsPackagedAsAsset | 0.21 | pass |
+| AppFlowTest | openingAndClosingTheCreatorDoesNotLeakThreads | 0.82 | pass |
+| AppFlowTest | sandboxIsCircleOnlyAndRecordsTaps | 0.85 | pass |
+| AppFlowTest | landscapeCreatorUsesSidePanel | 3.30 | pass |
+| CanvasBackendTest | everyPresetRendersThroughAndroidCanvas | 4.29 | pass |
 

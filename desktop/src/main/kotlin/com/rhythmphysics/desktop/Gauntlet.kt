@@ -54,7 +54,8 @@ object Gauntlet {
             "Device-only behaviour (AudioTrack latency, display presentation, MediaCodec, thermals) is **not** measured here.\n\n")
         val demo = Scenes.demoSession()
         sync(out, demo, md)
-        audio(out, demo.midi!!, soundFont, md)
+        val audioSession = audio(out, demo.midi!!, soundFont, md)
+        functionalMatrix(out, demo, audioSession, md)
         determinism(out, demo, md)
         perf(out, demo, md)
         replays(out, demo, md)
@@ -115,7 +116,8 @@ object Gauntlet {
         return a.finish()
     }
 
-    private fun audio(out: File, midi: MidiFile, sfFile: File?, md: StringBuilder) {
+    private fun audio(out: File, midi: MidiFile, sfFile: File?, md: StringBuilder): RhythmSession? {
+        var audioSession: RhythmSession? = null
         md.append("## Audio analysis\n\n")
         // Click track with known ground truth.
         val sr = 44100; val bpm = 120.0; val secs = 32.0; val offset = 0.25
@@ -170,6 +172,7 @@ object Gauntlet {
                 .format(an.bpm, beatsMatched, truth.size, dbMatched, an.downbeatTimes.size, 100.0 * precise / an.onsets.size.coerceAtLeast(1), an.keyPitchClass))
             // Audio-driven planned mechanics.
             val session = RhythmSession("audio-demo", "file://demo.wav", "audio-demo-fp", MediaType.AUDIO, "Orbit Lines (audio)", WavReader.readInfo(wav).durationSec, AudioEventSource(an), analysis = an)
+            audioSession = session
             val rows = ArrayList<JsonObject>()
             md.append("\n| audio-driven preset | contacts | mean ms | p95 ms | max ms | goal |\n|---|---|---|---|---|---|\n")
             for (type in MechanicType.values()) {
@@ -188,6 +191,52 @@ object Gauntlet {
             demoJson?.let { put("demoAudio", it) }
         })
         audioSync?.let { write(File(out, "sync/sync_audio_driven.json"), buildJsonObject { put("runs", it) }) }
+        md.append("\n")
+        return audioSession
+    }
+
+    // ---- functional matrix ---------------------------------------------------------------------------
+    /**
+     * Every cell is actually run: progressive play to T, then (a) seek from a fresh engine to T gives
+     * the identical state, (b) replay export/import/re-simulate gives the identical state, (c) planned
+     * contacts meet the sync goal, (d) frames render real content.
+     */
+    private fun functionalMatrix(out: File, midiSession: RhythmSession, audioSession: RhythmSession?, md: StringBuilder) {
+        md.append("## Functional matrix\n\nEach cell: play to 40 s at 60 Hz, then seek-from-scratch hash == played hash, replay round-trip hash == played hash, sync goal met, frames non-empty.\n\n")
+        md.append("| scene | MIDI 9:16 | MIDI 16:9 | AUDIO 9:16 | AUDIO 16:9 |\n|---|---|---|---|---|\n")
+        val scenes = MechanicType.values().map { it.label to { a: AspectRatio -> SceneConfig(seed = 21, aspect = a, focus = it) } } +
+            listOf("Journey" to { a: AspectRatio -> SceneConfig(seed = 21, aspect = a, viewMode = ViewMode.JOURNEY) })
+        val sessions = listOfNotNull("MIDI" to midiSession, audioSession?.let { "AUDIO" to it })
+        val rows = ArrayList<JsonObject>()
+        for ((name, make) in scenes) {
+            val cells = ArrayList<String>()
+            for ((src, session) in sessions) for (aspect in listOf(AspectRatio.PORTRAIT_9_16, AspectRatio.LANDSCAPE_16_9)) {
+                val cfg = make(aspect)
+                val T = 40.0
+                val e = RhythmEngine(session, cfg)
+                val dl = DrawList(); var minCmds = Int.MAX_VALUE
+                var t = 0.0
+                while (t < T) { e.update(t); if ((t * 60).toInt() % 30 == 0) { e.render(dl, RenderSettings()); minCmds = minOf(minCmds, dl.commandCount) }; t += 1.0 / 60 }
+                e.update(T)
+                val played = e.stateHash()
+                val seek = RhythmEngine(session, cfg).let { s -> s.seek(T); s.stateHash().also { s.dispose() } }
+                val recipe = ReplayManager.import(ReplayManager.export(ReplayManager.create(e)))
+                val replay = ReplayManager.engineFor(recipe, session).let { r -> r.seek(T); r.stateHash().also { r.dispose() } }
+                val st = e.sync.stats()
+                val ok = played == seek && played == replay && st.passesPlannedGoal && minCmds > 3
+                rows += buildJsonObject {
+                    put("scene", name); put("source", src); put("aspect", aspect.label)
+                    put("seekMatches", played == seek); put("replayMatches", played == replay)
+                    put("syncContacts", st.count); put("syncMaxMs", r(st.maxAbsMs, 4)); put("syncGoal", st.passesPlannedGoal)
+                    put("minDrawCommands", minCmds); put("pass", ok)
+                }
+                cells += if (ok) "pass" else "**FAIL**"
+                e.dispose()
+            }
+            if (sessions.size == 1) { cells += "n/a"; cells += "n/a" }
+            md.append("| $name | ${cells.joinToString(" | ")} |\n")
+        }
+        write(File(out, "test-reports/functional_matrix.json"), buildJsonObject { put("cells", JsonArray(rows)) })
         md.append("\n")
     }
 
@@ -217,7 +266,9 @@ object Gauntlet {
 
     // ---- perf (host) -----------------------------------------------------------------------------------
     private fun perf(out: File, demo: RhythmSession, md: StringBuilder) {
-        md.append("## Host performance (JVM, not a device)\n\n| scene | sim µs/step | DrawList ms/frame (avg / p95) | draw cmds (avg / max) | Java2D raster ms @540×960 |\n|---|---|---|---|---|\n")
+        md.append("## Host performance (JVM, not a device)\n\n| scene | sim µs/step | DrawList ms/frame (avg / p95) | draw cmds (avg / max) | alloc bytes/frame (update+DrawList) | Java2D raster ms @540×960 |\n|---|---|---|---|---|---|\n")
+        val mx = java.lang.management.ManagementFactory.getThreadMXBean() as com.sun.management.ThreadMXBean
+        val tid = Thread.currentThread().id
         val scenes = PresetManager.builtIns.map { it.id to SceneConfig(seed = 1337, focus = it.mechanic, presetIds = mapOf(it.mechanic to it.id)) } +
             listOf("journey" to SceneConfig(seed = 1337, viewMode = ViewMode.JOURNEY), "quad" to SceneConfig(seed = 1337, viewMode = ViewMode.QUAD))
         val rows = ArrayList<JsonObject>()
@@ -233,10 +284,13 @@ object Gauntlet {
             val e = RhythmEngine(demo, cfg)
             val dl = DrawList()
             val buildMs = ArrayList<Double>(); val cmds = ArrayList<Int>(); val rasterMs = ArrayList<Double>()
+            var allocBytes = 0L; var allocFrames = 0
             var t = 0.0; var frame = 0
             while (t < 40.0) {
+                val a0 = mx.getThreadAllocatedBytes(tid)
                 e.update(t)
                 val b0 = System.nanoTime(); e.render(dl, rs); val b1 = System.nanoTime()
+                if (t > 10.0) { allocBytes += mx.getThreadAllocatedBytes(tid) - a0; allocFrames++ }
                 if (t > 2.0) { buildMs += (b1 - b0) / 1e6; cmds += dl.commandCount }
                 if (frame % 20 == 0 && t > 2.0) {
                     val r0 = System.nanoTime(); Java2DRenderer(540, 960).render(dl); rasterMs += (System.nanoTime() - r0) / 1e6
@@ -248,8 +302,9 @@ object Gauntlet {
             rows += buildJsonObject {
                 put("scene", name); put("simMicrosPerStep", r(usPerStep, 2)); put("drawListMsAvg", r(bs.average(), 3)); put("drawListMsP95", r(pct(bs, 0.95), 3))
                 put("drawCommandsAvg", r(cmds.average(), 1)); put("drawCommandsMax", cmds.maxOrNull() ?: 0); put("java2dRasterMsAvg", r(rasterMs.average(), 2))
+                put("allocBytesPerFrame", allocBytes / allocFrames.coerceAtLeast(1))
             }
-            md.append("| $name | ${"%.1f".format(usPerStep)} | ${"%.3f / %.3f".format(bs.average(), pct(bs, 0.95))} | ${"%.0f / %d".format(cmds.average(), cmds.maxOrNull() ?: 0)} | ${"%.1f".format(rasterMs.average())} |\n")
+            md.append("| $name | ${"%.1f".format(usPerStep)} | ${"%.3f / %.3f".format(bs.average(), pct(bs, 0.95))} | ${"%.0f / %d".format(cmds.average(), cmds.maxOrNull() ?: 0)} | ${allocBytes / allocFrames.coerceAtLeast(1)} | ${"%.1f".format(rasterMs.average())} |\n")
         }
         write(File(out, "perf/host_perf.json"), buildJsonObject {
             put("host", "${System.getProperty("os.name")} ${System.getProperty("os.arch")}, ${Runtime.getRuntime().availableProcessors()} cpus, Java ${System.getProperty("java.version")}")

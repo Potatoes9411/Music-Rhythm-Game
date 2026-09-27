@@ -178,6 +178,7 @@ class AppFlowTest {
         val sroot = settings.window!!.decorView
         click(sroot, "Low")
         assertEquals(Quality.LOW, cs.userRender.quality)
+        assertEquals("Low renders a smaller buffer", 0.6f, cs.visualizer.resolutionScale, 1e-6f)
         click(sroot, "Reduced flash")
         assertTrue(cs.userRender.reducedFlash)
         click(sroot, "Song + collision sounds")
@@ -301,5 +302,21 @@ class AppFlowTest {
         captureCreator(act, cs, 21.0, "screenshots/android/creator_square_landscape.png")
         click(act.window.decorView, "Arch"); waitReady(cs, "arch")
         captureCreator(act, cs, 21.0, "screenshots/android/creator_arch_landscape.png")
+    }
+
+    @Test
+    fun openingAndClosingTheCreatorDoesNotLeakThreads() {
+        val act = Robolectric.buildActivity(MainActivity::class.java).setup().get()
+        fun appThreads() = Thread.getAllStackTraces().keys.filter { it.isAlive && it.name.startsWith("rp-") }.map { it.name }
+        val before = appThreads()
+        repeat(4) {
+            click(act.window.decorView, "Sandbox")
+            waitUntil(60_000, "sandbox open") { act.creatorScreen?.engineReady == true }
+            clickDesc(act.window.decorView, "Play")
+            RoboSupport.idle(100)
+            act.onBackPressed(); shadowOf(Looper.getMainLooper()).idle()
+            assertNull(act.creatorScreen)
+        }
+        waitUntil(5_000, "render threads stopped: ${appThreads()}") { appThreads().size <= before.size }
     }
 }

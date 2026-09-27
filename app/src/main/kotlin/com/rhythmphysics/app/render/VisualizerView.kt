@@ -57,6 +57,31 @@ class VisualizerView(context: Context) : SurfaceView(context), SurfaceHolder.Cal
     /** Last presentation lead applied (ms), for the debug overlay. */
     @Volatile var presentLeadMs = 0.0; private set
     private var vsyncNanos = 16_666_667L
+    /** Render-buffer scale (quality/thermal lever); the display hardware scales it to the view. */
+    var resolutionScale = 1f
+        private set
+    /** Current surface buffer size (debug overlay). */
+    val surfaceSize: String get() = "${surfaceW}x${surfaceH}"
+
+    /** Main thread. Shrinks the surface buffer below the view size (1 = native resolution). */
+    fun setResolutionScale(scale: Float) {
+        val sc = scale.coerceIn(0.4f, 1f)
+        if (sc == resolutionScale) return
+        resolutionScale = sc
+        applyFixedSize()
+    }
+
+    private fun applyFixedSize() {
+        if (width <= 0 || height <= 0) return
+        if (resolutionScale >= 0.999f) holder.setSizeFromLayout()
+        else holder.setFixedSize((width * resolutionScale).toInt().coerceAtLeast(1), (height * resolutionScale).toInt().coerceAtLeast(1))
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        // After layout (the view's own post, not the render-thread [post]).
+        if (resolutionScale < 0.999f) super.post(Runnable { applyFixedSize() })
+    }
 
     init {
         holder.addCallback(this)
@@ -168,11 +193,13 @@ class VisualizerView(context: Context) : SurfaceView(context), SurfaceHolder.Cal
             return true
         }
         if (ev.actionMasked != MotionEvent.ACTION_DOWN) return true
-        val x = ev.x; val y = ev.y
+        // View pixels -> surface buffer pixels (the buffer may be smaller than the view).
+        val vw = width.coerceAtLeast(1).toFloat(); val vh = height.coerceAtLeast(1).toFloat()
+        val fx = ev.x / vw; val fy = ev.y / vh
         post {
             val e = engine ?: return@post
             val box = Letterbox.fit(e.frame.w, e.frame.h, surfaceW.toFloat(), surfaceH.toFloat())
-            onTap?.invoke(e, box.toFrameX(x), box.toFrameY(y))
+            onTap?.invoke(e, box.toFrameX(fx * surfaceW), box.toFrameY(fy * surfaceH))
         }
         return true
     }
