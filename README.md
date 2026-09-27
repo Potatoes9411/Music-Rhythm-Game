@@ -200,8 +200,7 @@ build. Nothing in the code depends on the custom pipeline.
 - No R8/ProGuard shrinking (it ships with the Android Gradle Plugin). The APK is about 30 MB,
   nearly all of it the bundled 31 MB SoundFont, which barely compresses.
 - Looks were matched to still frames the user supplied, not to the videos, so motion details
-  (camera timing, trail dynamics) are approximations. Platform shadows are hard-edged where the
-  studio references have soft ones. The two negative screenshots described in the brief
+  (camera timing, trail dynamics) are approximations. The two negative screenshots described in the brief
   never arrived. Their failure modes (tiny hero, dead canvas, cage, compressed Arch course,
   overwhelming trail) are covered by composition tests rather than image comparisons.
 - Real-world audio testing used the demo song rendered through the SoundFont. Downloading

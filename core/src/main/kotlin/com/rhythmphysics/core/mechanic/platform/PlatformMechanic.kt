@@ -269,8 +269,11 @@ class PlatformMechanic : MechanicController {
             }
             // Soft drop shadow on the wall.
             if (look != "neon") {
-                dl.rectCentered(sx + shOff * 1.4f, sy + shOff * 1.9f, wp * 1.02f, hp * 1.6f, 0x2A000000, hp * 0.5f, deg)
-                dl.rectCentered(sx + shOff * 1.1f, sy + shOff * 1.4f, wp, hp * 1.2f, 0x22000000, hp * 0.4f, deg)
+                // Soft penumbra: stacked, growing, fainter layers (the references use soft area lights).
+                for (k in 4 downTo 0) {
+                    val g = 1f + k * 0.28f
+                    dl.rectCentered(sx + shOff * (1.2f + k * 0.15f), sy + shOff * (1.6f + k * 0.2f), wp * (1f + k * 0.05f), hp * g * 1.3f, 0x12000000, hp * g * 0.6f, deg)
+                }
             }
             when (look) {
                 "neon", "stones" -> {
@@ -279,7 +282,16 @@ class PlatformMechanic : MechanicController {
                     dl.rectCentered(sx, sy, wp, hp, Colors.withAlpha(Colors.scale(base, 0.25f), 0.85f), hp * 0.25f, deg)
                     dl.rectStroke(sx - wp / 2, sy - hp / 2, wp, hp, max(1.5f, hp * 0.22f), Colors.lerp(base, Colors.WHITE, 0.5f * lit), hp * 0.25f, deg)
                 }
-                else -> {
+                else -> if (look == "marble" && i % 3 == 0) {
+                    // Percussion tube: saturated cylinder with a dark open end facing the viewer.
+                    val tubeCols = intArrayOf(0xFFFF5A2A.toInt(), 0xFFF5B82A.toInt(), 0xFF3DBB47.toInt(), 0xFF2F7FE0.toInt(), 0xFF9A5AD8.toInt(), 0xFFFF7FB0.toInt())
+                    val tc = tubeCols[(c.note ?: i) % tubeCols.size]
+                    dl.rectCentered(sx, sy, wp, hp * 1.9f, Colors.scale(tc, 0.75f), hp * 0.95f, deg)
+                    dl.rectCentered(sx, sy - hp * 0.2f, wp * 0.97f, hp * 1.3f, Colors.lerp(tc, palette.surfaceLit, 0.4f * lit), hp * 0.65f, deg)
+                    val ex = (sx - kotlin.math.cos(Math.toRadians(deg.toDouble())) * wp / 2).toFloat()
+                    val ey = (sy - kotlin.math.sin(Math.toRadians(deg.toDouble())) * wp / 2).toFloat()
+                    dl.circle(ex, ey, hp * 0.95f, Colors.scale(tc, 0.85f)); dl.circle(ex, ey, hp * 0.6f, 0xFF1A1414.toInt())
+                } else {
                     val bevel = Colors.scale(base, 0.72f)
                     val topC = Colors.lerp(base, palette.surfaceLit, 0.45f * lit)
                     // Thickness side (toward the viewer's lower right), then the lit face.
