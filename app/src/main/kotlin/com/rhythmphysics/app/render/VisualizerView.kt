@@ -42,6 +42,8 @@ class VisualizerView(context: Context) : SurfaceView(context), SurfaceHolder.Cal
     /** Tap in creator-frame coordinates (sandbox input), delivered on the render thread. */
     var onTap: ((RhythmEngine, Float, Float) -> Unit)? = null
     var tapEnabled = false
+    /** Tap when sandbox input is off (e.g. leave clean view). Main thread. */
+    var onPlainTap: (() -> Unit)? = null
 
     private var lastFrameNanos = 0L
 
@@ -60,6 +62,9 @@ class VisualizerView(context: Context) : SurfaceView(context), SurfaceHolder.Cal
     }
 
     fun withEngine(block: (RhythmEngine) -> Unit) = post { engine?.let(block) }
+
+    /** Like [withEngine] but always calls back (null when no engine is attached yet). */
+    fun query(block: (RhythmEngine?) -> Unit) = post { block(engine) }
 
     fun resume() { active = true; schedule() }
     fun pauseRendering() { active = false }
@@ -123,7 +128,12 @@ class VisualizerView(context: Context) : SurfaceView(context), SurfaceHolder.Cal
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(ev: MotionEvent): Boolean {
-        if (!tapEnabled || ev.actionMasked != MotionEvent.ACTION_DOWN) return super.onTouchEvent(ev)
+        if (!tapEnabled) {
+            val plain = onPlainTap ?: return super.onTouchEvent(ev)
+            if (ev.actionMasked == MotionEvent.ACTION_UP) { performClick(); plain() }
+            return true
+        }
+        if (ev.actionMasked != MotionEvent.ACTION_DOWN) return true
         val x = ev.x; val y = ev.y
         post {
             val e = engine ?: return@post

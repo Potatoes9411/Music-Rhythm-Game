@@ -77,6 +77,14 @@ fun main(args: Array<String>) {
             val e = Scenes.engine(Scenes.demoSession(), args[1], aspect)
             Scenes.save(Scenes.frame(e, args[3].toDouble()), File(args.getOrElse(4) { "artifacts/tmp/frame.png" }))
         }
+        "batch" -> {
+            // batch <list-file>; each line: <preset> <aspect> <time> <out.png>  (one JVM for many frames)
+            File(args[1]).readLines().map { it.trim() }.filter { it.isNotEmpty() && !it.startsWith("#") }.forEach { line ->
+                val (preset, asp, t, out) = line.split(Regex("\\s+"))
+                val aspect = when (asp) { "16x9" -> AspectRatio.LANDSCAPE_16_9; "1x1" -> AspectRatio.SQUARE_1_1; else -> AspectRatio.PORTRAIT_9_16 }
+                Scenes.save(Scenes.frame(Scenes.engine(Scenes.demoSession(), preset, aspect), t.toDouble()), File(out))
+            }
+        }
         "sheet" -> {
             // sheet <preset> <aspect> <t0> <dt> <n> <file> [debug]
             val aspect = when (args[2]) { "16x9" -> AspectRatio.LANDSCAPE_16_9; "1x1" -> AspectRatio.SQUARE_1_1; else -> AspectRatio.PORTRAIT_9_16 }

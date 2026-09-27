@@ -45,6 +45,9 @@ class SoundFontProvider(private val context: Context) {
         return key to sf
     }
 
+    /** Drops the parsed SoundFont (memory pressure); it is re-read on next use. */
+    fun release() { cached = null }
+
     fun importUser(input: InputStream) {
         userFile.parentFile?.mkdirs()
         val tmp = File(userFile.path + ".tmp")
@@ -74,9 +77,9 @@ class SessionLoader(private val context: Context, private val soundFonts: SoundF
     }
 
     /** Keeps read access across restarts when the provider allows it (recent files). */
-    fun persistPermission(uri: Uri) {
-        try { context.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION) } catch (_: SecurityException) {}
-    }
+    fun persistPermission(uri: Uri): Boolean = try {
+        context.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION); true
+    } catch (_: SecurityException) { false }
 
     private fun fingerprint(uri: Uri): Pair<String, ByteArray> {
         val md = MessageDigest.getInstance("SHA-256")
@@ -104,6 +107,8 @@ class SessionLoader(private val context: Context, private val soundFonts: SoundF
                 val bytes = context.contentResolver.openInputStream(uri)!!.use { it.readBytes() }
                 loadMidi(bytes, fp, name.substringBeforeLast('.'), uri.toString(), progress, cancelled)
             }
+            kind == MediaKind.UNKNOWN && ((context.contentResolver.getType(uri) ?: "").contains("midi") || name.lowercase().let { it.endsWith(".mid") || it.endsWith(".midi") }) ->
+                throw IOException("This file is labelled as MIDI but has no MIDI header (MThd); it may be corrupt or not a Standard MIDI File.")
             kind == MediaKind.UNKNOWN && !(context.contentResolver.getType(uri) ?: "").startsWith("audio") ->
                 throw IOException("Unrecognized file. Supported: MIDI (.mid/.midi) and audio (WAV, MP3, OGG, M4A/AAC, FLAC).")
             else -> loadAudio(uri, fp, name.substringBeforeLast('.'), kind, progress, cancelled)

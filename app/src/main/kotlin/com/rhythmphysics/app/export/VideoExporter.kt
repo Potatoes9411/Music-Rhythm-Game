@@ -6,6 +6,7 @@ import android.media.MediaCodecList
 import android.media.MediaFormat
 import android.media.MediaMuxer
 import android.os.Build
+import com.rhythmphysics.app.audio.CollisionLayer
 import com.rhythmphysics.app.render.CanvasRenderer
 import com.rhythmphysics.app.render.Letterbox
 import com.rhythmphysics.core.audio.WavReader
@@ -42,13 +43,16 @@ class VideoExporter(
     private val inputs: List<SandboxInput>,
     private val songPcm: File?,
     private val soundFont: (() -> SoundFont)?,
-    private val includeNoteLayer: Boolean,
+    /** Adds one SoundFont note per physical contact (AudioMode.ORIGINAL_AND_COLLISION_LAYER). */
+    private val impactLayer: Boolean,
+    /** Includes notes requested by generative mechanics (Circle generative/sandbox). */
+    private val generativeNotes: Boolean,
     private val muteSong: Boolean,
     private val settings: ExportSettings,
     private val renderSettings: RenderSettings,
 ) {
     private class Encoded(val data: ByteArray, val ptsUs: Long, val flags: Int)
-    private class NoteEv(val time: Double, val note: Int, val vel: Float, val program: Int)
+    private class NoteEv(val time: Double, val note: Int, val vel: Float, val program: Int, val dur: Double)
 
     fun export(out: FileDescriptor, progress: (String, Double) -> Unit, cancelled: () -> Boolean) {
         val start = settings.startSec.coerceAtLeast(0.0)
@@ -57,19 +61,22 @@ class VideoExporter(
 
         // Pass 1: collect note events (deterministic simulation, no rendering).
         val notes = ArrayList<NoteEv>()
-        if (includeNoteLayer && soundFont != null) {
+        if ((impactLayer || generativeNotes) && soundFont != null) {
             progress("Simulating note layer", 0.0)
             val sink = object : EngineSink {
                 override fun onImpact(mechanic: MechanicType, timeSec: Double, strength: Float, eventId: Long, note: Int?) {
-                    if (mechanic != MechanicType.CIRCLE) notes += NoteEv(timeSec, note ?: (72 + (eventId % 5).toInt() * 2), 0.35f + 0.5f * strength, 11)
+                    if (impactLayer) notes += NoteEv(timeSec, CollisionLayer.noteFor(eventId, note), CollisionLayer.velocityFor(strength), CollisionLayer.PROGRAM, CollisionLayer.IMPACT_NOTE_SEC)
                 }
-                override fun onNote(timeSec: Double, note: Int, velocity: Float, program: Int) { notes += NoteEv(timeSec, note, velocity, program) }
+                override fun onNote(timeSec: Double, note: Int, velocity: Float, program: Int) {
+                    if (generativeNotes) notes += NoteEv(timeSec, note, velocity, program, CollisionLayer.GENERATIVE_NOTE_SEC)
+                }
             }
             val sim = RhythmEngine(session, config, sink, presetResolver = presetResolver)
             sim.loadInputs(inputs)
             var t = 0.0
             while (t < end) { if (cancelled()) throw ExportCancelled(); sim.update(t); t += 1.0 / 60 }
             sim.update(end); sim.dispose()
+            notes.sortBy { it.time }
         }
 
         // Pass 2: audio -> AAC (kept in memory: ~1.5 MB per minute).
@@ -220,17 +227,31 @@ class VideoExporter(
                             } else raf?.skipBytes(n * frameBytes)
                             // note layer
                             if (synth != null) {
+                                // Sample-accurate: render up to each note-on/off, then apply it.
                                 val absStart = (start * sr).toLong() + fed
-                                while (noteIdx < notes.size && (notes[noteIdx].time * sr).toLong() < absStart + n) {
-                                    val ne = notes[noteIdx++]
-                                    if (ne.time < start) continue
-                                    synth.programChange(0, ne.program)
-                                    synth.noteOn(0, ne.note.coerceIn(0, 127), (ne.vel * 127).toInt().coerceIn(1, 127))
-                                    offs += ((ne.time + 0.45) * sr).toLong() to ne.note
+                                val absEnd = absStart + n
+                                var pos = 0
+                                while (true) {
+                                    val nextOn = if (noteIdx < notes.size) Math.round(notes[noteIdx].time * sr) else Long.MAX_VALUE
+                                    var offI = -1
+                                    for (i in offs.indices) if (offI < 0 || offs[i].first < offs[offI].first) offI = i
+                                    val nextOff = if (offI >= 0) offs[offI].first else Long.MAX_VALUE
+                                    val next = minOf(nextOn, nextOff)
+                                    if (next >= absEnd) break
+                                    val at = (next - absStart).coerceIn(pos.toLong(), n.toLong()).toInt()
+                                    if (at > pos) { synth.render(sl, sr2, pos, at - pos); pos = at }
+                                    if (nextOn <= nextOff) {
+                                        val ne = notes[noteIdx++]
+                                        if (ne.time >= start - 1e-9) {
+                                            synth.programChange(0, ne.program)
+                                            synth.noteOn(0, ne.note.coerceIn(0, 127), (ne.vel * 127).toInt().coerceIn(1, 127))
+                                            offs += Math.round((ne.time + ne.dur) * sr) to ne.note.coerceIn(0, 127)
+                                        }
+                                    } else {
+                                        synth.noteOff(0, offs[offI].second); offs.removeAt(offI)
+                                    }
                                 }
-                                val it = offs.iterator()
-                                while (it.hasNext()) { val (f, k) = it.next(); if (f <= absStart + n) { synth.noteOff(0, k); it.remove() } }
-                                synth.render(sl, sr2, 0, n)
+                                if (pos < n) synth.render(sl, sr2, pos, n - pos)
                             }
                             val bb = ByteBuffer.wrap(pcmOut, 0, n * 4).order(ByteOrder.LITTLE_ENDIAN)
                             for (f in 0 until n) {

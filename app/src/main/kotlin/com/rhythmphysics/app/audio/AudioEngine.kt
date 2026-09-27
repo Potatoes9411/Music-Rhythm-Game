@@ -44,7 +44,12 @@ class AudioEngine(private val wav: File) : AudioClock {
     private val ts = AudioTimestamp()
     private var lastTsQuery = 0L
 
-    override fun positionSec(): Double {
+    /** Guards the smoother (read from the render thread, UI ticker and writer thread). Never held while taking [lock]. */
+    private val clockLock = Object()
+
+    override fun positionSec(): Double = synchronized(clockLock) { positionLocked() }
+
+    private fun positionLocked(): Double {
         if (!isPlaying) return pausedPos
         val now = System.nanoTime()
         val t = track ?: return pausedPos
@@ -96,8 +101,7 @@ class AudioEngine(private val wav: File) : AudioClock {
         t.setVolume(volume)
         track = t
         baseFrame = frame
-        smoother.reset(sec, System.nanoTime())
-        lastTsQuery = 0
+        synchronized(clockLock) { smoother.reset(sec, System.nanoTime()); lastTsQuery = 0 }
         running = true
         isPlaying = true
         val th = Thread({ writeLoop(t, frame) }, "rp-audio-writer")

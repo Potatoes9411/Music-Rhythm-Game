@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
  * This module is compiled with the plain Kotlin/JVM plugin against the AOSP framework jar
  * (API 35) and packaged by a Maven-Central-only pipeline:
  *
- *   kotlinc -> lambda desugar (ASM) -> dx -> aapt2 (apktool prebuilt) -> align -> apksig (v1+v2)
+ *   kotlinc -> lambda desugar (ASM) -> dx -> aapt2 (apktool prebuilt) -> align -> apksig (v2)
  *
  * Reason: the cloud environment this project was built in cannot reach dl.google.com, which
  * serves the Android Gradle Plugin, AndroidX and the SDK. The app therefore depends only on the
@@ -42,6 +42,31 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation("org.robolectric:android-all:$androidAllVersion")
 }
+
+// ---- Robolectric device-less app tests (source set "roboTest") ------------------------------
+// Runs MainActivity / screens / Canvas renderer on the JVM with Robolectric's real framework code
+// and native (Skia) graphics. androidx.test:monitor is only on Google Maven, so a tiny test-only
+// shim (src/roboTest/java/androidx/test) stands in for it; see README there.
+val roboTest: SourceSet = sourceSets.create("roboTest")
+val roboTestImplementation: Configuration by configurations.getting { extendsFrom(configurations.implementation.get()) }
+val roboAndroidAll: Configuration by configurations.creating { isTransitive = false }
+dependencies {
+    roboTestImplementation("org.robolectric:android-all:$androidAllVersion") // annotation defaults reference android classes
+    roboTestImplementation("org.robolectric:robolectric:4.17") {
+        exclude(group = "androidx.test")
+        exclude(group = "androidx.test.espresso")
+    }
+    roboTestImplementation("junit:junit:4.13.2")
+    roboAndroidAll("org.robolectric:android-all-instrumented:$androidAllVersion-i7")
+}
+roboTest.compileClasspath += sourceSets.main.get().output
+roboTest.runtimeClasspath += sourceSets.main.get().output
+// Tests run on the host JVM (Robolectric needs 11+); only the APK code must stay Java-8/dx compatible.
+listOf("roboTestCompileClasspath", "roboTestRuntimeClasspath").forEach { n ->
+    configurations.named(n) { attributes { attribute(TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE, 17) } }
+}
+tasks.named<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>("compileRoboTestKotlin") { compilerOptions.jvmTarget.set(JvmTarget.JVM_17) }
+tasks.named<JavaCompile>("compileRoboTestJava") { sourceCompatibility = "17"; targetCompatibility = "17" }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -188,10 +213,13 @@ val debugKeystoreTask by tasks.registering(Exec::class) {
 }
 
 fun registerPackage(variant: String, link: TaskProvider<Exec>) = tasks.register("package${variant.replaceFirstChar { it.uppercase() }}Apk", JavaExec::class) {
-    dependsOn(dex, link)
+    dependsOn(dex, link, rootProject.tasks.named("fetchSoundFont"))
     val res = bd.file("intermediates/aapt/$variant/resources.ap_")
     val dexDir = bd.dir("intermediates/dex")
     val assetsDir = file("src/main/assets")
+    // Bundled GeneralUser GS SoundFont + its license (downloaded and checksum-verified by :fetchSoundFont).
+    val soundFontDir = rootProject.layout.buildDirectory.dir("soundfont")
+    inputs.dir(soundFontDir)
     val out = bd.file("intermediates/apk/$variant/unsigned-aligned.apk")
     inputs.file(res); inputs.dir(dexDir); inputs.dir(assetsDir)
     outputs.file(out)
@@ -200,7 +228,10 @@ fun registerPackage(variant: String, link: TaskProvider<Exec>) = tasks.register(
     maxHeapSize = "2g"
     argumentProviders.add(CommandLineArgumentProvider {
         val assets = assetsDir.walkTopDown().filter { it.isFile }.map { "assets/${it.relativeTo(assetsDir).path.replace('\\', '/')}=${it.path}" }.toList()
-        listOf("package", res.get().asFile.path, out.get().asFile.path, "assets/", dexDir.get().asFile.path) + assets
+        val sf = soundFontDir.get().asFile
+        val soundFonts = listOf("GeneralUser-GS.sf2", "GeneralUser-LICENSE.txt").map { "assets/soundfonts/$it=${File(sf, it).path}" }
+        // Assets are deflated (the SoundFont is read fully into memory anyway); media types stay stored.
+        listOf("package", res.get().asFile.path, out.get().asFile.path, "-", dexDir.get().asFile.path) + assets + soundFonts
     })
 }
 
@@ -253,3 +284,53 @@ val assembleReleaseApk by tasks.registering(Copy::class) {
 }
 
 tasks.test { useJUnitPlatform() }
+
+val roboConfig by tasks.registering {
+    description = "Robolectric inputs: text manifest with uses-sdk, merged assets, linked resources, offline android-all."
+    // The packaged (unsigned) debug APK doubles as Robolectric's resource APK, so tests see exactly
+    // the resources and assets (bundled SoundFont) that ship.
+    dependsOn(packageDebugApk, rootProject.tasks.named("fetchSoundFont"))
+    val manifestIn = file("src/main/AndroidManifest.xml")
+    val outDir = bd.dir("intermediates/robo")
+    inputs.file(manifestIn); inputs.files(roboAndroidAll)
+    outputs.dir(outDir)
+    doLast {
+        val dir = outDir.get().asFile
+        val manifest = File(dir, "AndroidManifest.xml")
+        manifest.parentFile.mkdirs()
+        manifest.writeText(manifestIn.readText().replaceFirst(Regex("(<manifest[^>]*>)"),
+            "$1\n    <uses-sdk android:minSdkVersion=\"$minSdk\" android:targetSdkVersion=\"$targetSdk\" />"))
+        val assets = File(dir, "assets/soundfonts"); assets.mkdirs()
+        val sf = rootProject.layout.buildDirectory.dir("soundfont").get().asFile
+        listOf("GeneralUser-GS.sf2", "GeneralUser-LICENSE.txt").forEach { n ->
+            val src = File(sf, n); val dst = File(assets, n)
+            if (!dst.exists() || dst.length() != src.length()) src.copyTo(dst, overwrite = true)
+        }
+        val jars = File(dir, "jars"); jars.mkdirs()
+        roboAndroidAll.files.forEach { f -> val d = File(jars, f.name); if (!d.exists()) f.copyTo(d) }
+        val props = File(dir, "config/com/android/tools/test_config.properties"); props.parentFile.mkdirs()
+        props.writeText(listOf(
+            "android_merged_manifest=" + manifest.absolutePath,
+            "android_merged_assets=" + File(dir, "assets").absolutePath,
+            "android_resource_apk=" + bd.file("intermediates/apk/debug/unsigned-aligned.apk").get().asFile.absolutePath,
+            "android_custom_package=com.rhythmphysics.app",
+        ).joinToString("\n") + "\n")
+    }
+}
+roboTest.runtimeClasspath += files(bd.dir("intermediates/robo/config"))
+
+val roboTestTask = tasks.register<Test>("roboTest") {
+    description = "Robolectric app tests (activity, screens, Android Canvas backend screenshots)."
+    group = "verification"
+    dependsOn(roboConfig)
+    testClassesDirs = roboTest.output.classesDirs
+    classpath = roboTest.runtimeClasspath
+    useJUnit()
+    maxHeapSize = "4g"
+    systemProperty("robolectric.offline", "true")
+    systemProperty("robolectric.dependency.dir", bd.dir("intermediates/robo/jars").get().asFile.absolutePath)
+    systemProperty("rp.artifacts", rootProject.file("artifacts").absolutePath)
+    jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED", "--add-opens=java.base/java.util=ALL-UNNAMED", "--add-opens=java.base/java.io=ALL-UNNAMED")
+    testLogging { events("passed", "failed", "skipped"); showStandardStreams = true; exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL }
+    outputs.upToDateWhen { false }
+}

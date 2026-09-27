@@ -49,6 +49,7 @@ object ReplayManager {
         extraPresets.forEach { used[it.id] = it }
         val hash = verifyAt?.let { t ->
             val probe = RhythmEngine(engine.session, engine.config) { id -> used[id] ?: PresetManager.byId(id) }
+            probe.loadInputs(inputs)
             probe.seek(t); probe.stateHash().also { probe.dispose() }
         }
         return ReplayRecipe(

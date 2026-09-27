@@ -38,4 +38,30 @@ class ReplayTest {
         val other = com.rhythmphysics.core.session.RhythmSession("x", "", "other-fp", com.rhythmphysics.core.session.MediaType.MIDI, "x", 10.0, com.rhythmphysics.core.session.NoEventSource)
         assertTrue(ReplayManager.compatibility(r, other).isNotEmpty())
     }
+
+    @Test
+    fun sandboxInputsAreReplayedAndVerified() {
+        val session = com.rhythmphysics.core.session.RhythmSession.sandbox(60.0)
+        val cfg = SceneConfig(seed = 99, focus = MechanicType.CIRCLE, presetIds = mapOf(MechanicType.CIRCLE to "circle.sandbox"))
+        val live = RhythmEngine(session, cfg)
+        var t = 0.0
+        val taps = listOf(1.0 to (540f to 900f), 2.5 to (400f to 1100f), 4.0 to (700f to 800f))
+        var k = 0
+        while (t < 8.0) {
+            live.update(t)
+            if (k < taps.size && t >= taps[k].first) { live.input("tap", taps[k].second.first, taps[k].second.second); k++ }
+            t += 1 / 60.0
+        }
+        live.update(8.0)
+        val recipe = ReplayManager.import(ReplayManager.export(ReplayManager.create(live, inputs = live.inputLog.toList(), verifyAt = 8.0)))
+        assertEquals(3, recipe.sandboxInputs.size)
+        val replayed = ReplayManager.engineFor(recipe, session)
+        replayed.loadInputs(recipe.sandboxInputs)
+        replayed.seek(8.0)
+        assertEquals(live.stateHash(), replayed.stateHash())
+        assertEquals(recipe.verifyHash, replayed.stateHash())
+        // Without the inputs the state must differ (the taps really changed the simulation).
+        val bare = ReplayManager.engineFor(recipe, session); bare.seek(8.0)
+        assertTrue(bare.stateHash() != live.stateHash())
+    }
 }
