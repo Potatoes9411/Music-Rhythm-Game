@@ -1,11 +1,11 @@
 preset,aspect,time,contentFraction
 square.classic,9x16,24.0,0.5530
 square.classic,16x9,24.0,0.6501
-square.midi_playground,9x16,24.0,0.0870
-square.midi_playground,16x9,24.0,0.1610
-square.carved_orange,9x16,24.0,0.0712
+square.midi_playground,9x16,24.0,0.1149
+square.midi_playground,16x9,24.0,0.1653
+square.carved_orange,9x16,24.0,0.0995
 square.carved_orange,16x9,24.0,0.1975
-square.carved_navy,9x16,24.0,0.0520
+square.carved_navy,9x16,24.0,0.0662
 square.carved_navy,16x9,24.0,0.1314
 square.stamp_walls,9x16,24.0,0.2304
 square.stamp_walls,16x9,24.0,0.2520

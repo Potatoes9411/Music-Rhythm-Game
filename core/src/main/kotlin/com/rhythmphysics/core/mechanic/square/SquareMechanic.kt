@@ -141,7 +141,10 @@ class SquareMechanic : MechanicController {
         for (i in 0 until 23) { vx += ws[i] * (xs[i] - mx) * (xs[i] - mx); vy += ws[i] * (ys[i] - my) * (ys[i] - my) }
         val sdx = kotlin.math.sqrt(vx / sw); val sdy = kotlin.math.sqrt(vy / sw)
         val need = maxOf((4.4 * sdx + 4.0) / planner.frameW, (3.4 * sdy + 6.0) / planner.frameH)
-        return MathUtil.clamp(1.0 / need, 1.0, 1.6)
+        // Carved routes are followed by the camera; a near-constant scale keeps the carve width and
+        // the small hero from visibly shrinking in spread-out passages.
+        val lo = if (ctx.preset.visuals.background == "carved") 1.4 else 1.0
+        return MathUtil.clamp(1.0 / need, lo, 1.6)
     }
 
     private fun setupCamera(vp: Viewport, t: Double) {
