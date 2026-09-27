@@ -81,6 +81,9 @@ data class Palette(
                 Palette("classic", c("#FF161A2E"), c("#FF0C0E1A"), c("#FFE8EAF2"), c("#FFFFFFFF"), c("#FFFF5470"),
                     intArrayOf(c("#FFFF5470"), c("#FFFFB547"), c("#FF3DDC97"), c("#FF4CC9F0"), c("#FF9D7CFF"), c("#FFFF7AD9")),
                     c("#FFFF5470")),
+                // Arch studio (6emfSUtWnOw): grey spotlit floor, bright teal discs, yellow comet.
+                Palette("studio_grey", c("#FF858585"), c("#FF121212"), c("#FF16C4BA"), c("#FF8CFFF7"), c("#FFFFFFF2"),
+                    intArrayOf(c("#FFF4D83A")), c("#FFF4D83A")),
                 // Circle persistent looks: navy + red ring (rings), black + thin grey ring (trails).
                 Palette("rings_navy", c("#FF2F2F6B"), c("#FF2F2F6B"), c("#FFE3202B"), c("#FFFF5A5A"), c("#FF000000"),
                     intArrayOf(c("#FFE3202B")), c("#FFE3202B")),

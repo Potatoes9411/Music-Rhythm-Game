@@ -228,7 +228,9 @@ class ArchMechanic : MechanicController {
         }
         val d3 = Draw3D(cam, dl)
         dl.pushClip(vp.x, vp.y, vp.w, vp.h)
-        dl.gradientRect(vp.x, vp.y, vp.w, vp.h, palette.bgTop, palette.bgBottom)
+        // Studio: seamless cove (backdrop = the floor's far color), no horizon line.
+        if (vis.background == "studio") dl.rect(vp.x, vp.y, vp.w, vp.h, palette.bgTop)
+        else dl.gradientRect(vp.x, vp.y, vp.w, vp.h, palette.bgTop, palette.bgBottom)
         drawFloor(dl, d3, vp, t)
 
         val hero = planner.heroAt(t)
@@ -282,13 +284,20 @@ class ArchMechanic : MechanicController {
         // Floor quad is clipped roughly by projecting corners in front of the camera only.
         var n = 0
         for (p in corners) if (cam.project(p)) { xs[n] = cam.outX; ys[n] = cam.outY; n++ }
-        val floorTop = Colors.scale(palette.bgBottom, 1.25f)
-        if (n == 4) dl.poly(xs, ys, 4, floorTop, Colors.scale(palette.bgBottom, 0.7f), ys.minOrNull() ?: 0f, ys.maxOrNull() ?: vp.h)
+        val studio = ctx.preset.visuals.background == "studio"
+        val floorTop = if (studio) palette.bgTop else Colors.scale(palette.bgBottom, 1.25f)
+        val floorNear = if (studio) palette.bgBottom else Colors.scale(palette.bgBottom, 0.7f)
+        if (n == 4) dl.poly(xs, ys, 4, floorTop, floorNear, ys.minOrNull() ?: 0f, ys.maxOrNull() ?: vp.h)
         else {
             // Camera sees the horizon: fill below the projected horizon line.
             val far = c + planner.forward * 80.0
             val hy = if (cam.project(far.x, 0.0, far.z)) cam.outY else vp.y + vp.h * 0.45f
-            dl.gradientRect(vp.x, hy, vp.w, vp.y + vp.h - hy, floorTop, Colors.scale(palette.bgBottom, 0.6f))
+            dl.gradientRect(vp.x, hy, vp.w, vp.y + vp.h - hy, floorTop, if (studio) palette.bgBottom else Colors.scale(palette.bgBottom, 0.6f))
+        }
+        if (studio) {
+            // Studio spotlight: bright pool behind the course, falling off toward the camera.
+            dl.radialRect(vp.x, vp.y, vp.w, vp.h, vp.cx, vp.y + vp.h * 0.12f, vp.unit * 0.95f, 0x40FFFFFF, 0x00FFFFFF)
+            return
         }
         // Soft light pool under the course, and a faint horizon glow.
         d3.disc(c.x, 0.001, c.z, 5.5, Colors.withAlpha(palette.surfaceLit, 0.035f), 40)
@@ -304,6 +313,8 @@ class ArchMechanic : MechanicController {
         val lit = if (age >= 0 && age < 0.45) (1 - age / 0.45).toFloat() else 0f
         val ySign = if (reflect) -1.0 else 1.0
         val ra = if (reflect) 0.16f else 1f
+        val rad = tg.radius * vis.targetScale
+        val thick = if (vis.background == "studio") 0.025 else 0.1
         if (planner.style == ArchStyle.PILLAR_WEAVE) {
             val side = Colors.lerp(palette.surface, palette.surfaceLit, 0.25f * lit)
             val capC = Colors.lerp(Colors.scale(palette.surface, 1.35f), palette.surfaceLit, lit)
@@ -319,12 +330,12 @@ class ArchMechanic : MechanicController {
             val base = palette.surface
             val top = Colors.lerp(base, palette.surfaceLit, 0.15f + 0.85f * lit)
             if (reflect) {
-                d3.disc(tg.x, -0.1, tg.z, tg.radius, Colors.withAlpha(top, 0.18f * fade * ra * 6f), 24)
+                d3.disc(tg.x, -0.1, tg.z, rad, Colors.withAlpha(top, 0.18f * fade * ra * 6f), 24)
             } else {
-                d3.cylinder(tg.x, tg.z, tg.radius, 0.0, 0.1 * ySign, Colors.withAlpha(Colors.scale(base, 0.8f), fade), Colors.withAlpha(Colors.scale(base, 0.45f), fade),
+                d3.cylinder(tg.x, tg.z, rad, 0.0, thick * ySign, Colors.withAlpha(Colors.scale(base, 0.8f), fade), Colors.withAlpha(Colors.scale(base, 0.45f), fade),
                     Colors.withAlpha(top, fade), rs.quality.detail + 4)
-                d3.discStroke(tg.x, 0.101, tg.z, tg.radius * 0.97, 1.5f, Colors.withAlpha(palette.surfaceLit, 0.35f * fade + 0.6f * lit), 32)
-                if (lit > 0 && cam.project(tg.x, 0.1, tg.z)) d3.dl.glow(cam.outX, cam.outY, (tg.radius * cam.outScale * 2.6).toFloat(), palette.surfaceLit, lit * 0.55f * vis.bloom.toFloat() * rs.bloomScale)
+                if (vis.background != "studio") d3.discStroke(tg.x, thick + 0.001, tg.z, rad * 0.97, 1.5f, Colors.withAlpha(palette.surfaceLit, 0.35f * fade + 0.6f * lit), 32)
+                if (lit > 0 && cam.project(tg.x, thick, tg.z)) d3.dl.glow(cam.outX, cam.outY, (rad * cam.outScale * 2.6).toFloat(), palette.surfaceLit, lit * 0.55f * vis.bloom.toFloat() * rs.bloomScale)
             }
         }
     }
@@ -341,7 +352,20 @@ class ArchMechanic : MechanicController {
             if (i == 0) headWidth = (planner.heroRadius * 2 * vis.trailWidth * cam.outScale).toFloat()
         }
         // Width capped relative to the hero so the trail never swallows the core.
-        ribbon.draw(dl, color, headWidth * 0.9f, vis.trailTaper.toFloat(), (vis.trailOpacity * 0.9).toFloat(), additive = true)
+        // On the light studio floor additive blending would wash the yellow to white.
+        ribbon.draw(dl, color, headWidth * 0.9f, vis.trailTaper.toFloat(), (vis.trailOpacity * 0.9).toFloat(), additive = vis.background != "studio")
+        if (vis.background == "studio") {
+            // Hot white core along the streak, and its warm reflection smeared on the glossy floor.
+            ribbon.draw(dl, Colors.lerp(color, Colors.WHITE, 0.75f), headWidth * 0.22f, vis.trailTaper.toFloat(), 0.9f, additive = true)
+            ribbon.clear()
+            for (i in 0 until n) {
+                val p = planner.heroAt(t - vis.trailLengthSec * i / (n - 1))
+                if (!cam.project(p.x, -p.y, p.z)) break
+                ribbon.add(cam.outX, cam.outY)
+            }
+            ribbon.draw(dl, color, headWidth * 1.1f, vis.trailTaper.toFloat(), (vis.trailOpacity * 0.18).toFloat(), additive = true)
+            return
+        }
         if (vis.bloom > 0 && ribbon.n > 2) {
             // Controlled bloom along the recent part of the trail.
             for (i in 0 until min(ribbon.n, 10) step 2) {

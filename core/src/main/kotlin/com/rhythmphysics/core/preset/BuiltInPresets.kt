@@ -114,11 +114,11 @@ object BuiltInPresets {
     private fun arch() = listOf(
         Preset(
             id = "arch.bounce_curve", name = "Arch — Bounce Curve", mechanic = MechanicType.ARCH,
-            description = "White-hot hero on decaying ballistic bounces across separated teal pads; dark studio floor, low camera, warm comet trail with controlled bloom.",
+            description = "Grey spotlit studio floor, small flat teal discs, and a white-hot hero drawing a long yellow comet streak reflected in the floor.",
             generation = GenerationParams(style = "bounce_curve", speed = 5.2, apexMin = 0.55, apexMax = 3.0, apexDecay = 0.76, corridorWidth = 7.0, minContactGapSec = 0.2),
-            camera = CameraParams(pitchDeg = 14.0, distance = 16.0, fovDeg = 30.0, shake = 0.3),
+            camera = CameraParams(pitchDeg = 14.0, distance = 16.0, fovDeg = 30.0, shake = 0.3, zoom = 0.9),
             visuals = VisualParams(
-                palette = "studio_warm", heroSize = 1.0, trailLengthSec = 0.45, trailWidth = 0.8, trailOpacity = 0.7, trailTaper = 0.95,
+                palette = "studio_grey", background = "studio", targetScale = 0.55, heroSize = 0.7, trailLengthSec = 1.1, trailWidth = 0.7, trailOpacity = 0.85, trailTaper = 0.9,
                 bloom = 0.8, emissive = 1.2, particles = 0.8, reflections = true,
             ),
             eventMapping = EventMappingSettings(mode = EventMode.HYBRID, density = 0.5f),

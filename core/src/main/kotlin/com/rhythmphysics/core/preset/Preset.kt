@@ -131,6 +131,8 @@ data class VisualParams(
     val sharpSurfaces: Boolean = false,
     /** Circle never-cleared paint: "none" | "rings" (ball-outline stamps) | "trails" (permanent trails). */
     val persist: String = "none",
+    /** Render scale for Arch targets (contact geometry is unchanged). */
+    val targetScale: Double = 1.0,
 )
 
 @Serializable
