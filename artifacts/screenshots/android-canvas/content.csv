@@ -45,9 +45,9 @@ circle.rainbow_trails,9x16,24.0,0.1419
 circle.rainbow_trails,16x9,24.0,0.1306
 circle.sandbox,9x16,24.0,0.4252
 circle.sandbox,16x9,24.0,0.4013
-arch.bounce_curve,9x16,24.0,0.8083
+arch.bounce_curve,9x16,24.0,0.8364
 arch.bounce_curve,16x9,24.0,0.7161
-arch.pillar_weave,9x16,24.0,0.3933
+arch.pillar_weave,9x16,24.0,0.4583
 arch.pillar_weave,16x9,24.0,0.3723
 platform.music_ball,9x16,24.0,0.8456
 platform.music_ball,16x9,24.0,0.7191
@@ -68,5 +68,5 @@ platform.neon,16x9,24.0,0.5818
 platform.block_terrain,9x16,24.0,0.5328
 platform.block_terrain,16x9,24.0,0.6580
 square.classic,9x16,50.0,0.5599
-arch.bounce_curve,9x16,50.0,0.8237
+arch.bounce_curve,9x16,50.0,0.8386
 platform.music_ball,9x16,50.0,0.8059
