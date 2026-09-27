@@ -170,7 +170,14 @@ class ChipRow<T>(private val c: Context, items: List<Pair<String, T>>, selected:
         }
         // Keep the selected chip visible (long rows scroll horizontally).
         chips.firstOrNull { it.second == value }?.first?.let { tv ->
-            view.post { (view as HorizontalScrollView).scrollTo((tv.left - Ui.dp(c, 24)).coerceAtLeast(0), 0) }
+            view.post {
+                val sv = view as HorizontalScrollView
+                val m = Ui.dp(c, 24)
+                when {
+                    tv.left < sv.scrollX -> sv.scrollTo((tv.left - m).coerceAtLeast(0), 0)
+                    tv.right > sv.scrollX + sv.width -> sv.scrollTo(tv.right + m - sv.width, 0)
+                }
+            }
         }
     }
 

@@ -50,6 +50,7 @@ dependencies {
 val roboTest: SourceSet = sourceSets.create("roboTest")
 val roboTestImplementation: Configuration by configurations.getting { extendsFrom(configurations.implementation.get()) }
 val roboAndroidAll: Configuration by configurations.creating { isTransitive = false }
+val minApiPlatform: Configuration by configurations.creating { isTransitive = false }
 dependencies {
     roboTestImplementation("org.robolectric:android-all:$androidAllVersion") // annotation defaults reference android classes
     roboTestImplementation("org.robolectric:robolectric:4.17") {
@@ -58,6 +59,7 @@ dependencies {
     }
     roboTestImplementation("junit:junit:4.13.2")
     roboAndroidAll("org.robolectric:android-all-instrumented:$androidAllVersion-i7")
+    minApiPlatform("org.robolectric:android-all:8.0.0_r4-robolectric-r1") // API 26 = minSdk
 }
 roboTest.compileClasspath += sourceSets.main.get().output
 roboTest.runtimeClasspath += sourceSets.main.get().output
@@ -334,3 +336,21 @@ val roboTestTask = tasks.register<Test>("roboTest") {
     testLogging { events("passed", "failed", "skipped"); showStandardStreams = true; exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL }
     outputs.upToDateWhen { false }
 }
+
+val apiCheck by tasks.registering(JavaExec::class) {
+    description = "Lists app/core references to platform APIs missing on minSdk ($minSdk), flagging unguarded ones."
+    group = "verification"
+    dependsOn(tasks.named("compileKotlin"), project(":core").tasks.named("compileKotlin"))
+    classpath = buildTools
+    mainClass.set("com.rhythmphysics.buildtools.MainKt")
+    maxHeapSize = "2g"
+    val report = rootProject.file("artifacts/test-reports/api-check-min26.txt")
+    argumentProviders.add(CommandLineArgumentProvider {
+        listOf("api-check", minApiPlatform.singleFile.path, report.path, file("api-check-allowlist.txt").path,
+            bd.dir("classes/kotlin/main").get().asFile.path,
+            project(":core").layout.buildDirectory.dir("classes/kotlin/main").get().asFile.path)
+    })
+}
+
+// Every APK build re-verifies minSdk API compatibility.
+listOf("assembleDebugApk", "assembleReleaseApk").forEach { n -> tasks.named(n) { dependsOn(apiCheck) } }

@@ -36,6 +36,20 @@ fun main(args: Array<String>) {
             ApkPackager.sign(File(args[1]), File(args[2]), File(args[3]), args[4], args[5], args[6])
             println("sign: ${File(args[2]).length()} bytes")
         }
+        "api-check" -> {
+            // api-check <min-api framework jar> <report file> <allowlist> <classes dir|jar>...
+            // java.* is checked against the JDK's ct.sym (release 8); android.* against the min-API jar.
+            val ctSym = File(System.getProperty("java.home"), "lib/ct.sym").takeIf { it.exists() }
+            val findings = ApiCheck.run(File(args[1]), args.drop(4).map(::File), ctSym)
+            val report = File(args[2]); report.parentFile?.mkdirs()
+            report.writeText("# :app:apiCheck — references missing on minSdk; 'guarded' = caller reads Build.VERSION.SDK_INT\n" +
+                findings.joinToString("\n", postfix = "\n") { it.toString() })
+            val allowed = File(args[3]).takeIf { it.exists() }?.readLines()?.map { it.substringBefore('#').trim() }?.filter { it.isNotEmpty() }?.toSet() ?: emptySet()
+            val bad = findings.filter { !it.guarded && "${it.ref.removePrefix("class ")} <- ${it.caller}" !in allowed }
+            println("api-check: ${findings.size} references newer than min API, ${bad.size} unguarded and not allow-listed -> $report")
+            bad.forEach { println("  $it") }
+            if (bad.isNotEmpty()) { System.err.println("api-check FAILED"); kotlin.system.exitProcess(1) }
+        }
         "scan-indy" -> {
             var bad = 0
             args.drop(1).forEach { path ->

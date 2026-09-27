@@ -1,5 +1,8 @@
 package com.rhythmphysics.app.audio
 
+import com.rhythmphysics.core.util.clearCompat
+import com.rhythmphysics.core.util.setLimit
+import com.rhythmphysics.core.util.setPosition
 import android.content.Context
 import android.media.AudioFormat
 import android.media.MediaCodec
@@ -95,7 +98,7 @@ class AudioDecoder(private val context: Context) {
                         if (info.size > 0) {
                             ensureWriter()
                             val out = c.getOutputBuffer(outIdx)!!
-                            out.position(info.offset); out.limit(info.offset + info.size)
+                            out.setPosition(info.offset); out.setLimit(info.offset + info.size)
                             out.order(ByteOrder.LITTLE_ENDIAN)
                             val bytesPerSample = if (floatPcm) 4 else 2
                             val frames = info.size / (bytesPerSample * channels)

@@ -1,0 +1,4 @@
+# Reviewed :app:apiCheck findings (reference <- caller). One per line; '#' starts a comment.
+# The OnThermalStatusChangedListener lambda class is only instantiated inside ThermalMonitor.start(),
+# which returns early below API 29.
+android/os/PowerManager$OnThermalStatusChangedListener <- com/rhythmphysics/app/platform/ThermalMonitor$start$l$1

@@ -1,5 +1,8 @@
 package com.rhythmphysics.app.export
 
+import com.rhythmphysics.core.util.clearCompat
+import com.rhythmphysics.core.util.setLimit
+import com.rhythmphysics.core.util.setPosition
 import android.media.MediaCodec
 import android.media.MediaCodecInfo
 import android.media.MediaCodecList
@@ -137,7 +140,7 @@ class VideoExporter(
                             if (info.size > 0 && muxerStarted) {
                                 // Timestamps come from the frame index, not wall-clock encode time.
                                 info.presentationTimeUs = settings.ptsForFrame(written++)
-                                buf.position(info.offset); buf.limit(info.offset + info.size)
+                                buf.setPosition(info.offset); buf.setLimit(info.offset + info.size)
                                 muxer.writeSampleData(videoTrack, buf, info)
                                 writeAudioUpTo(info.presentationTimeUs)
                             }
@@ -260,7 +263,7 @@ class VideoExporter(
                                 bb.putShort((l * 32767).toInt().toShort()); bb.putShort((r * 32767).toInt().toShort())
                             }
                             val ib = enc.getInputBuffer(idx)!!
-                            ib.clear(); ib.put(pcmOut, 0, n * 4)
+                            ib.clearCompat(); ib.put(pcmOut, 0, n * 4)
                             enc.queueInputBuffer(idx, 0, n * 4, fed * 1_000_000L / sr, 0)
                             fed += n
                             if (fed % (sr * 5L) < block) progress("Encoding audio", fed.toDouble() / totalFrames)
@@ -274,7 +277,7 @@ class VideoExporter(
                         val buf = enc.getOutputBuffer(o)!!
                         if (info.size > 0 && info.flags and MediaCodec.BUFFER_FLAG_CODEC_CONFIG == 0) {
                             val bytes = ByteArray(info.size)
-                            buf.position(info.offset); buf.get(bytes)
+                            buf.setPosition(info.offset); buf.get(bytes)
                             outSamples += Encoded(bytes, info.presentationTimeUs, info.flags and MediaCodec.BUFFER_FLAG_KEY_FRAME)
                         }
                         enc.releaseOutputBuffer(o, false)

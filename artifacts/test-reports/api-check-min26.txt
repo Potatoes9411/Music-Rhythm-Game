@@ -1,0 +1,16 @@
+# :app:apiCheck — references missing on minSdk; 'guarded' = caller reads Build.VERSION.SDK_INT
+guarded   class android/os/VibratorManager   <- com/rhythmphysics/app/platform/Haptics.<init>
+UNGUARDED class android/os/PowerManager$OnThermalStatusChangedListener   <- com/rhythmphysics/app/platform/ThermalMonitor$start$l$1
+guarded   class android/os/PowerManager$OnThermalStatusChangedListener   <- com/rhythmphysics/app/platform/ThermalMonitor.start
+guarded   android/os/PowerManager.addThermalStatusListener(Landroid/os/PowerManager$OnThermalStatusChangedListener;)V   <- com/rhythmphysics/app/platform/ThermalMonitor.start
+guarded   android/os/PowerManager.getCurrentThermalStatus()I   <- com/rhythmphysics/app/platform/ThermalMonitor.start
+guarded   class android/os/PowerManager$OnThermalStatusChangedListener   <- com/rhythmphysics/app/platform/ThermalMonitor.stop
+guarded   android/os/PowerManager.removeThermalStatusListener(Landroid/os/PowerManager$OnThermalStatusChangedListener;)V   <- com/rhythmphysics/app/platform/ThermalMonitor.stop
+guarded   android/view/Surface.setFrameRate(FI)V   <- com/rhythmphysics/app/render/VisualizerView.surfaceCreated
+guarded   class android/view/WindowInsets$Type   <- com/rhythmphysics/app/MainActivity$onCreate$2.onApplyWindowInsets
+guarded   android/view/WindowInsets.getInsets(I)Landroid/graphics/Insets;   <- com/rhythmphysics/app/MainActivity$onCreate$2.onApplyWindowInsets
+guarded   android/view/Window.setDecorFitsSystemWindows(Z)V   <- com/rhythmphysics/app/MainActivity.setupWindow
+guarded   android/content/Intent.getParcelableExtra(Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;   <- com/rhythmphysics/app/MainActivity.handleIntent
+guarded   android/view/Window.getInsetsController()Landroid/view/WindowInsetsController;   <- com/rhythmphysics/app/MainActivity.setImmersiveBars
+guarded   class android/view/WindowInsets$Type   <- com/rhythmphysics/app/MainActivity.setImmersiveBars
+guarded   class android/view/WindowInsetsController   <- com/rhythmphysics/app/MainActivity.setImmersiveBars

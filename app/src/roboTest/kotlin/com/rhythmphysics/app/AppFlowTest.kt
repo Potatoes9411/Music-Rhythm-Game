@@ -206,17 +206,13 @@ class AppFlowTest {
         save(capture(eroot), "screenshots/android/export_dialog.png")
         export.dismiss(); shadowOf(Looper.getMainLooper()).idle()
 
-        // Transport: play toggles state (AudioTrack is simulated by Robolectric).
+        // Transport with the song clock. Robolectric's AudioTrack consumes PCM instantly, so playback
+        // may "complete" before we look: either it is playing, or it completed into a clean paused
+        // state at the end with the Play button restored. (Deterministic transport: sandbox test.)
         clickDesc(root, "Play")
-        assertTrue(cs.clock.isPlaying)
-        clickDesc(root, "Pause")
-        assertFalse(cs.clock.isPlaying)
-        // Robolectric's AudioTrack consumes PCM instantly, so the song "completes" at once: the
-        // completion path must land in a clean paused state with the Play button restored.
-        clickDesc(root, "Play")
-        waitUntil(20_000, "completion or still playing") { !cs.clock.isPlaying || findByDescription(root, "Pause") != null }
         if (cs.clock.isPlaying) clickDesc(root, "Pause")
-        RoboSupport.idle(200)
+        waitUntil(20_000, "paused") { !cs.clock.isPlaying }
+        RoboSupport.idle(100)
         assertFalse(cs.clock.isPlaying)
         assertNotNull(findByDescription(root, "Play"))
 
@@ -254,6 +250,56 @@ class AppFlowTest {
         assertEquals(MechanicType.CIRCLE, cs.scene.focus)
         assertEquals("circle.sandbox", cs.presetIdFor(MechanicType.CIRCLE))
         assertNull("no mechanic selector in the sandbox", findText(act.window.decorView, "Arch"))
+        // Transport on the free-running sandbox clock: play advances time, pause freezes it.
+        val root = act.window.decorView
+        clickDesc(root, "Play")
+        assertTrue(cs.clock.isPlaying)
+        RoboSupport.idle(300)
+        val t1 = cs.position()
+        assertTrue("clock advances while playing ($t1)", t1 > 0.1)
+        clickDesc(root, "Pause")
+        assertFalse(cs.clock.isPlaying)
+        val t2 = cs.position()
+        RoboSupport.idle(200)
+        assertEquals(t2, cs.position(), 1e-9)
+        clickDesc(root, "Restart")
+        assertEquals(0.0, cs.position(), 1e-9)
         captureCreator(act, cs, 0.5, "screenshots/android/creator_sandbox.png")
+    }
+
+    @Test
+    fun importedFilesAreRoutedByContentNotName() {
+        val app = org.robolectric.RuntimeEnvironment.getApplication() as RhythmApp
+        val dir = app.cacheDir
+        // A real MIDI file named .mp3 is still loaded as MIDI (rendered with the bundled SoundFont).
+        val disguised = java.io.File(dir, "song.mp3").apply { writeBytes(com.rhythmphysics.core.midi.DemoSong.bytes()) }
+        val ls = app.loader.load(android.net.Uri.fromFile(disguised), { _, _ -> }, { false })
+        assertEquals(MediaType.MIDI, ls.session.mediaType)
+        assertTrue(ls.pcm!!.length() > 1_000_000)
+        // An MP3 (ID3 header) named .mid must never be parsed as MIDI.
+        val fakeMidi = java.io.File(dir, "track.mid").apply { writeBytes("ID3\u0004\u0000\u0000\u0000\u0000\u0000\u0000".toByteArray(Charsets.ISO_8859_1) + ByteArray(2048)) }
+        val err = runCatching { app.loader.load(android.net.Uri.fromFile(fakeMidi), { _, _ -> }, { false }) }.exceptionOrNull()
+        assertNotNull("an MP3 named .mid must not load as MIDI", err)
+        assertFalse("error must come from the audio path, not the MIDI parser: $err", err is com.rhythmphysics.core.midi.MidiFormatException)
+        // A .mid name without an MThd header gets a clear message.
+        val junk = java.io.File(dir, "broken.mid").apply { writeBytes("not midi at all".toByteArray()) }
+        val msg = runCatching { app.loader.load(android.net.Uri.fromFile(junk), { _, _ -> }, { false }) }.exceptionOrNull()?.message ?: ""
+        assertTrue(msg, msg.contains("MIDI header"))
+    }
+
+    @Test
+    @Config(qualifiers = "w891dp-h411dp-land-xxhdpi")
+    fun landscapeCreatorUsesSidePanel() {
+        val act = Robolectric.buildActivity(MainActivity::class.java).setup().get()
+        click(act.window.decorView, "Demo song")
+        waitUntil(180_000, "demo") { act.creatorScreen?.engineReady == true }
+        val cs = act.creatorScreen!!
+        click(act.window.decorView, "16:9"); waitReady(cs, "16:9")
+        cs.seekTo(21.0)
+        val vis = cs.visualizer
+        assertTrue("visualizer is left of the panel in landscape", vis.width > vis.height)
+        captureCreator(act, cs, 21.0, "screenshots/android/creator_square_landscape.png")
+        click(act.window.decorView, "Arch"); waitReady(cs, "arch")
+        captureCreator(act, cs, 21.0, "screenshots/android/creator_arch_landscape.png")
     }
 }

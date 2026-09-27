@@ -1,5 +1,6 @@
 package com.rhythmphysics.core.audio
 
+import com.rhythmphysics.core.util.clearCompat
 import java.io.File
 import java.io.InputStream
 import java.io.RandomAccessFile
@@ -23,7 +24,7 @@ class WavWriter(file: File, val sampleRate: Int, val channels: Int = 2) : AutoCl
     fun write(left: FloatArray, right: FloatArray?, frames: Int) {
         var i = 0
         while (i < frames) {
-            buf.clear()
+            buf.clearCompat()
             val n = minOf(frames - i, buf.capacity() / (2 * channels))
             for (k in 0 until n) {
                 buf.putShort(toPcm(left[i + k]))

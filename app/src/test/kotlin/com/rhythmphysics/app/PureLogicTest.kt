@@ -52,4 +52,25 @@ class PureLogicTest {
         assertEquals(1_000_000L, ex.ptsForFrame(30))
         assertTrue(ex.bitrate() in 2_000_000..24_000_000)
     }
+
+    @Test
+    fun thermalCapOnlyLowersQuality() {
+        val q = com.rhythmphysics.core.render.Quality.values()
+        assertEquals(null, com.rhythmphysics.app.platform.ThermalMonitor.capFor(0))
+        assertEquals(null, com.rhythmphysics.app.platform.ThermalMonitor.capFor(1))
+        for (user in q) {
+            assertEquals(user, com.rhythmphysics.app.platform.ThermalMonitor.apply(user, null))
+            val moderate = com.rhythmphysics.app.platform.ThermalMonitor.apply(user, com.rhythmphysics.app.platform.ThermalMonitor.capFor(2))
+            assertTrue(moderate.ordinal <= minOf(user.ordinal, com.rhythmphysics.core.render.Quality.MEDIUM.ordinal))
+            assertEquals(minOf(user.ordinal, 0), com.rhythmphysics.app.platform.ThermalMonitor.apply(user, com.rhythmphysics.app.platform.ThermalMonitor.capFor(4)).ordinal)
+        }
+    }
+
+    @Test
+    fun collisionLayerNotes() {
+        val cl = com.rhythmphysics.app.audio.CollisionLayer
+        assertEquals(64, cl.noteFor(3, 64), "MIDI events keep their own pitch")
+        for (id in listOf(-7L, 0L, 1L, 4L, 123456789L)) assertTrue(cl.noteFor(id, null) in 72..80)
+        assertTrue(cl.velocityFor(0f) > 0.1f && cl.velocityFor(1f) <= 1f && cl.velocityFor(1f) > cl.velocityFor(0.2f))
+    }
 }
