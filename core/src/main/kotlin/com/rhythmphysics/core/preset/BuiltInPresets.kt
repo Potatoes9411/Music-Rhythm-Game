@@ -9,7 +9,29 @@ import com.rhythmphysics.core.music.EventMode
  * Built-in recipes. Every preset configures one of the four engines; none of them is a separate game.
  */
 object BuiltInPresets {
-    fun all(): List<Preset> = square() + circle() + arch()
+    fun all(): List<Preset> = square() + circle() + arch() + platform()
+
+    private fun platform(): List<Preset> {
+        fun p(id: String, name: String, desc: String, style: String, palette: String, vis: VisualParams, gravity: Double = 26.0, gap: Double = 0.13, corridor: Double = 9.0) =
+            Preset(id = id, name = name, mechanic = MechanicType.PLATFORM, description = desc,
+                generation = GenerationParams(style = style, corridorWidth = corridor, minContactGapSec = gap, stepDrop = 1.1),
+                physics = PhysicsParams(gravity = gravity), camera = CameraParams(shake = 0.35),
+                visuals = vis.copy(palette = palette), eventMapping = EventMappingSettings(EventMode.HYBRID, 0.6f))
+        return listOf(
+            p("platform.music_ball", "Platform — Music Ball", "Glowing ball bouncing down colorful pads placed exactly on the notes.", "music_ball", "music_ball",
+                VisualParams(trailOpacity = 0.6, trailLengthSec = 0.35, trailWidth = 0.9, bloom = 0.7, emissive = 1.1, particles = 1.0)),
+            p("platform.piano_tiles", "Platform — Piano Tiles", "Keys laid out by pitch like a keyboard; the ball plays them as it falls.", "piano_tiles", "piano",
+                VisualParams(trailOpacity = 0.45, trailLengthSec = 0.3, bloom = 0.5, particles = 0.6), gap = 0.12),
+            p("platform.staircase", "Platform — Staircase", "A descending staircase: one step per note, drop size follows the rhythm.", "staircase", "classic",
+                VisualParams(trailOpacity = 0.5, trailLengthSec = 0.3, bloom = 0.4, particles = 0.7), gravity = 30.0, gap = 0.12),
+            p("platform.minimal_bars", "Platform — Minimal Bars", "Thin white bars, white ball, black background. No bloom.", "minimal_bars", "dark_minimal",
+                VisualParams(trailOpacity = 0.25, trailLengthSec = 0.25, bloom = 0.0, particles = 0.3, impactFlash = 0.6)),
+            p("platform.neon", "Platform — Neon Platforms", "Neon outlined platforms with controlled glow on every hit.", "neon", "neon",
+                VisualParams(trailOpacity = 0.7, trailLengthSec = 0.45, bloom = 0.9, emissive = 1.2, particles = 1.2)),
+            p("platform.block_terrain", "Platform — Block Terrain", "A glowing orb falls through dark blocky terrain with note markers (and note names).", "block_terrain", "terrain",
+                VisualParams(trailOpacity = 0.55, trailLengthSec = 0.4, bloom = 0.75, emissive = 1.2, particles = 0.8, noteLabels = true)),
+        )
+    }
 
     private fun rule(type: AnomalyType, trigger: AnomalyTrigger, every: Int = 1, p: Double = 1.0, params: Map<String, Float> = emptyMap(), max: Int = 0, at: Double = 0.0, repeat: Double = 0.0) =
         AnomalyRule(type, trigger, every, at, repeat, p, params, max)
