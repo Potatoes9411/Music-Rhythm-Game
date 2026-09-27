@@ -65,6 +65,12 @@ interface MechanicController {
     fun render(dl: DrawList, vp: Viewport, renderTime: Double, alpha: Float, rs: RenderSettings)
     fun createCheckpoint(): MechanicCheckpoint
     fun restoreCheckpoint(checkpoint: MechanicCheckpoint)
+    /**
+     * False when this instance cannot rebuild the state in [checkpoint] (e.g. it depends on
+     * append-only paint history newer than what this instance has recorded); seek then falls back
+     * to an earlier checkpoint and fast-forwards.
+     */
+    fun canRestore(checkpoint: MechanicCheckpoint): Boolean = true
     /** Mechanics may implement direct seeking; the engine otherwise restores a checkpoint and fast-forwards. */
     fun seek(timeSec: Double) {}
     fun dispose() {}

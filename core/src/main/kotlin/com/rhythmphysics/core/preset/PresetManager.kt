@@ -121,6 +121,10 @@ object PresetManager {
                 particles = d(v.particles, 0.0, 3.0, 1.0),
                 impactFlash = d(v.impactFlash, 0.0, 2.0, 1.0),
                 background = if (v.background in setOf("gradient", "flat", "grid", "carved")) v.background else "gradient",
+                persist = if (v.persist in setOf("none", "rings", "trails")) v.persist else "none",
+                carveWidth = d(v.carveWidth, 1.0, 8.0, 1.7),
+                stampCount = v.stampCount.coerceIn(0, 40),
+                stampSpacingSec = d(v.stampSpacingSec, 0.03, 1.0, 0.1),
             ),
             eventMapping = p.eventMapping.validated(),
             anomalies = p.anomalies.take(64).map { r ->

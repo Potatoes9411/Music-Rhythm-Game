@@ -31,6 +31,7 @@ class DrawList {
         const val PUSH_CLIP_CIRCLE = 17
         const val PUSH_LAYER = 18
         const val POP_LAYER = 19
+        const val PERSISTENT = 20
     }
 
     object Blend { const val NORMAL = 0; const val ADD = 1 }
@@ -46,6 +47,7 @@ class DrawList {
     var ints = IntArray(4096); private set
     var iCount = 0; private set
     val strings = ArrayList<String>()
+    val layers = ArrayList<PersistentLayer>()
 
     private var tx = 0f
     private var ty = 0f
@@ -61,6 +63,7 @@ class DrawList {
         this.width = width; this.height = height
         opCount = 0; fCount = 0; iCount = 0
         strings.clear()
+        layers.clear()
         tx = 0f; ty = 0f; s = 1f; sp = 0
         blend = Blend.NORMAL
     }
@@ -194,6 +197,14 @@ class DrawList {
     fun pushLayer(alpha: Float) { op(Op.PUSH_LAYER); fl(alpha.coerceIn(0f, 1f)) }
     fun popLayer() { op(Op.POP_LAYER) }
 
+    /**
+     * Never-cleared drawing ("paint that stays"): [layer] emits its items in the current local
+     * coordinates. Backends may cache the result and only draw items appended since the last frame.
+     */
+    fun persistent(layer: PersistentLayer) {
+        op(Op.PERSISTENT); fl(tx); fl(ty); fl(s); ii(layers.size); layers += layer
+    }
+
     /** Visits commands with their parameter offsets; backends implement [Visitor]. */
     fun replay(v: Visitor) {
         var fi = 0
@@ -223,6 +234,7 @@ class DrawList {
                 Op.PUSH_CLIP_CIRCLE -> { v.pushClipCircle(f[fi], f[fi + 1], f[fi + 2]); fi += 3 }
                 Op.PUSH_LAYER -> { v.pushLayer(f[fi]); fi += 1 }
                 Op.POP_LAYER -> v.popLayer()
+                Op.PERSISTENT -> { v.persistent(layers[ints[ci]], f[fi], f[fi + 1], f[fi + 2], width, height); fi += 3; ci += 1 }
             }
         }
     }
@@ -248,5 +260,25 @@ class DrawList {
         fun pushClipCircle(cx: Float, cy: Float, r: Float)
         fun pushLayer(alpha: Float)
         fun popLayer()
+
+        /** Default: redraw every item (reference renderer); live backends cache incrementally. */
+        fun persistent(layer: PersistentLayer, tx: Float, ty: Float, scale: Float, frameW: Float, frameH: Float) {
+            val d = DrawList()
+            d.reset(frameW, frameH)
+            d.pushTransform(tx, ty, scale)
+            layer.emit(d, 0, layer.size)
+            d.replay(this)
+        }
     }
+}
+
+/**
+ * Append-only drawing history owned by a mechanic. Items [0, size) are immutable while [epoch] is
+ * unchanged; any non-append change (restore, reset) must bump [epoch] so caches start over.
+ */
+abstract class PersistentLayer {
+    abstract val epoch: Int
+    abstract val size: Int
+    /** Emits items [from, to) into [dl] (local coordinates; dl carries the transform). */
+    abstract fun emit(dl: DrawList, from: Int, to: Int)
 }

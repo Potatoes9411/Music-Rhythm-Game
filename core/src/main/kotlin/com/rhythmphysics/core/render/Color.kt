@@ -81,6 +81,11 @@ data class Palette(
                 Palette("classic", c("#FF161A2E"), c("#FF0C0E1A"), c("#FFE8EAF2"), c("#FFFFFFFF"), c("#FFFF5470"),
                     intArrayOf(c("#FFFF5470"), c("#FFFFB547"), c("#FF3DDC97"), c("#FF4CC9F0"), c("#FF9D7CFF"), c("#FFFF7AD9")),
                     c("#FFFF5470")),
+                // Circle persistent looks: navy + red ring (rings), black + thin grey ring (trails).
+                Palette("rings_navy", c("#FF2F2F6B"), c("#FF2F2F6B"), c("#FFE3202B"), c("#FFFF5A5A"), c("#FF000000"),
+                    intArrayOf(c("#FFE3202B")), c("#FFE3202B")),
+                Palette("trails_black", c("#FF000000"), c("#FF000000"), c("#FF8F8F8F"), c("#FFBFBFBF"), c("#FFFFFFFF"),
+                    intArrayOf(c("#FFFFFFFF")), c("#FFFFFFFF")),
                 // "Bouncing squares": black, grey wall slabs, purple->pink stamps.
                 Palette("stamps", c("#FF000000"), c("#FF000000"), c("#FF3A3A3A"), c("#FF4A4A4A"), c("#FFD64C8E"),
                     intArrayOf(c("#FF720A78"), c("#FFA0208A"), c("#FFD64C8E")), c("#FFD64C8E")),

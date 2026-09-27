@@ -1,8 +1,14 @@
 preset,aspect,time,contentFraction
 square.classic,9x16,24.0,0.5530
 square.classic,16x9,24.0,0.6501
-square.midi_playground,9x16,24.0,0.0362
-square.midi_playground,16x9,24.0,0.0362
+square.midi_playground,9x16,24.0,0.0870
+square.midi_playground,16x9,24.0,0.1610
+square.carved_orange,9x16,24.0,0.0712
+square.carved_orange,16x9,24.0,0.1975
+square.carved_navy,9x16,24.0,0.0520
+square.carved_navy,16x9,24.0,0.1314
+square.stamp_walls,9x16,24.0,0.2304
+square.stamp_walls,16x9,24.0,0.2520
 square.dark_minimal,9x16,24.0,0.3908
 square.dark_minimal,16x9,24.0,0.3915
 square.neon_trail,9x16,24.0,0.5133
@@ -33,6 +39,10 @@ circle.ring_break,9x16,24.0,0.4390
 circle.ring_break,16x9,24.0,0.4088
 circle.chaos,9x16,24.0,0.4597
 circle.chaos,16x9,24.0,0.4365
+circle.rainbow_rings,9x16,24.0,0.3739
+circle.rainbow_rings,16x9,24.0,0.3422
+circle.rainbow_trails,9x16,24.0,0.1419
+circle.rainbow_trails,16x9,24.0,0.1306
 circle.sandbox,9x16,24.0,0.4252
 circle.sandbox,16x9,24.0,0.4013
 arch.bounce_curve,9x16,24.0,0.6733

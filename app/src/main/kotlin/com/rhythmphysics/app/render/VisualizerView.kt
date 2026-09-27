@@ -92,7 +92,7 @@ class VisualizerView(context: Context) : SurfaceView(context), SurfaceHolder.Cal
 
     /** Swaps engine/clock (render thread). The previous engine is disposed. */
     fun attach(engine: RhythmEngine?, clock: AudioClock?) = post {
-        this.engine?.let { if (it !== engine) it.dispose() }
+        this.engine?.let { if (it !== engine) { it.dispose(); renderer.releaseCaches() } }
         this.engine = engine
         this.clock = clock
     }

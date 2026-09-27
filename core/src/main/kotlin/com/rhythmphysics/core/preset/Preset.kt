@@ -129,6 +129,8 @@ data class VisualParams(
     val stampSpacingSec: Double = 0.1,
     /** Square-cornered surfaces (default: pill-shaped pegs). */
     val sharpSurfaces: Boolean = false,
+    /** Circle never-cleared paint: "none" | "rings" (ball-outline stamps) | "trails" (permanent trails). */
+    val persist: String = "none",
 )
 
 @Serializable

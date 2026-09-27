@@ -93,4 +93,27 @@ class CircleTest {
         assertEquals(e.stateHash(), r.stateHash())
         @Suppress("UNUSED_VARIABLE") val u = abs(0)
     }
+
+    @Test
+    fun persistentPaintIsIdenticalAfterSeekAndReplay() {
+        for (id in listOf("circle.rainbow_rings", "circle.rainbow_trails")) {
+            val cfg = com.rhythmphysics.core.session.SceneConfig(seed = 5, focus = com.rhythmphysics.core.mechanic.MechanicType.CIRCLE,
+                presetIds = mapOf(com.rhythmphysics.core.mechanic.MechanicType.CIRCLE to id))
+            fun paint(e: com.rhythmphysics.core.engine.RhythmEngine): FloatArray {
+                val m = e.director.slots[0].mechanic as com.rhythmphysics.core.mechanic.circle.CircleMechanic
+                val dl = com.rhythmphysics.core.render.DrawList(); dl.reset(1080f, 1920f)
+                m.history.emit(dl, 0, m.history.size)
+                return dl.f.copyOf(dl.fCount)
+            }
+            val played = com.rhythmphysics.core.engine.RhythmEngine(Fixtures.demoSession(), cfg)
+            var t = 0.0; while (t < 40.0) { played.update(t); t += 1 / 60.0 }; played.update(40.0)
+            // Seek back then forward again inside the same engine (restore + truncate + re-record).
+            played.seek(12.0); played.seek(40.0)
+            val fresh = com.rhythmphysics.core.engine.RhythmEngine(Fixtures.demoSession(), cfg); fresh.seek(40.0)
+            val a = paint(played); val b = paint(fresh)
+            assertTrue(a.size > 1000, "$id recorded paint")
+            assertTrue(a.contentEquals(b), "$id paint differs after seek (${a.size} vs ${b.size})")
+            assertEquals(played.stateHash(), fresh.stateHash())
+        }
+    }
 }

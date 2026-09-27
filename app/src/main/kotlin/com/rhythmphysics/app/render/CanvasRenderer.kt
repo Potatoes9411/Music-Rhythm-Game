@@ -1,5 +1,6 @@
 package com.rhythmphysics.app.render
 
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.LinearGradient
 import android.graphics.Matrix
@@ -12,6 +13,8 @@ import android.graphics.RectF
 import android.graphics.Shader
 import android.graphics.Typeface
 import com.rhythmphysics.core.render.DrawList
+import com.rhythmphysics.core.render.PersistentLayer
+import java.util.IdentityHashMap
 
 /**
  * Android backend for the engine's [DrawList]: replays commands onto a (hardware) Canvas.
@@ -34,6 +37,14 @@ class CanvasRenderer : DrawList.Visitor {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Int, RadialGradient>?) = size > 160
     }
     var commands = 0; private set
+    private var frameScale = 1f
+
+    /** Offscreen bitmaps for never-cleared layers; only newly appended items are drawn each frame. */
+    private class PersistCache(var bmp: Bitmap, val canvas: Canvas, var key: String, var epoch: Int, var drawn: Int)
+    private val persistCaches = IdentityHashMap<PersistentLayer, PersistCache>()
+    private val scratch = DrawList()
+    private var sub: CanvasRenderer? = null
+    private val bitmapPaint = Paint(Paint.FILTER_BITMAP_FLAG)
 
     /** Draws [dl] (frame coordinates) into the canvas region described by [box]. */
     fun draw(canvas: Canvas, dl: DrawList, box: Letterbox, clearColor: Int = 0xFF000000.toInt()) {
@@ -42,6 +53,7 @@ class CanvasRenderer : DrawList.Visitor {
         canvas.save()
         canvas.translate(box.offsetX, box.offsetY)
         canvas.scale(box.scale, box.scale)
+        frameScale = box.scale
         canvas.clipRect(0f, 0f, dl.width, dl.height)
         additive = false
         applyBlend()
@@ -160,4 +172,46 @@ class CanvasRenderer : DrawList.Visitor {
     override fun pushLayer(alpha: Float) { c.saveLayerAlpha(null, (alpha * 255).toInt().coerceIn(0, 255)) }
 
     override fun popLayer() { c.restore() }
+
+    /** Replays [dl] onto [canvas] at [scale] without clearing (used to paint persistent caches). */
+    private fun paintInto(canvas: Canvas, dl: DrawList, scale: Float) {
+        c = canvas
+        canvas.save(); canvas.scale(scale, scale)
+        additive = false; applyBlend()
+        dl.replay(this)
+        canvas.restore()
+    }
+
+    override fun persistent(layer: PersistentLayer, tx: Float, ty: Float, scale: Float, frameW: Float, frameH: Float) {
+        val s = frameScale.coerceIn(0.1f, 2f)
+        val w = kotlin.math.ceil(frameW * s).toInt().coerceAtLeast(1)
+        val h = kotlin.math.ceil(frameH * s).toInt().coerceAtLeast(1)
+        val key = "$tx,$ty,$scale,$w,$h"
+        var cache = persistCaches[layer]
+        if (cache == null || cache.bmp.width != w || cache.bmp.height != h) {
+            cache?.bmp?.recycle()
+            if (persistCaches.size >= 4 && cache == null) { persistCaches.values.forEach { it.bmp.recycle() }; persistCaches.clear() }
+            val bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
+            cache = PersistCache(bmp, Canvas(bmp), key, layer.epoch, 0)
+            persistCaches[layer] = cache
+        }
+        if (cache.key != key || cache.epoch != layer.epoch || layer.size < cache.drawn) {
+            cache.bmp.eraseColor(0); cache.key = key; cache.epoch = layer.epoch; cache.drawn = 0
+        }
+        if (layer.size > cache.drawn) {
+            scratch.reset(frameW, frameH)
+            scratch.pushTransform(tx, ty, scale)
+            layer.emit(scratch, cache.drawn, layer.size)
+            val r = sub ?: CanvasRenderer().also { sub = it }
+            r.paintInto(cache.canvas, scratch, s)
+            cache.drawn = layer.size
+        }
+        c.save()
+        c.scale(1f / s, 1f / s)
+        c.drawBitmap(cache.bmp, 0f, 0f, bitmapPaint)
+        c.restore()
+    }
+
+    /** Frees persistent-layer bitmaps (engine swap / release). */
+    fun releaseCaches() { persistCaches.values.forEach { it.bmp.recycle() }; persistCaches.clear() }
 }

@@ -136,7 +136,10 @@ class RhythmEngine(
     fun seek(timeSec: Double) {
         val t = timeSec.coerceAtLeast(0.0)
         val target = floor(t / dt + 1e-9).toLong()
-        val entry = checkpoints.floorEntry(target)!!
+        var entry = checkpoints.floorEntry(target)!!
+        // A checkpoint newer than what history-dependent mechanics have recorded (after seeking
+        // back) cannot be rebuilt; the step-0 checkpoint always can.
+        while (entry.key > 0 && !director.canRestore(entry.value)) entry = checkpoints.lowerEntry(entry.key)!!
         director.restore(entry.value)
         stepIndex = entry.key
         director.fastForward = true

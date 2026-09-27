@@ -51,6 +51,9 @@ class CircleMechanic : MechanicController {
     private var pulseUntil = -1.0
     private var lastSongTime = 0.0
     private val ribbon = Ribbon(Ball.TRAIL)
+    /** Never-cleared paint (rings / trails looks); length is checkpointed, content is replayed. */
+    val history = CircleHistory()
+    private val lastRec = HashMap<Int, DoubleArray>()
     /** Times of "pops" (grown ball reset), for the burst effect (bounded list, part of state). */
     private val popTimes = ArrayList<Double>()
     private val tmp = DoubleArray(2)
@@ -64,6 +67,7 @@ class CircleMechanic : MechanicController {
 
     override fun precompute(events: List<MusicEvent>) {
         this.events = events
+        history.clear(); lastRec.clear()
         notes = ctx.session.source.noteStream()
         world = CircleWorld(ctx.preset.physics, ctx.preset.seed ?: ctx.seed)
         world.onRingHit = ::onRingHit
@@ -185,6 +189,31 @@ class CircleMechanic : MechanicController {
             }
         }
         world.step(dt, songTime)
+        record(songTime)
+    }
+
+    /** Appends this step's paint for the persistent looks (deterministic: depends only on state + time). */
+    private fun record(songTime: Double) {
+        val mode = ctx.preset.visuals.persist
+        if (mode == "none" || history.full) return
+        val step = kotlin.math.round(songTime * 120).toLong()
+        if (mode == "rings") {
+            if (step % 2L != 0L) return
+            val hue = (songTime * 110.0 % 360.0).toFloat()
+            val w = world.ringR * 0.012
+            for (b in world.balls) history.ring(b.x, b.y, b.r, w, Colors.hsv(hue, 0.95f, 1f))
+        } else if (mode == "trails") {
+            if (step % 3L != 0L) return
+            for (b in world.balls) {
+                val prev = lastRec[b.id]
+                if (prev != null) {
+                    val hue = ((songTime * 120.0 + b.id * 47.0) % 360.0).toFloat()
+                    history.segment(prev[0], prev[1], b.x, b.y, b.r * 0.7, Colors.hsv(hue, 0.85f, 1f))
+                    prev[0] = b.x; prev[1] = b.y
+                } else lastRec[b.id] = doubleArrayOf(b.x, b.y)
+            }
+            if (lastRec.size > world.balls.size) { val ids = world.balls.map { it.id }.toHashSet(); lastRec.keys.retainAll(ids) }
+        }
     }
 
     override fun onInput(kind: String, x: Float, y: Float, vp: Viewport) {
@@ -215,7 +244,14 @@ class CircleMechanic : MechanicController {
         dl.pushClip(vp.x, vp.y, vp.w, vp.h)
         dl.gradientRect(vp.x, vp.y, vp.w, vp.h, palette.bgTop, palette.bgBottom)
         val pulse = if (t < pulseUntil) ((pulseUntil - t) / 0.25).toFloat() else 0f
-        dl.glow(cx, cy, (world.ringR * ppu * 1.35).toFloat(), palette.accent(world.colorShift), (0.10f + 0.18f * pulse * rs.flashScale) * rs.bloomScale)
+        val persist = vis.persist != "none"
+        if (persist) {
+            dl.pushTransform(cx, cy, ppu)
+            dl.persistent(history)
+            dl.popTransform()
+        } else {
+            dl.glow(cx, cy, (world.ringR * ppu * 1.35).toFloat(), palette.accent(world.colorShift), (0.10f + 0.18f * pulse * rs.flashScale) * rs.bloomScale)
+        }
 
         // Ring (arcs between gaps); broken ring shows fragments flying out.
         val ringPx = (world.ringR * ppu).toFloat()
@@ -265,6 +301,16 @@ class CircleMechanic : MechanicController {
             val col = palette.accent(b.color + world.colorShift)
             val bx = b.px + (b.x - b.px) * alpha; val by = b.py + (b.y - b.py) * alpha
             val rpx = (b.r * ppu).toFloat()
+            if (persist) {
+                if (vis.persist == "rings") {
+                    // Solid ball in front of its own stamped history, outlined in the current hue.
+                    dl.circle(sx(bx), sy(by), rpx, palette.hero)
+                    dl.circleStroke(sx(bx), sy(by), rpx, max(1.5f, (world.ringR * 0.012 * ppu).toFloat()), Colors.hsv((t * 110.0 % 360.0).toFloat(), 0.95f, 1f))
+                } else {
+                    dl.circle(sx(bx), sy(by), rpx, Colors.hsv(((t * 120.0 + b.id * 47.0) % 360.0).toFloat(), 0.85f, 1f))
+                }
+                continue
+            }
             if (vis.trailOpacity > 0.01 && b.trailCount > 1) {
                 ribbon.clear()
                 ribbon.add(sx(bx), sy(by))
@@ -306,21 +352,29 @@ class CircleMechanic : MechanicController {
 
     override fun createCheckpoint(): MechanicCheckpoint {
         val w = StateWriter()
+        w.i(history.size) // first: read cheaply by canRestore
         world.write(w)
         w.i(eventCursor); w.i(noteCursor); w.i(beatCount); w.i(downbeatCount); w.i(majorCount); w.d(pulseUntil); w.d(lastSongTime)
         w.i(ruleFired.size); for (i in ruleFired.indices) { w.i(ruleFired[i]); w.i(ruleOccurrences[i]) }
         while (popTimes.size > 8) popTimes.removeAt(0)
         w.i(popTimes.size); for (pt in popTimes) w.d(pt)
+        w.i(lastRec.size); for ((id, p) in lastRec.entries.sortedBy { it.key }) { w.i(id); w.d(p[0]); w.d(p[1]) }
         return MechanicCheckpoint(type, w.bytes())
     }
 
     override fun restoreCheckpoint(checkpoint: MechanicCheckpoint) {
         val r = StateReader(checkpoint.bytes)
+        val histLen = r.i()
         world.read(r)
         eventCursor = r.i(); noteCursor = r.i(); beatCount = r.i(); downbeatCount = r.i(); majorCount = r.i(); pulseUntil = r.d(); lastSongTime = r.d()
         val n = r.i(); for (i in 0 until n) { ruleFired[i] = r.i(); ruleOccurrences[i] = r.i() }
         popTimes.clear(); repeat(r.i()) { popTimes += r.d() }
+        history.truncate(histLen)
+        lastRec.clear(); repeat(r.i()) { val id = r.i(); lastRec[id] = doubleArrayOf(r.d(), r.d()) }
     }
+
+    override fun canRestore(checkpoint: MechanicCheckpoint): Boolean =
+        StateReader(checkpoint.bytes).i() <= history.size
 
     override fun heroScreenPosition(vp: Viewport, renderTime: Double): FloatArray? {
         val b = world.balls.firstOrNull() ?: return null

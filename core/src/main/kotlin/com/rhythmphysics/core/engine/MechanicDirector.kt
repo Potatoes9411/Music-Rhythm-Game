@@ -201,6 +201,19 @@ class MechanicDirector(
         return w.bytes()
     }
 
+    fun canRestore(bytes: ByteArray): Boolean {
+        val input = java.io.DataInputStream(bytes.inputStream())
+        if (input.readInt() != slots.size) return false
+        for (s in slots) {
+            if (!input.readBoolean()) continue
+            val len = input.readInt()
+            val b = ByteArray(len); input.readFully(b)
+            val m = s.mechanic ?: instantiate(s)
+            if (!m.canRestore(MechanicCheckpoint(s.type, b))) return false
+        }
+        return true
+    }
+
     fun restore(bytes: ByteArray) {
         val input = java.io.DataInputStream(bytes.inputStream())
         val n = input.readInt()
