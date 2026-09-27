@@ -294,6 +294,24 @@ class ArchMechanic : MechanicController {
             val hy = if (cam.project(far.x, 0.0, far.z)) cam.outY else vp.y + vp.h * 0.45f
             dl.gradientRect(vp.x, hy, vp.w, vp.y + vp.h - hy, floorTop, if (studio) palette.bgBottom else Colors.scale(palette.bgBottom, 0.6f))
         }
+        if (ctx.preset.visuals.background == "grid") {
+            // Faint floor grid, warmly lit near the hero (the ribbon is the only light source).
+            val hx = kotlin.math.round(c.x / 2.0) * 2.0; val hz = kotlin.math.round(c.z / 2.0) * 2.0
+            val gw = max(1f, vp.unit * 0.0012f)
+            for (k in -8..8) {
+                for (dir in 0..1) {
+                    val a0 = if (dir == 0) Vec3(hx + k * 2.0, 0.0, hz - 16.0) else Vec3(hx - 16.0, 0.0, hz + k * 2.0)
+                    val a1 = if (dir == 0) Vec3(hx + k * 2.0, 0.0, hz + 16.0) else Vec3(hx + 16.0, 0.0, hz + k * 2.0)
+                    val near = (1.0 - kotlin.math.abs(k) / 8.0).toFloat()
+                    if (!cam.project(a0)) continue
+                    val x0 = cam.outX; val y0 = cam.outY
+                    if (!cam.project(a1)) continue
+                    dl.line(x0, y0, cam.outX, cam.outY, gw, Colors.withAlpha(palette.trail, 0.22f * near), false)
+                }
+            }
+            if (cam.project(c.x, 0.0, c.z)) dl.glow(cam.outX, cam.outY, vp.unit * 0.5f, palette.trail, 0.10f)
+            return
+        }
         if (studio) {
             // Studio spotlight: bright pool behind the course, falling off toward the camera.
             dl.radialRect(vp.x, vp.y, vp.w, vp.h, vp.cx, vp.y + vp.h * 0.12f, vp.unit * 0.95f, 0x40FFFFFF, 0x00FFFFFF)
@@ -316,12 +334,16 @@ class ArchMechanic : MechanicController {
         val rad = tg.radius * vis.targetScale
         val thick = if (vis.background == "studio") 0.025 else 0.1
         if (planner.style == ArchStyle.PILLAR_WEAVE) {
-            val side = Colors.lerp(palette.surface, palette.surfaceLit, 0.25f * lit)
-            val capC = Colors.lerp(Colors.scale(palette.surface, 1.35f), palette.surfaceLit, lit)
+            // Pale pillars lit only by the glowing ribbon: brightness falls off with distance to the hero.
+            val h = planner.heroAt(t)
+            val dist = kotlin.math.sqrt((h.x - tg.x) * (h.x - tg.x) + (h.z - tg.z) * (h.z - tg.z))
+            val prox = kotlin.math.exp(-dist / 3.5).toFloat()
+            val side = Colors.lerp(Colors.scale(palette.surface, 0.35f), Colors.lerp(palette.surface, palette.surfaceLit, 0.4f), (0.15f + 0.85f * prox + lit).coerceAtMost(1f))
+            val capC = Colors.lerp(Colors.scale(side, 1.2f), palette.surfaceLit, lit)
             if (reflect) {
                 d3.cylinder(tg.x, tg.z, tg.radius, 0.0, -tg.topY, Colors.withAlpha(side, 0.1f * fade), Colors.withAlpha(side, 0.0f), Colors.withAlpha(capC, 0.12f * fade), 18)
             } else {
-                d3.cylinder(tg.x, tg.z, tg.radius, 0.0, tg.topY, Colors.withAlpha(Colors.scale(side, 1.15f), fade), Colors.withAlpha(Colors.scale(side, 0.35f), fade), Colors.withAlpha(capC, fade),
+                d3.cylinder(tg.x, tg.z, tg.radius, 0.0, tg.topY, Colors.withAlpha(Colors.lerp(side, palette.trail, 0.25f), fade), Colors.withAlpha(Colors.scale(side, 0.12f), fade), Colors.withAlpha(capC, fade),
                     rs.quality.detail)
                 d3.discStroke(tg.x, tg.topY, tg.z, tg.radius, 1.4f, Colors.withAlpha(palette.surfaceLit, 0.28f * fade + 0.6f * lit), 28)
                 if (lit > 0 && cam.project(tg.x, tg.topY, tg.z)) d3.dl.glow(cam.outX, cam.outY, (tg.radius * cam.outScale * 3.2).toFloat(), palette.surfaceLit, lit * 0.6f * vis.bloom.toFloat() * rs.bloomScale)

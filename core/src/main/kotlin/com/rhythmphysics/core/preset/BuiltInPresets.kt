@@ -125,11 +125,11 @@ object BuiltInPresets {
         ),
         Preset(
             id = "arch.pillar_weave", name = "Arch — Pillar Weave", mechanic = MechanicType.ARCH,
-            description = "Glowing hero swoops between and onto cylindrical pillars of musical height (guided curves), long orange comet trail, reflective floor.",
+            description = "Black stage, pale pillars of musical height lit warm by a thick glowing orange ribbon that swoops between and onto them (guided curves), faint grid floor.",
             generation = GenerationParams(style = "pillar_weave", speed = 4.4, pillarMinHeight = 1.0, pillarMaxHeight = 4.0, corridorWidth = 6.0, minContactGapSec = 0.24),
-            camera = CameraParams(pitchDeg = 12.0, distance = 18.0, fovDeg = 32.0, shake = 0.25),
+            camera = CameraParams(pitchDeg = 8.0, distance = 22.0, fovDeg = 26.0, shake = 0.25),
             visuals = VisualParams(
-                palette = "studio_pillars", heroSize = 1.05, trailLengthSec = 0.7, trailWidth = 0.8, trailOpacity = 0.75, trailTaper = 0.95,
+                palette = "studio_pillars", background = "grid", heroSize = 1.05, trailLengthSec = 0.9, trailWidth = 1.4, trailOpacity = 0.95, trailTaper = 0.85,
                 bloom = 0.85, emissive = 1.25, particles = 0.6, reflections = true,
             ),
             eventMapping = EventMappingSettings(mode = EventMode.HYBRID, density = 0.45f),

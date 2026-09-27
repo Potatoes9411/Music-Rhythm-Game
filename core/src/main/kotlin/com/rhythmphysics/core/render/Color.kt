@@ -108,8 +108,8 @@ data class Palette(
                 // Arch studio: near-black floor, warm hero, teal targets.
                 Palette("studio_warm", c("#FF0D0F14"), c("#FF050608"), c("#FF1FB5A9"), c("#FF7FFFF2"), c("#FFFFF4DA"),
                     intArrayOf(c("#FFFFB547"), c("#FFFF8A3D"), c("#FFFFD37A")), c("#FFFFA53D")),
-                Palette("studio_pillars", c("#FF101218"), c("#FF040506"), c("#FF2A2E3A"), c("#FFFFC98A"), c("#FFFFF4DA"),
-                    intArrayOf(c("#FFFF8A3D"), c("#FFFFB547"), c("#FFFF6B3D")), c("#FFFF7A2F")),
+                Palette("studio_pillars", c("#FF050505"), c("#FF000000"), c("#FFB9B1A6"), c("#FFFFD9A0"), c("#FFFFF4DA"),
+                    intArrayOf(c("#FFFF8A3D"), c("#FFFFB547"), c("#FFFF6B3D")), c("#FFFFA03A")),
                 Palette("circle_night", c("#FF0B0D17"), c("#FF05060B"), c("#FFEDEFF7"), c("#FFFFFFFF"), c("#FFFFFFFF"),
                     intArrayOf(c("#FFFF4D6D"), c("#FFFFB547"), c("#FF3DDC97"), c("#FF4CC9F0"), c("#FF9D7CFF"), c("#FFFF7AD9")),
                     c("#FFFFFFFF")),
