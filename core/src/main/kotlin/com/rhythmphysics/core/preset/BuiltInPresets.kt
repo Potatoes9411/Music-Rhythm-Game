@@ -166,6 +166,17 @@ object BuiltInPresets {
             eventMapping = EventMappingSettings(mode = EventMode.HYBRID, density = 0.8f),
         ),
         Preset(
+            id = "square.stamp_walls", name = "Square — Stamp Walls", mechanic = MechanicType.SQUARE,
+            description = "Black backdrop, tall grey wall slabs, and a square that leaves a purple-to-pink trail of solid stamps as it zig-zags.",
+            generation = GenerationParams(style = "classic", speed = 9.0, surfaceLength = 9.0, surfaceThickness = 1.8, compactness = 0.5, drift = 0.7),
+            visuals = VisualParams(
+                palette = "stamps", background = "flat", trailOpacity = 1.0, trailLengthSec = 0.8, bloom = 0.0, particles = 0.0,
+                impactFlash = 0.0, squashStretch = false, heroSize = 1.1, colorShiftOnImpact = false, surfaceMemoryTint = false,
+                stampCount = 8, stampSpacingSec = 0.15, sharpSurfaces = true,
+            ),
+            eventMapping = EventMappingSettings(mode = EventMode.BEAT, density = 0.6f),
+        ),
+        Preset(
             id = "square.dark_minimal", name = "Square — Dark Minimal", mechanic = MechanicType.SQUARE,
             description = "Monochrome, no bloom: white square and grey pegs on near-black with ghost outlines.",
             generation = GenerationParams(style = "minimal", speed = 8.0, surfaceLength = 2.6, compactness = 0.7, drift = 0.8),

@@ -124,6 +124,11 @@ data class VisualParams(
     val showStats: Boolean = false,
     /** Carved-route styles: corridor width in hero sizes. */
     val carveWidth: Double = 1.7,
+    /** Solid square stamps left along the recent path (0 = off), oldest->newest color accent(0)->hero. */
+    val stampCount: Int = 0,
+    val stampSpacingSec: Double = 0.1,
+    /** Square-cornered surfaces (default: pill-shaped pegs). */
+    val sharpSurfaces: Boolean = false,
 )
 
 @Serializable

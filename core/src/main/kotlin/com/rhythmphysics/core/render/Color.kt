@@ -81,6 +81,9 @@ data class Palette(
                 Palette("classic", c("#FF161A2E"), c("#FF0C0E1A"), c("#FFE8EAF2"), c("#FFFFFFFF"), c("#FFFF5470"),
                     intArrayOf(c("#FFFF5470"), c("#FFFFB547"), c("#FF3DDC97"), c("#FF4CC9F0"), c("#FF9D7CFF"), c("#FFFF7AD9")),
                     c("#FFFF5470")),
+                // "Bouncing squares": black, grey wall slabs, purple->pink stamps.
+                Palette("stamps", c("#FF000000"), c("#FF000000"), c("#FF3A3A3A"), c("#FF4A4A4A"), c("#FFD64C8E"),
+                    intArrayOf(c("#FF720A78"), c("#FFA0208A"), c("#FFD64C8E")), c("#FFD64C8E")),
                 // Carved route (midi-playground gameplay): field color, carved corridor color, yellow outline hero.
                 Palette("carved_brick", c("#FFAB3A36"), c("#FF000000"), c("#FF000000"), c("#FFFFFF00"), c("#FFFFFF00"), intArrayOf(c("#FFFF3B3B"), c("#FFFFD23F"), c("#FF3A86FF"), c("#FF22C55E"), c("#FFFF8A00"), c("#FFB14CFF"), c("#FF22D3EE"), c("#FF9CA3AF")), c("#FFFFFF00")),
                 Palette("carved_orange", c("#FFFB8C32"), c("#FF000000"), c("#FF000000"), c("#FFFFFF66"), c("#FFFFFF66"), intArrayOf(c("#FFFF3B3B"), c("#FFFFD23F"), c("#FF3A86FF"), c("#FF22C55E"), c("#FFFF8A00"), c("#FFB14CFF"), c("#FF22D3EE"), c("#FF9CA3AF")), c("#FFFFFF66")),

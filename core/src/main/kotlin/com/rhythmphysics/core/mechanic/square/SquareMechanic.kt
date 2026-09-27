@@ -312,7 +312,7 @@ class SquareMechanic : MechanicController {
         val r = imp.surfaceRect
         val x = camera.sx(r.x); val y = camera.sy(r.top)
         val w = camera.len(r.w); val h = camera.len(r.h)
-        val radius = min(w, h) * 0.5f
+        val radius = if (vis.sharpSurfaces) 0f else min(w, h) * 0.5f
         val accent = palette.accent(imp.colorRole)
         var alpha: Float
         var color: Int
@@ -352,6 +352,21 @@ class SquareMechanic : MechanicController {
         if (vis.trailOpacity <= 0.01 || vis.trailLengthSec <= 0.01) return
         val n = rs.quality.trailSamples.coerceAtMost(90)
         val tint = vis.trailColor?.let { Colors.parse(it) } ?: color
+        if (vis.stampCount > 0) {
+            // "Bouncing squares" look: solid stamps at fixed time steps along the real path,
+            // snapped to the stamp clock so they stay put while the hero moves on.
+            val sp = vis.stampSpacingSec.coerceIn(0.03, 1.0)
+            val newest = kotlin.math.floor(t / sp) * sp
+            val n = vis.stampCount.coerceIn(1, 40)
+            for (i in n - 1 downTo 0) {
+                val ts = newest - i * sp
+                if (ts < 0) continue
+                val p = planner.positionAt(ts)
+                val c = Colors.lerp(palette.accent(0), palette.hero, 1f - i.toFloat() / n)
+                dl.rect(camera.sx(p.x) - heroPx / 2, camera.sy(p.y) - heroPx / 2, heroPx, heroPx, c)
+            }
+            return
+        }
         if (vis.ghostTrail) {
             val ghosts = 6
             for (i in ghosts downTo 1) {
@@ -409,7 +424,7 @@ class SquareMechanic : MechanicController {
         }
         val x = camera.sx(pos.x); val y = camera.sy(pos.y)
         val w = heroPx * sxScale; val h = heroPx * syScale
-        val radius = heroPx * 0.14f
+        val radius = if (vis.stampCount > 0) 0f else heroPx * 0.14f
         if (vis.bloom > 0) dl.glow(x, y, heroPx * 1.6f, color, (0.35 * vis.bloom * vis.emissive).toFloat() * rs.bloomScale)
         val light = Colors.luminance(palette.bgTop) > 0.5f
         if (!light) dl.rect(x - w / 2 + 3, y - h / 2 + 6, w, h, 0x55000000, radius)
@@ -419,7 +434,7 @@ class SquareMechanic : MechanicController {
             dl.rectStroke(x - w / 2, y - h / 2, w, h, heroPx * 0.12f, color, radius)
         } else {
             dl.rect(x - w / 2, y - h / 2, w, h, color, radius)
-            if (!light) {
+            if (!light && vis.stampCount == 0) {
                 // subtle top highlight for a crafted look
                 dl.rect(x - w / 2 + w * 0.12f, y - h / 2 + h * 0.10f, w * 0.76f, h * 0.18f, Colors.withAlpha(Colors.WHITE, 0.22f), radius * 0.6f)
             }
