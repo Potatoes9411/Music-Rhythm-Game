@@ -301,6 +301,34 @@ class PlatformMechanic : MechanicController {
                 }
             }
         }
+        // Wire rails (marble machine): every fifth flight is carried by a two-wire rail on pins that
+        // follows the marble's real path just below it, like the rails in the reference.
+        if (look == "marble") {
+            val vr = planner.ballRadius * vis.heroSize
+            val rc = palette.text
+            for (i in 1 until cs.size) {
+                if (i % 5 != 2) continue
+                val a = cs[i - 1]; val b = cs[i]
+                if (t - b.timeSec > 4.0 || a.timeSec - t > 5.0) continue
+                val segs = 16
+                var px0 = 0f; var py0 = 0f; var px1 = 0f; var py1 = 0f
+                for (k in 0..segs) {
+                    val tt = a.timeSec + (b.timeSec - a.timeSec) * (0.1 + 0.8 * k / segs)
+                    val p = planner.ballAt(tt)
+                    val x = cam.sx(p.x); val y0 = cam.sy(p.y - vr * 1.05); val y1 = cam.sy(p.y - vr * 1.35)
+                    if (k > 0) {
+                        dl.line(px0, py0, x, y0, max(1f, ppu * 0.035f), rc, true)
+                        dl.line(px1, py1, x, y1, max(1f, ppu * 0.035f), Colors.scale(rc, 0.8f), true)
+                    }
+                    if (k % 3 == 0) {
+                        // Support pin into the wall, with its shadow.
+                        dl.line(x, y1, x + shOff * 0.8f, y1 + shOff * 1.2f, max(1f, ppu * 0.03f), rc, true)
+                        dl.circle(x + shOff * 0.8f, y1 + shOff * 1.2f, max(1.5f, ppu * 0.05f), Colors.scale(rc, 0.7f))
+                    }
+                    px0 = x; py0 = y0; px1 = x; py1 = y1
+                }
+            }
+        }
         // Trail (neon / stones glow trails), then the marble.
         val trailColor = vis.trailColor?.let { Colors.parse(it) } ?: palette.trail
         if (vis.trailOpacity > 0.01) {
