@@ -148,3 +148,46 @@ object EventNormalizer {
         )
     }
 }
+
+/** Structural section boundaries for MIDI (bar-level novelty of instrumentation/density/register). */
+object MidiStructure {
+    fun sections(midi: MidiFile): List<Double> {
+        val grid = BeatGrid.fromMidi(midi)
+        val bars = grid.beatTimes.filterIndexed { i, _ -> grid.downbeat[i] }
+        if (bars.size < 10) return emptyList()
+        val nb = bars.size
+        val feats = Array(nb) { DoubleArray(20) }
+        for (n in midi.notes) {
+            var lo = 0; var hi = nb - 1
+            while (lo < hi) { val m = (lo + hi + 1) ushr 1; if (bars[m] <= n.startSec) lo = m else hi = m - 1 }
+            val f = feats[lo]
+            f[n.channel] += 1.0
+            f[16] += n.velocity / 127.0
+            if (!n.isPercussion) { f[17] += n.pitch.toDouble(); f[18] += 1.0 }
+            f[19] += 1.0
+        }
+        for (f in feats) {
+            if (f[18] > 0) f[17] = f[17] / f[18] / 12.0 else f[17] = 0.0
+            val total = f[19].coerceAtLeast(1.0)
+            for (c in 0 until 16) f[c] = kotlin.math.sqrt(f[c] / total) * 2   // instrumentation profile
+            f[16] = f[16] / total; f[18] = kotlin.math.ln(1 + f[19]) ; f[19] = 0.0
+        }
+        fun dist(a: DoubleArray, b: DoubleArray): Double { var s = 0.0; for (i in a.indices) s += (a[i] - b[i]) * (a[i] - b[i]); return kotlin.math.sqrt(s) }
+        val w = 2
+        val nov = DoubleArray(nb)
+        for (b in w until nb - w + 1) {
+            val left = DoubleArray(20); val right = DoubleArray(20)
+            for (i in b - w until b) for (k in 0 until 20) left[k] += feats[i][k] / w
+            for (i in b until minOf(nb, b + w)) for (k in 0 until 20) right[k] += feats[i][k] / w
+            nov[b] = dist(left, right)
+        }
+        // Strongest local maxima (ignoring the final bars' ring-out), about one boundary per ~18 s,
+        // at least 6 bars apart (sections are rarely shorter).
+        val last = nb - 3
+        val want = kotlin.math.round(midi.durationSec / 18.0).toInt().coerceIn(2, 12)
+        val cands = (w until last).filter { b -> nov[b] > 0.0 && nov[b] >= nov[b - 1] && nov[b] >= nov[b + 1] }.sortedByDescending { nov[it] }
+        val chosen = ArrayList<Int>()
+        for (b in cands) { if (chosen.size >= want) break; if (chosen.all { abs(it - b) >= 6 }) chosen += b }
+        return chosen.sorted().map { bars[it] }.filter { it > 3.0 && it < midi.durationSec - 3.0 }
+    }
+}

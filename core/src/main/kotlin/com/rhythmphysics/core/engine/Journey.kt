@@ -35,7 +35,21 @@ object JourneyPlanner {
             val n = (dur / 22.0).roundToInt().coerceIn(2, 9)
             bounds = (1 until n).map { snap(dur * it / n, beats) }
         }
-        val edges = listOf(0.0) + bounds + listOf(dur)
+        val edges = ArrayList(listOf(0.0) + bounds + listOf(dur))
+        // Make room for every mechanic: split the longest middle section at a downbeat near its middle.
+        val wanted = MechanicType.values().count { Mechanics.isAvailable(it) } + 1
+        while (edges.size - 1 < wanted) {
+            var best = -1; var bestLen = 0.0
+            for (i in 0 until edges.size - 1) {
+                val len = edges[i + 1] - edges[i]
+                val middle = i > 0 && i < edges.size - 2 || edges.size <= 3
+                if (middle && len > bestLen) { bestLen = len; best = i }
+            }
+            if (best < 0 || bestLen < 2 * MIN_SEGMENT + 2) break
+            val cut = snap((edges[best] + edges[best + 1]) / 2, beats)
+            if (cut - edges[best] < MIN_SEGMENT || edges[best + 1] - cut < MIN_SEGMENT) break
+            edges.add(best + 1, cut)
+        }
         val available = MechanicType.values().filter { Mechanics.isAvailable(it) }
         val cycle = listOf(MechanicType.ARCH, MechanicType.PLATFORM, MechanicType.CIRCLE, MechanicType.SQUARE)
             .filter { it in available }.ifEmpty { available }

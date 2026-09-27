@@ -107,12 +107,8 @@ class RhythmSession(
 
     val bpm: Double get() = analysis?.bpm ?: midi?.initialBpm ?: 120.0
 
-    private fun midiSections(m: MidiFile): List<Double> {
-        // 8-bar phrases from the tempo map.
-        val grid = com.rhythmphysics.core.music.BeatGrid.fromMidi(m)
-        val downs = grid.beatTimes.filterIndexed { i, _ -> grid.downbeat[i] }
-        return downs.filterIndexed { i, _ -> i > 0 && i % 8 == 0 }
-    }
+    private val midiSectionCache: List<Double>? by lazy { midi?.let { com.rhythmphysics.core.music.MidiStructure.sections(it) } }
+    private fun midiSections(@Suppress("UNUSED_PARAMETER") m: MidiFile): List<Double> = midiSectionCache ?: emptyList()
 
     companion object {
         fun sandbox(durationSec: Double = 600.0) = RhythmSession(

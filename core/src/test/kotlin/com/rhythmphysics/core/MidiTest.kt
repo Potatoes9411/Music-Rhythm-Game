@@ -98,3 +98,15 @@ class MidiTest {
         assertTrue(hybrid.any { it.role == EventRole.MAJOR } && hybrid.any { it.role == EventRole.FX_ONLY })
     }
 }
+
+class MidiStructureTest {
+    @Test
+    fun demoSectionsFoundFromMidiStructure() {
+        val s = com.rhythmphysics.core.music.MidiStructure.sections(Fixtures.demoMidi)
+        val bar = 4 * 60.0 / 112
+        val truth = listOf(4, 12, 20, 28, 36).map { it * bar }
+        val hits = truth.count { t -> s.any { kotlin.math.abs(it - t) < 0.1 } }
+        println("midi sections ${s.map { "%.2f".format(it) }} hits $hits/5")
+        assertTrue(hits >= 4, "sections $s")
+    }
+}

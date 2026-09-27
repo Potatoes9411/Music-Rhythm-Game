@@ -87,6 +87,17 @@ fun main(args: Array<String>) {
             val frames = (0 until n).map { Scenes.frame(e, t0 + it * dt, scale, rs) }
             Scenes.save(Scenes.sheet(frames, (0 until n).map { "t=%.2fs".format(t0 + it * dt) }, if (aspect.isPortrait) minOf(n, 6) else minOf(n, 3)), File(args[6]))
         }
+        "sheetmode" -> {
+            // sheetmode <journey|duet|quad> <aspect> <t0> <dt> <n> <file>
+            val aspect = when (args[2]) { "16x9" -> AspectRatio.LANDSCAPE_16_9; "1x1" -> AspectRatio.SQUARE_1_1; else -> AspectRatio.PORTRAIT_9_16 }
+            val mode = when (args[1]) { "journey" -> ViewMode.JOURNEY; "duet" -> ViewMode.DUET; else -> ViewMode.QUAD }
+            val e = Scenes.engine(Scenes.demoSession(), null, aspect, mode)
+            e.director.journey?.segments?.forEach { println("segment %.2f-%.2f %s %s".format(it.startSec, it.endSec, it.mechanic, it.presetId)) }
+            val t0 = args[3].toDouble(); val dt = args[4].toDouble(); val n = args[5].toInt()
+            val scale = if (aspect.isPortrait) 0.3f else 0.22f
+            val frames = (0 until n).map { Scenes.frame(e, t0 + it * dt, scale) }
+            Scenes.save(Scenes.sheet(frames, (0 until n).map { "t=%.2fs".format(t0 + it * dt) }, if (aspect.isPortrait) minOf(n, 6) else minOf(n, 3)), File(args[6]))
+        }
         else -> error("unknown command")
     }
     System.exit(0)
