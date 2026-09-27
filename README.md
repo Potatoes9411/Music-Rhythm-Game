@@ -5,10 +5,10 @@ drive four mechanic families:
 
 | Mechanic | What happens | Presets |
 |---|---|---|
-| **Square** | A square bounces between surfaces that a planner places so every contact lands exactly on a musical event | Classic Planned, MIDI Playground, Dark Minimal, Neon Trail |
-| **Circle** | Free physics inside a ring: continuous (time-of-impact) collisions, gaps, and 26 anomaly types triggered by beats, downbeats, big events, collisions or escapes | Classic Elastic, Growing Ball, Shrinking Ring, Growing Ball / Shrinking Ring, Escape the Gap, Rotating Gap, Multiplication, Gravity Chaos, Melody Collision, Collision Synth, Orbit Force, Ring Break, Chaos, Sandbox |
-| **Arch** | A glowing hero flies exact ballistic arcs (`v0 = (p1 − p0 − ½gT²)/T`) onto 3-D targets, framed by a predictive camera director | Bounce Curve (teal discs, true ballistic), Pillar Weave (a *guided* swooping spline, labelled as such) |
-| **Platform** | A ball drops down a course of platforms planned from the song's events | Music Ball, Piano Tiles, Staircase, Minimal Bars, Neon Platforms, Block Terrain |
+| **Square** | A square bounces between surfaces that a planner places so every contact lands exactly on a musical event | Classic Planned, MIDI Playground (brick field with the route carved out), Carved Orange, Carved Navy, Stamp Walls, Dark Minimal, Neon Trail |
+| **Circle** | Free physics inside a ring: continuous (time-of-impact) collisions, gaps, and 26 anomaly types triggered by beats, downbeats, big events, collisions or escapes | Rainbow Rings and Rainbow Trails (never-cleared paint), Classic Elastic, Growing Ball, Shrinking Ring, Growing Ball / Shrinking Ring, Escape the Gap, Rotating Gap, Multiplication, Gravity Chaos, Melody Collision, Collision Synth, Orbit Force, Ring Break, Chaos, Sandbox |
+| **Arch** | A glowing hero flies exact ballistic arcs (`v0 = (p1 − p0 − ½gT²)/T`) onto 3-D targets, framed by a predictive camera director | Bounce Curve (grey studio, teal discs, yellow comet with floor reflection; true ballistic), Pillar Weave (ribbon-lit pillars on a black stage; a *guided* swooping spline, labelled as such) |
+| **Platform** | A marble drops down a course planned from the song's events; pads are tilted so each one reflects the marble into its next arc | Music Ball (studio), Neon Platforms, Pastel Glass, Stones, Marble Machine, Piano Tiles, Staircase, Minimal Bars, Block Terrain |
 
 The mechanics can also be combined in one run: **Journey** (auto-segmented by song sections, with
 iris/morph transitions), **Scripted Journey** (you choose the mechanic and preset for each segment),
@@ -166,9 +166,11 @@ build. Nothing in the code depends on the custom pipeline.
 
 ## Repository map
 
-- `references/manifest.json`: every reference link from the brief, with status and notes. **All
-  were inaccessible** from the build environment (egress policy), so nothing is marked as observed.
-  The brief's earlier observations are kept there as provisional guidance.
+- `references/manifest.json`: every reference link, with status and notes. The videos are not
+  reachable from the build environment, but the user supplied still frames for 25 of them; those
+  are marked `OBSERVED_FROM_USER_FRAMES`, with what the frames show and which preset rebuilds
+  the look (several were miscategorized in the brief and are reclassified there). The other 29 remain
+  `INACCESSIBLE`. Nothing was copied: every look is rebuilt with original code and assets.
 - Tests: `core/src/test` (engine and audio), `app/src/test` (pure app logic), `app/src/roboTest`
   (Robolectric app tests). The latter includes a small test-only `androidx.test` shim, because
   `androidx.test:monitor` is published only to Google Maven; see its README.
@@ -197,7 +199,9 @@ build. Nothing in the code depends on the custom pipeline.
   presets.
 - No R8/ProGuard shrinking (it ships with the Android Gradle Plugin). The APK is about 30 MB,
   nearly all of it the bundled 31 MB SoundFont, which barely compresses.
-- The visual references could not be viewed, and the two negative screenshots described in the brief
+- Looks were matched to still frames the user supplied, not to the videos, so motion details
+  (camera timing, trail dynamics) are approximations. Platform shadows are hard-edged where the
+  studio references have soft ones. The two negative screenshots described in the brief
   never arrived. Their failure modes (tiny hero, dead canvas, cage, compressed Arch course,
   overwhelming trail) are covered by composition tests rather than image comparisons.
 - Real-world audio testing used the demo song rendered through the SoundFont. Downloading

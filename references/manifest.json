@@ -1,11 +1,12 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-27T03:54Z",
-  "summary": "All 42 references were INACCESSIBLE from the build environment (egress policy). Nothing in this project was copied from them; mechanics, visuals and audio are original. \"observed\" is empty for every entry because no reference content could be viewed.",
+  "generatedAt": "2026-09-27",
+  "summary": "54 references: 25 observed through frames the user supplied in chat, 29 still inaccessible (egress policy). Nothing was copied; looks were rebuilt from the observed frames with original code and assets.",
   "statusLegend": {
     "OBSERVED": "seen directly in the reference",
     "INFERRED": "deduced, not seen",
-    "INACCESSIBLE": "could not be opened; contents unknown"
+    "INACCESSIBLE": "could not be opened; contents unknown",
+    "OBSERVED_FROM_USER_FRAMES": "seen in still frames the user supplied; the video itself was not reachable"
   },
   "references": [
     {
@@ -245,12 +246,16 @@
       "videoKey": "youtube:4Mx9QmiEfjo",
       "aliases": [],
       "originalCategory": "Arch / trajectory",
-      "actualCategory": "UNVERIFIED (not inspectable)",
-      "status": "INACCESSIBLE",
+      "actualCategory": "Circle / physics / chaos",
+      "status": "OBSERVED_FROM_USER_FRAMES",
       "duplicateOf": null,
-      "observed": [],
+      "observed": [
+        "PyCharm + pygame session building a ball-in-circle simulation",
+        "Result: navy/purple background, red ring, a ball whose outline is stamped every frame in cycling rainbow hues and never cleared, forming tube/ribbon shapes; the ball grows and is drawn solid black"
+      ],
       "inferred": [],
-      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Brief listed this under Arch; it is the source of the Circle \"rings\" look. Implemented as preset circle.rainbow_rings.",
+      "implementedAs": "circle.rainbow_rings"
     },
     {
       "id": "ref-017",
@@ -259,12 +264,14 @@
       "videoKey": "youtube:Jftn2Xk4S7Y",
       "aliases": [],
       "originalCategory": "Arch / trajectory",
-      "actualCategory": "UNVERIFIED (not inspectable)",
-      "status": "INACCESSIBLE",
+      "actualCategory": "Physics lecture (VPython)",
+      "status": "OBSERVED_FROM_USER_FRAMES",
       "duplicateOf": null,
-      "observed": [],
+      "observed": [
+        "Lecturer at a blackboard deriving reflection dp = -2(p·r̂)r̂; Web VPython code; many small balls in a ring"
+      ],
       "inferred": [],
-      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Brief listed this under Arch; it is a circle-collision physics lecture. Not used for visuals (reflection formula matches CircleWorld)."
     },
     {
       "id": "ref-018",
@@ -273,12 +280,14 @@
       "videoKey": "youtube:W9fdczla2ds",
       "aliases": [],
       "originalCategory": "Arch / trajectory",
-      "actualCategory": "UNVERIFIED (not inspectable)",
-      "status": "INACCESSIBLE",
+      "actualCategory": "Circle physics tutorial (pygame)",
+      "status": "OBSERVED_FROM_USER_FRAMES",
       "duplicateOf": null,
-      "observed": [],
+      "observed": [
+        "pygame tutorial: orange circle, red ball, dot-product projection and law-of-cosines derivations, spinning arc gap code"
+      ],
       "inferred": [],
-      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Brief listed this under Arch. Not used for visuals."
     },
     {
       "id": "ref-019",
@@ -429,12 +438,17 @@
       "videoKey": "youtube:_kxFLRkEqpQ",
       "aliases": [],
       "originalCategory": "Circle / physics / chaos",
-      "actualCategory": "UNVERIFIED (not inspectable)",
-      "status": "INACCESSIBLE",
+      "actualCategory": "Circle / physics / chaos",
+      "status": "OBSERVED_FROM_USER_FRAMES",
       "duplicateOf": null,
-      "observed": [],
+      "observed": [
+        "Black background, thin grey ring",
+        "Balls multiply; every path is painted permanently with rainbow-shifting color until the disc fills with a dense dot/line cloud",
+        "Early frames: one ball bouncing near the bottom, symmetric flame-like trails"
+      ],
       "inferred": [],
-      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Implemented as preset circle.rainbow_trails.",
+      "implementedAs": "circle.rainbow_trails"
     },
     {
       "id": "ref-029",
@@ -505,12 +519,14 @@
       "videoKey": "youtube:baKpqFfFVK0",
       "aliases": [],
       "originalCategory": "Circle / physics / chaos",
-      "actualCategory": "UNVERIFIED (not inspectable)",
-      "status": "INACCESSIBLE",
+      "actualCategory": "Blender tutorial (music ball add-on)",
+      "status": "OBSERVED_FROM_USER_FRAMES",
       "duplicateOf": null,
-      "observed": [],
+      "observed": [
+        "Blender UI, \"Music Ball Sequential Animation\" add-on panel, tube objects, ball on a curve, textured wall"
+      ],
       "inferred": [],
-      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Inspected by the user; not used for visuals."
     },
     {
       "id": "ref-034",
@@ -519,12 +535,14 @@
       "videoKey": "youtube:n2I0CzCfOEU",
       "aliases": [],
       "originalCategory": "Circle / physics / chaos",
-      "actualCategory": "UNVERIFIED (not inspectable)",
-      "status": "INACCESSIBLE",
+      "actualCategory": "Blender tutorial",
+      "status": "OBSERVED_FROM_USER_FRAMES",
       "duplicateOf": null,
-      "observed": [],
+      "observed": [
+        "Blender default cube scenes; a short \"ball falling animation\" with colored slabs"
+      ],
       "inferred": [],
-      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Brief listed this under Circle. Tutorial footage."
     },
     {
       "id": "ref-035",
@@ -533,12 +551,18 @@
       "videoKey": "youtube:6emfSUtWnOw",
       "aliases": [],
       "originalCategory": "Circle / physics / chaos",
-      "actualCategory": "UNVERIFIED (not inspectable)",
-      "status": "INACCESSIBLE",
+      "actualCategory": "Arch / trajectory",
+      "status": "OBSERVED_FROM_USER_FRAMES",
       "duplicateOf": null,
-      "observed": [],
+      "observed": [
+        "Grey studio floor, bright at the top, dark toward the camera, seamless (no horizon)",
+        "Small flat bright-teal discs receding in a row",
+        "White-hot core with a long yellow comet trail and a yellow reflection on the floor",
+        "Blender \"Simple Bounce Curve\" add-on used to build the bounce path"
+      ],
       "inferred": [],
-      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Brief listed this under Circle; the user marks it as the PRIMARY Arch reference. Implemented as preset arch.bounce_curve.",
+      "implementedAs": "arch.bounce_curve"
     },
     {
       "id": "ref-036",
@@ -547,12 +571,14 @@
       "videoKey": "youtube:ZlHTx1q5fng",
       "aliases": [],
       "originalCategory": "Circle / physics / chaos",
-      "actualCategory": "UNVERIFIED (not inspectable)",
-      "status": "INACCESSIBLE",
+      "actualCategory": "Blender tutorial / channel browsing",
+      "status": "OBSERVED_FROM_USER_FRAMES",
       "duplicateOf": null,
-      "observed": [],
+      "observed": [
+        "Blender default cube; YouTube Shorts grid of marble music videos"
+      ],
       "inferred": [],
-      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Brief listed this under Circle."
     },
     {
       "id": "ref-037",
@@ -561,12 +587,14 @@
       "videoKey": "youtube:nBYWQ1RwqnY",
       "aliases": [],
       "originalCategory": "Circle / physics / chaos",
-      "actualCategory": "UNVERIFIED (not inspectable)",
-      "status": "INACCESSIBLE",
+      "actualCategory": "Studio intro (vrbn) + Blender",
+      "status": "OBSERVED_FROM_USER_FRAMES",
       "duplicateOf": null,
-      "observed": [],
+      "observed": [
+        "vrbn studio intro and city renders; Blender default cube"
+      ],
       "inferred": [],
-      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Brief listed this under Circle. Intro only."
     },
     {
       "id": "ref-038",
@@ -575,12 +603,16 @@
       "videoKey": "youtube:ALfkcAvf7t4",
       "aliases": [],
       "originalCategory": "Circle / physics / chaos",
-      "actualCategory": "UNVERIFIED (not inspectable)",
-      "status": "INACCESSIBLE",
+      "actualCategory": "Music Square (midi-playground tutorial)",
+      "status": "OBSERVED_FROM_USER_FRAMES",
       "duplicateOf": null,
-      "observed": [],
+      "observed": [
+        "Phone showing TikTok bouncing-square videos: carved blocky routes, bright ticks, particles",
+        "GitHub midi-playground release page (v4.0.0)"
+      ],
       "inferred": [],
-      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Brief listed this under Circle. Implemented as preset square.midi_playground.",
+      "implementedAs": "square.midi_playground"
     },
     {
       "id": "ref-039",
@@ -603,12 +635,15 @@
       "videoKey": "youtube:cPfpBUrdkSU",
       "aliases": [],
       "originalCategory": "Circle / physics / chaos",
-      "actualCategory": "UNVERIFIED (not inspectable)",
-      "status": "INACCESSIBLE",
+      "actualCategory": "Music Square",
+      "status": "OBSERVED_FROM_USER_FRAMES",
       "duplicateOf": null,
-      "observed": [],
+      "observed": [
+        "Bouncing-square cover: dark navy field with a slightly darker carved blocky route, small pale outline squares, colored bounce ticks"
+      ],
       "inferred": [],
-      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Brief listed this under Circle. Implemented as preset square.carved_navy.",
+      "implementedAs": "square.carved_navy"
     },
     {
       "id": "ref-041",
@@ -617,12 +652,16 @@
       "videoKey": "youtube:t4E7t7FXZmo",
       "aliases": [],
       "originalCategory": "Circle / physics / chaos",
-      "actualCategory": "UNVERIFIED (not inspectable)",
-      "status": "INACCESSIBLE",
+      "actualCategory": "Music Square (\"Bouncing squares but they sound nice\")",
+      "status": "OBSERVED_FROM_USER_FRAMES",
       "duplicateOf": null,
-      "observed": [],
+      "observed": [
+        "Black background, grey side wall slabs",
+        "The square leaves solid stamps along its path, purple (older) to pink (newer), zig-zagging between walls"
+      ],
       "inferred": [],
-      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Brief listed this under Circle. Implemented as preset square.stamp_walls.",
+      "implementedAs": "square.stamp_walls"
     },
     {
       "id": "ref-042",
@@ -631,12 +670,217 @@
       "videoKey": "youtube:6XYPlVyLWfQ",
       "aliases": [],
       "originalCategory": "Circle / physics / chaos",
-      "actualCategory": "UNVERIFIED (not inspectable)",
-      "status": "INACCESSIBLE",
+      "actualCategory": "Music Square (midi-playground menu)",
+      "status": "OBSERVED_FROM_USER_FRAMES",
       "duplicateOf": null,
-      "observed": [],
+      "observed": [
+        "midi-playground main menu: light grey preview panel with one small colored square, menu buttons Play/Config/Contribute/Open Songs Folder/Quit; no gameplay"
+      ],
       "inferred": [],
-      "notes": "Access attempted 2026-09-27T03:54Z from the build container. Connection refused by the build environment's egress proxy (curl HTTP 000; WebFetch EGRESS_BLOCKED for www.youtube.com). This is a network-policy block, not a sign-in wall; no bypass was attempted."
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Brief listed this under Circle. Only the menu preview is visible."
+    },
+    {
+      "id": "ref-043",
+      "url": "https://www.youtube.com/watch?v=J4FXaPSNZTI",
+      "canonicalUrl": "https://www.youtube.com/watch?v=J4FXaPSNZTI",
+      "videoKey": "youtube:J4FXaPSNZTI",
+      "aliases": [],
+      "originalCategory": "(not in the original brief; supplied later by the user)",
+      "actualCategory": "Music Square",
+      "status": "OBSERVED_FROM_USER_FRAMES",
+      "duplicateOf": null,
+      "observed": [
+        "midi-playground gameplay: brick-red field, route carved out in black blocky corridors, colored bounce ticks on the corridor walls, small yellow outline square kept near the centre, pink particles"
+      ],
+      "inferred": [],
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Implemented as preset square.midi_playground.",
+      "implementedAs": "square.midi_playground"
+    },
+    {
+      "id": "ref-044",
+      "url": "https://www.youtube.com/watch?v=jfvT4WSOtNg",
+      "canonicalUrl": "https://www.youtube.com/watch?v=jfvT4WSOtNg",
+      "videoKey": "youtube:jfvT4WSOtNg",
+      "aliases": [],
+      "originalCategory": "(not in the original brief; supplied later by the user)",
+      "actualCategory": "Music Square",
+      "status": "OBSERVED_FROM_USER_FRAMES",
+      "duplicateOf": null,
+      "observed": [
+        "midi-playground gameplay: orange field, wide blocky black carved route, tiny glowing outline square, scattered colored particles"
+      ],
+      "inferred": [],
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Implemented as preset square.carved_orange.",
+      "implementedAs": "square.carved_orange"
+    },
+    {
+      "id": "ref-045",
+      "url": "https://www.youtube.com/watch?v=KrCdv9sit_o",
+      "canonicalUrl": "https://www.youtube.com/watch?v=KrCdv9sit_o",
+      "videoKey": "youtube:KrCdv9sit_o",
+      "aliases": [],
+      "originalCategory": "(not in the original brief; supplied later by the user)",
+      "actualCategory": "Arch / trajectory (pillars)",
+      "status": "OBSERVED_FROM_USER_FRAMES",
+      "duplicateOf": null,
+      "observed": [
+        "Black stage, pale cylinders lit warm only near the ribbon",
+        "Thick glowing orange ribbon with a white core swooping around and onto pillars",
+        "Faint grid floor lit orange near the light"
+      ],
+      "inferred": [],
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Implemented as preset arch.pillar_weave.",
+      "implementedAs": "arch.pillar_weave"
+    },
+    {
+      "id": "ref-046",
+      "url": "youtube.com/watch?v=CW… (ID truncated in the supplied frame)",
+      "canonicalUrl": null,
+      "videoKey": null,
+      "aliases": [],
+      "originalCategory": "(not in the original brief; supplied later by the user)",
+      "actualCategory": "Platform Fall (studio)",
+      "status": "OBSERVED_FROM_USER_FRAMES",
+      "duplicateOf": null,
+      "observed": [
+        "Grey wall, gold marble, blue/green/orange/white slabs tilted on gold brackets and rods, soft shadows"
+      ],
+      "inferred": [],
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Implemented as preset platform.music_ball.",
+      "implementedAs": "platform.music_ball"
+    },
+    {
+      "id": "ref-047",
+      "url": "youtube.com/watch?v=gX… (ID truncated)",
+      "canonicalUrl": null,
+      "videoKey": null,
+      "aliases": [],
+      "originalCategory": "(not in the original brief; supplied later by the user)",
+      "actualCategory": "Platform Fall (neon, \"Beat Bounce\" app)",
+      "status": "OBSERVED_FROM_USER_FRAMES",
+      "duplicateOf": null,
+      "observed": [
+        "Dark hex-patterned wall, glowing rainbow marble with a sparkling trail, glowing cyan/pink pads and wooden pads"
+      ],
+      "inferred": [],
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Implemented as preset platform.neon.",
+      "implementedAs": "platform.neon"
+    },
+    {
+      "id": "ref-048",
+      "url": "youtube.com/watch?v=2iu… (ID truncated)",
+      "canonicalUrl": null,
+      "videoKey": null,
+      "aliases": [],
+      "originalCategory": "(not in the original brief; supplied later by the user)",
+      "actualCategory": "Platform Fall (neon)",
+      "status": "OBSERVED_FROM_USER_FRAMES",
+      "duplicateOf": null,
+      "observed": [
+        "Dark blue-grey wall, glowing blue outlined pads at many angles, bright white marble, cyan wire rails"
+      ],
+      "inferred": [],
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Implemented as preset platform.neon.",
+      "implementedAs": "platform.neon"
+    },
+    {
+      "id": "ref-049",
+      "url": "youtube.com/watch?v=l-k… (ID truncated)",
+      "canonicalUrl": null,
+      "videoKey": null,
+      "aliases": [],
+      "originalCategory": "(not in the original brief; supplied later by the user)",
+      "actualCategory": "Platform Fall (pastel)",
+      "status": "OBSERVED_FROM_USER_FRAMES",
+      "duplicateOf": null,
+      "observed": [
+        "Teal wall, glass lime marble, pale pads that light up pink/cyan/yellow/lilac when struck"
+      ],
+      "inferred": [],
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Implemented as preset platform.pastel.",
+      "implementedAs": "platform.pastel"
+    },
+    {
+      "id": "ref-050",
+      "url": "youtube.com/watch?v=2w… (ID truncated)",
+      "canonicalUrl": null,
+      "videoKey": null,
+      "aliases": [],
+      "originalCategory": "(not in the original brief; supplied later by the user)",
+      "actualCategory": "Platform Fall (\"Best ringtone?\")",
+      "status": "OBSERVED_FROM_USER_FRAMES",
+      "duplicateOf": null,
+      "observed": [
+        "Pale grey wall, red swirl marble, white dish pads and colored slabs on wire stands, strong drop shadows, wire rails"
+      ],
+      "inferred": [],
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment."
+    },
+    {
+      "id": "ref-051",
+      "url": "youtube.com/watch?v=TS… (ID truncated)",
+      "canonicalUrl": null,
+      "videoKey": null,
+      "aliases": [],
+      "originalCategory": "(not in the original brief; supplied later by the user)",
+      "actualCategory": "Platform Fall (stones)",
+      "status": "OBSERVED_FROM_USER_FRAMES",
+      "duplicateOf": null,
+      "observed": [
+        "Dark wall with scattered soft pastel stones, glowing cyan pads, glowing magenta marble"
+      ],
+      "inferred": [],
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Implemented as preset platform.stones.",
+      "implementedAs": "platform.stones"
+    },
+    {
+      "id": "ref-052",
+      "url": "https://www.youtube.com/watch?v=Lwz2tFFrlEQ",
+      "canonicalUrl": "https://www.youtube.com/watch?v=Lwz2tFFrlEQ",
+      "videoKey": "youtube:Lwz2tFFrlEQ",
+      "aliases": [],
+      "originalCategory": "(not in the original brief; supplied later by the user)",
+      "actualCategory": "Blender how-to",
+      "status": "OBSERVED_FROM_USER_FRAMES",
+      "duplicateOf": null,
+      "observed": [
+        "Blender rigid-body setup of a ball and pads; not used for visuals"
+      ],
+      "inferred": [],
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment."
+    },
+    {
+      "id": "ref-053",
+      "url": "https://www.youtube.com/watch?v=XXKuRGV7bXM",
+      "canonicalUrl": "https://www.youtube.com/watch?v=XXKuRGV7bXM",
+      "videoKey": "youtube:XXKuRGV7bXM",
+      "aliases": [],
+      "originalCategory": "(not in the original brief; supplied later by the user)",
+      "actualCategory": "Marble Machine (MAIN)",
+      "status": "OBSERVED_FROM_USER_FRAMES",
+      "duplicateOf": null,
+      "observed": [
+        "Beige tiled wall, two glass marbles, sections: colored percussion tubes, wooden/white marimba bars and bells on pins, vibraphone bars, wire rails, long soft shadows"
+      ],
+      "inferred": [],
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment. Implemented as preset platform.marble_machine.",
+      "implementedAs": "platform.marble_machine"
+    },
+    {
+      "id": "ref-054",
+      "url": "https://www.youtube.com/watch?v=jPplbBBcTlk",
+      "canonicalUrl": "https://www.youtube.com/watch?v=jPplbBBcTlk",
+      "videoKey": "youtube:jPplbBBcTlk",
+      "aliases": [],
+      "originalCategory": "(not in the original brief; supplied later by the user)",
+      "actualCategory": "Blender course (Udemy ad)",
+      "status": "OBSERVED_FROM_USER_FRAMES",
+      "duplicateOf": null,
+      "observed": [
+        "73-minute Blender course and course advert; no finished animation shown; not usable"
+      ],
+      "inferred": [],
+      "notes": "Frames supplied by the user in this session (images in chat). Observed notes describe those frames only; the videos themselves remain unreachable from the build environment."
     }
   ],
   "provisionalObservationsFromBrief": {

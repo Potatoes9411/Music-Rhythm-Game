@@ -114,7 +114,14 @@
                 "outlineOnly": false,
                 "ghostTrail": false,
                 "surfaceMemoryTint": true,
-                "showStats": false
+                "showStats": false,
+                "carveWidth": 1.7,
+                "stampCount": 0,
+                "stampSpacingSec": 0.1,
+                "sharpSurfaces": false,
+                "persist": "none",
+                "targetScale": 1.0,
+                "padLook": "none"
             },
             "eventMapping": {
                 "mode": "HYBRID",
@@ -127,5 +134,5 @@
     ],
     "sandboxInputs": [],
     "verifyAtSec": 45.0,
-    "verifyHash": "ead75cebe772e769022401a121f9b239769c238ce582932da58c4665ea071133"
+    "verifyHash": "93b2500c757f44e7c7d29e781e20a2d4d096f78215982d7df0eed3050d89c560"
 }

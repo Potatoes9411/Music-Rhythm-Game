@@ -36,7 +36,7 @@
             "name": "Arch — Bounce Curve",
             "mechanic": "ARCH",
             "seed": null,
-            "description": "White-hot hero on decaying ballistic bounces across separated teal pads; dark studio floor, low camera, warm comet trail with controlled bloom.",
+            "description": "Grey spotlit studio floor, small flat teal discs, and a white-hot hero drawing a long yellow comet streak reflected in the floor.",
             "generation": {
                 "style": "bounce_curve",
                 "speed": 5.2,
@@ -84,7 +84,7 @@
                 "orbit": 0.0
             },
             "camera": {
-                "zoom": 1.0,
+                "zoom": 0.9,
                 "lookaheadSec": 0.8,
                 "pitchDeg": 14.0,
                 "height": 2.4,
@@ -94,13 +94,13 @@
                 "follow": 1.0
             },
             "visuals": {
-                "palette": "studio_warm",
-                "heroSize": 1.0,
+                "palette": "studio_grey",
+                "heroSize": 0.7,
                 "heroShape": "square",
-                "trailLengthSec": 0.45,
-                "trailWidth": 0.8,
-                "trailOpacity": 0.7,
-                "trailTaper": 0.95,
+                "trailLengthSec": 1.1,
+                "trailWidth": 0.7,
+                "trailOpacity": 0.85,
+                "trailTaper": 0.9,
                 "trailColor": null,
                 "emissive": 1.2,
                 "bloom": 0.8,
@@ -108,13 +108,20 @@
                 "squashStretch": true,
                 "impactFlash": 1.0,
                 "colorShiftOnImpact": true,
-                "background": "gradient",
+                "background": "studio",
                 "reflections": true,
                 "noteLabels": false,
                 "outlineOnly": false,
                 "ghostTrail": false,
                 "surfaceMemoryTint": true,
-                "showStats": false
+                "showStats": false,
+                "carveWidth": 1.7,
+                "stampCount": 0,
+                "stampSpacingSec": 0.1,
+                "sharpSurfaces": false,
+                "persist": "none",
+                "targetScale": 0.55,
+                "padLook": "none"
             },
             "eventMapping": {
                 "mode": "HYBRID",

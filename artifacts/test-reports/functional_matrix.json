@@ -105,7 +105,7 @@
             "syncContacts": 74,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 466,
+            "minDrawCommands": 184,
             "pass": true
         },
         {
@@ -117,7 +117,7 @@
             "syncContacts": 74,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 464,
+            "minDrawCommands": 183,
             "pass": true
         },
         {
@@ -129,7 +129,7 @@
             "syncContacts": 75,
             "syncMaxMs": 0.167,
             "syncGoal": true,
-            "minDrawCommands": 429,
+            "minDrawCommands": 179,
             "pass": true
         },
         {
@@ -141,7 +141,7 @@
             "syncContacts": 75,
             "syncMaxMs": 0.167,
             "syncGoal": true,
-            "minDrawCommands": 428,
+            "minDrawCommands": 179,
             "pass": true
         },
         {
@@ -153,7 +153,7 @@
             "syncContacts": 74,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 90,
+            "minDrawCommands": 39,
             "pass": true
         },
         {
@@ -165,7 +165,7 @@
             "syncContacts": 74,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 90,
+            "minDrawCommands": 29,
             "pass": true
         },
         {
@@ -177,7 +177,7 @@
             "syncContacts": 75,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 81,
+            "minDrawCommands": 39,
             "pass": true
         },
         {
@@ -189,7 +189,7 @@
             "syncContacts": 75,
             "syncMaxMs": 0.0,
             "syncGoal": true,
-            "minDrawCommands": 81,
+            "minDrawCommands": 27,
             "pass": true
         },
         {

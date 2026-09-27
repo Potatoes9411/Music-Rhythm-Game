@@ -15,6 +15,15 @@ Planned mechanics solve every contact exactly on the fixed 120 Hz step grid, so 
 | square.midi_playground | 9:16 | 244 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.33 | 7.169 |
 | square.midi_playground | 16:9 | 244 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.33 | 7.169 |
 | square.midi_playground | 1:1 | 244 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.33 | 7.169 |
+| square.carved_orange | 9:16 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| square.carved_orange | 16:9 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| square.carved_orange | 1:1 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| square.carved_navy | 9:16 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| square.carved_navy | 16:9 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| square.carved_navy | 1:1 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| square.stamp_walls | 9:16 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| square.stamp_walls | 16:9 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| square.stamp_walls | 1:1 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
 | square.dark_minimal | 9:16 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
 | square.dark_minimal | 16:9 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
 | square.dark_minimal | 1:1 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
@@ -60,6 +69,12 @@ Planned mechanics solve every contact exactly on the fixed 120 Hz step grid, so 
 | circle.chaos | 9:16 | 0 | 0.000 | 0.000 | 0.000 | 0 | pass | 0.0 | 0.0 |
 | circle.chaos | 16:9 | 0 | 0.000 | 0.000 | 0.000 | 0 | pass | 0.0 | 0.0 |
 | circle.chaos | 1:1 | 0 | 0.000 | 0.000 | 0.000 | 0 | pass | 0.0 | 0.0 |
+| circle.rainbow_rings | 9:16 | 0 | 0.000 | 0.000 | 0.000 | 0 | pass | 0.0 | 0.0 |
+| circle.rainbow_rings | 16:9 | 0 | 0.000 | 0.000 | 0.000 | 0 | pass | 0.0 | 0.0 |
+| circle.rainbow_rings | 1:1 | 0 | 0.000 | 0.000 | 0.000 | 0 | pass | 0.0 | 0.0 |
+| circle.rainbow_trails | 9:16 | 0 | 0.000 | 0.000 | 0.000 | 0 | pass | 0.0 | 0.0 |
+| circle.rainbow_trails | 16:9 | 0 | 0.000 | 0.000 | 0.000 | 0 | pass | 0.0 | 0.0 |
+| circle.rainbow_trails | 1:1 | 0 | 0.000 | 0.000 | 0.000 | 0 | pass | 0.0 | 0.0 |
 | circle.sandbox | 9:16 | 0 | 0.000 | 0.000 | 0.000 | 0 | pass | 0.0 | 0.0 |
 | circle.sandbox | 16:9 | 0 | 0.000 | 0.000 | 0.000 | 0 | pass | 0.0 | 0.0 |
 | circle.sandbox | 1:1 | 0 | 0.000 | 0.000 | 0.000 | 0 | pass | 0.0 | 0.0 |
@@ -72,6 +87,15 @@ Planned mechanics solve every contact exactly on the fixed 120 Hz step grid, so 
 | platform.music_ball | 9:16 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
 | platform.music_ball | 16:9 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
 | platform.music_ball | 1:1 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| platform.pastel | 9:16 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| platform.pastel | 16:9 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| platform.pastel | 1:1 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| platform.stones | 9:16 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| platform.stones | 16:9 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| platform.stones | 1:1 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| platform.marble_machine | 9:16 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| platform.marble_machine | 16:9 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
+| platform.marble_machine | 1:1 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
 | platform.piano_tiles | 9:16 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
 | platform.piano_tiles | 16:9 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
 | platform.piano_tiles | 1:1 | 152 | 0.000 | 0.000 | 0.000 | 0 | pass | 14.314 | 7.17 |
@@ -116,46 +140,54 @@ Each cell: play to 40 s at 60 Hz, then seek-from-scratch hash == played hash, re
 
 | scene | 60 Hz | 90 Hz | 120 Hz | 144 Hz | seek | all equal |
 |---|---|---|---|---|---|---|
-| Square | e7c7455f | e7c7455f | e7c7455f | e7c7455f | e7c7455f | yes |
-| Circle | b894a9c3 | b894a9c3 | b894a9c3 | b894a9c3 | b894a9c3 | yes |
+| Square | 6d7156be | 6d7156be | 6d7156be | 6d7156be | 6d7156be | yes |
+| Circle | 126cc23a | 126cc23a | 126cc23a | 126cc23a | 126cc23a | yes |
 | Arch | 21181b6c | 21181b6c | 21181b6c | 21181b6c | 21181b6c | yes |
 | Platform | 970b32dc | 970b32dc | 970b32dc | 970b32dc | 970b32dc | yes |
-| Journey | 5d89aab3 | 5d89aab3 | 5d89aab3 | 5d89aab3 | 5d89aab3 | yes |
-| Duet | 2799d714 | 2799d714 | 2799d714 | 2799d714 | 2799d714 | yes |
-| Quad | 1d391e47 | 1d391e47 | 1d391e47 | 1d391e47 | 1d391e47 | yes |
+| Journey | 5c0ea83c | 5c0ea83c | 5c0ea83c | 5c0ea83c | 5c0ea83c | yes |
+| Duet | d462865e | d462865e | d462865e | d462865e | d462865e | yes |
+| Quad | 63b22b7b | 63b22b7b | 63b22b7b | 63b22b7b | 63b22b7b | yes |
 
 ## Host performance (JVM, not a device)
 
 | scene | sim µs/step | DrawList ms/frame (avg / p95) | draw cmds (avg / max) | alloc bytes/frame (update+DrawList) | Java2D raster ms @540×960 |
 |---|---|---|---|---|---|
-| square.classic | 0.7 | 0.009 / 0.023 | 185 / 201 | 5782 | 13.6 |
-| square.midi_playground | 1.6 | 0.005 / 0.013 | 20 / 25 | 6617 | 2.2 |
-| square.dark_minimal | 0.6 | 0.006 / 0.015 | 39 / 43 | 4459 | 2.9 |
-| square.neon_trail | 0.8 | 0.007 / 0.015 | 213 / 229 | 5632 | 14.0 |
-| circle.classic | 0.5 | 0.002 / 0.008 | 43 / 61 | 979 | 10.7 |
-| circle.growing_ball | 0.4 | 0.001 / 0.006 | 39 / 66 | 924 | 11.4 |
-| circle.shrinking_ring | 0.4 | 0.002 / 0.006 | 40 / 67 | 940 | 12.0 |
-| circle.grow_shrink | 0.9 | 0.002 / 0.009 | 41 / 68 | 1133 | 10.1 |
-| circle.escape_gap | 58.4 | 0.006 / 0.016 | 136 / 351 | 36387 | 10.8 |
-| circle.rotating_gap | 0.3 | 0.002 / 0.009 | 40 / 59 | 1380 | 9.8 |
-| circle.multiplication | 77.3 | 0.005 / 0.013 | 152 / 401 | 49629 | 12.0 |
-| circle.gravity_chaos | 13.7 | 0.004 / 0.011 | 114 / 176 | 18321 | 11.3 |
-| circle.melody_collision | 0.4 | 0.002 / 0.007 | 39 / 56 | 982 | 11.0 |
-| circle.collision_synth | 14.4 | 0.005 / 0.011 | 163 / 186 | 29948 | 11.3 |
-| circle.orbit_force | 21.6 | 0.015 / 0.028 | 361 / 587 | 37864 | 15.7 |
-| circle.ring_break | 10.6 | 0.006 / 0.012 | 71 / 89 | 12770 | 10.5 |
-| circle.chaos | 19.8 | 0.006 / 0.015 | 195 / 376 | 49141 | 11.4 |
-| circle.sandbox | 0.3 | 0.001 / 0.006 | 38 / 50 | 937 | 8.3 |
-| arch.bounce_curve | 0.3 | 0.100 / 0.153 | 569 / 690 | 43712 | 18.7 |
-| arch.pillar_weave | 0.5 | 0.106 / 0.135 | 545 / 607 | 53812 | 19.7 |
-| platform.music_ball | 0.3 | 0.008 / 0.015 | 123 / 136 | 2662 | 10.1 |
-| platform.piano_tiles | 0.4 | 0.005 / 0.012 | 105 / 112 | 2621 | 6.8 |
-| platform.staircase | 0.3 | 0.004 / 0.011 | 118 / 129 | 2593 | 8.2 |
-| platform.minimal_bars | 0.2 | 0.006 / 0.015 | 64 / 67 | 2715 | 1.8 |
-| platform.neon | 0.3 | 0.005 / 0.012 | 135 / 147 | 2613 | 14.2 |
-| platform.block_terrain | 0.3 | 0.006 / 0.014 | 133 / 144 | 4758 | 7.7 |
-| journey | 0.4 | 0.044 / 0.123 | 332 / 690 | 24920 | 12.2 |
-| quad | 1.8 | 0.108 / 0.150 | 922 / 1059 | 52736 | 15.0 |
+| square.classic | 0.9 | 0.011 / 0.038 | 185 / 201 | 5959 | 15.5 |
+| square.midi_playground | 1.2 | 0.055 / 0.117 | 150 / 573 | 9171 | 1.4 |
+| square.carved_orange | 0.9 | 0.030 / 0.063 | 91 / 356 | 6914 | 1.2 |
+| square.carved_navy | 0.9 | 0.009 / 0.018 | 107 / 465 | 6792 | 1.1 |
+| square.stamp_walls | 1.5 | 0.006 / 0.014 | 36 / 36 | 4760 | 2.6 |
+| square.dark_minimal | 0.7 | 0.005 / 0.013 | 39 / 43 | 4694 | 3.2 |
+| square.neon_trail | 0.8 | 0.009 / 0.030 | 213 / 229 | 5910 | 14.7 |
+| circle.classic | 0.4 | 0.004 / 0.020 | 43 / 61 | 1147 | 11.1 |
+| circle.growing_ball | 0.4 | 0.003 / 0.016 | 39 / 66 | 989 | 13.1 |
+| circle.shrinking_ring | 0.4 | 0.002 / 0.014 | 40 / 67 | 1005 | 11.8 |
+| circle.grow_shrink | 0.4 | 0.005 / 0.026 | 41 / 68 | 1286 | 12.4 |
+| circle.escape_gap | 62.1 | 0.009 / 0.040 | 136 / 351 | 36479 | 13.0 |
+| circle.rotating_gap | 0.4 | 0.004 / 0.027 | 40 / 59 | 1477 | 12.8 |
+| circle.multiplication | 89.4 | 0.007 / 0.024 | 152 / 401 | 49726 | 13.2 |
+| circle.gravity_chaos | 11.4 | 0.007 / 0.026 | 114 / 176 | 18417 | 12.9 |
+| circle.melody_collision | 0.4 | 0.003 / 0.016 | 39 / 56 | 1079 | 11.2 |
+| circle.collision_synth | 14.5 | 0.006 / 0.022 | 163 / 186 | 30044 | 12.2 |
+| circle.orbit_force | 26.2 | 0.019 / 0.044 | 361 / 587 | 37961 | 18.6 |
+| circle.ring_break | 11.2 | 0.006 / 0.024 | 71 / 89 | 12814 | 11.4 |
+| circle.chaos | 25.9 | 0.010 / 0.035 | 195 / 376 | 49238 | 13.9 |
+| circle.rainbow_rings | 0.5 | 0.006 / 0.026 | 9 / 11 | 1422 | 126.0 |
+| circle.rainbow_trails | 68.0 | 0.003 / 0.012 | 13 / 22 | 50115 | 14.8 |
+| circle.sandbox | 0.4 | 0.002 / 0.013 | 38 / 50 | 1034 | 11.6 |
+| arch.bounce_curve | 0.4 | 0.109 / 0.170 | 232 / 248 | 51571 | 11.0 |
+| arch.pillar_weave | 0.4 | 0.139 / 0.204 | 587 / 662 | 62603 | 31.9 |
+| platform.music_ball | 0.3 | 0.007 / 0.023 | 56 / 71 | 1676 | 7.8 |
+| platform.pastel | 0.3 | 0.006 / 0.027 | 61 / 79 | 1760 | 10.6 |
+| platform.stones | 0.3 | 0.018 / 0.046 | 135 / 157 | 5402 | 19.1 |
+| platform.marble_machine | 0.3 | 0.008 / 0.018 | 63 / 78 | 1760 | 4.1 |
+| platform.piano_tiles | 0.3 | 0.009 / 0.026 | 105 / 112 | 2706 | 8.5 |
+| platform.staircase | 0.3 | 0.007 / 0.024 | 118 / 129 | 2654 | 11.6 |
+| platform.minimal_bars | 0.3 | 0.007 / 0.016 | 64 / 67 | 2680 | 2.4 |
+| platform.neon | 0.4 | 0.009 / 0.034 | 97 / 110 | 3168 | 22.6 |
+| platform.block_terrain | 0.3 | 0.009 / 0.026 | 133 / 144 | 4803 | 10.1 |
+| journey | 0.4 | 0.045 / 0.120 | 206 / 393 | 27505 | 10.7 |
+| quad | 1.8 | 0.104 / 0.173 | 527 / 565 | 57670 | 12.2 |
 
 ## Replays (export → import → verify)
 
