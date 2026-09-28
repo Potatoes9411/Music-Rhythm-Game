@@ -45,6 +45,8 @@ data class Contact(val time: Double, val x: Double, val y: Double, val angle: Do
  */
 class CircleWorld(val params: PhysicsParams, seed: Long) {
     val balls = ArrayList<Ball>()
+    /** Mirror-symmetric style: balls live in left/right mirror pairs and duplicate as pairs. */
+    var mirror = false
     var ringR = params.ringRadius
     var targetRingR = params.ringRadius
     var ringRotation = 0.0
@@ -295,7 +297,18 @@ class CircleWorld(val params: PhysicsParams, seed: Long) {
             }
             AnomalyType.DUPLICATION_CASCADE -> {
                 val snapshot = balls.toList()
-                for (b in snapshot) spawnBall(b.x, b.y, -b.vx * 0.9 + rng.range(-2.0, 2.0), -b.vy * 0.9 + rng.range(-2.0, 2.0), b.targetR, b.color + 1)
+                if (mirror) {
+                    // Each right-hand ball stands for its mirror pair; the new pair leaves at a
+                    // slightly rotated velocity so the pattern stays left/right symmetric.
+                    for (b in snapshot) {
+                        if (b.x < 0) continue
+                        val d = rng.range(0.12, 0.35) * (if (rng.chance(0.5)) 1 else -1)
+                        val vx = b.vx * cos(d) - b.vy * sin(d); val vy = b.vx * sin(d) + b.vy * cos(d)
+                        val x = maxOf(b.x, 0.02)
+                        spawnBall(x, b.y, vx, vy, b.targetR, b.color + 1)
+                        spawnBall(-x, b.y, -vx, vy, b.targetR, b.color + 1)
+                    }
+                } else for (b in snapshot) spawnBall(b.x, b.y, -b.vx * 0.9 + rng.range(-2.0, 2.0), -b.vy * 0.9 + rng.range(-2.0, 2.0), b.targetR, b.color + 1)
             }
         }
     }

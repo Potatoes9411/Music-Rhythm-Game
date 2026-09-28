@@ -74,7 +74,13 @@ class CircleMechanic : MechanicController {
         world.onEscape = ::onEscape
         val spawn = SeededRng.stream(ctx.preset.seed ?: ctx.seed, "circle.spawn")
         val n = ctx.preset.physics.ballCount.coerceAtLeast(if (mode == "sandbox") 1 else 1)
-        for (i in 0 until n) {
+        world.mirror = ctx.preset.generation.style == "mirror"
+        if (world.mirror) {
+            // One mirrored pair released from just above centre, drifting apart slowly.
+            val vx = ctx.preset.physics.initialSpeed * 0.06
+            world.spawnBall(0.02, world.ringR * 0.15, vx, 0.0, color = 0)
+            world.spawnBall(-0.02, world.ringR * 0.15, -vx, 0.0, color = 0)
+        } else for (i in 0 until n) {
             val a = spawn.nextDouble() * 2 * PI
             val d = if (n == 1) world.ringR * 0.25 else spawn.nextDouble() * world.ringR * 0.55
             val va = spawn.nextDouble() * 2 * PI
@@ -204,16 +210,31 @@ class CircleMechanic : MechanicController {
             for (b in world.balls) history.ring(b.x, b.y, b.r, w, Colors.hsv(hue, 0.95f, 1f))
         } else if (mode == "trails") {
             if (step % 3L != 0L) return
+            val mirror = world.mirror
+            // Reference look: continuous lines while there are few balls, then per-frame dots.
+            val dots = mirror && world.balls.size > 24
             for (b in world.balls) {
                 val prev = lastRec[b.id]
                 if (prev != null) {
-                    val hue = ((songTime * 120.0 + b.id * 47.0) % 360.0).toFloat()
-                    history.segment(prev[0], prev[1], b.x, b.y, b.r * 0.7, Colors.hsv(hue, 0.85f, 1f))
+                    val c = trailColor(b, songTime)
+                    if (dots) history.segment(b.x, b.y, b.x, b.y, b.r * 0.55, c)
+                    else history.segment(prev[0], prev[1], b.x, b.y, b.r * (if (mirror) 0.5 else 0.7), c)
                     prev[0] = b.x; prev[1] = b.y
                 } else lastRec[b.id] = doubleArrayOf(b.x, b.y)
             }
             if (lastRec.size > world.balls.size) { val ids = world.balls.map { it.id }.toHashSet(); lastRec.keys.retainAll(ids) }
         }
+    }
+
+    /**
+     * Trail paint color. Mirror style: a hue that settles from green/cyan into blue/purple over the
+     * song, with each duplication generation offset a little.
+     */
+    private fun trailColor(b: Ball, t: Double): Int {
+        if (!world.mirror) return Colors.hsv(((t * 120.0 + b.id * 47.0) % 360.0).toFloat(), 0.85f, 1f)
+        val base = 150.0 + 125.0 * (1 - kotlin.math.exp(-t / 30.0))
+        val gen = ((b.color * 37) % 90) - 45.0
+        return Colors.hsv((((base + gen) % 360.0 + 360.0) % 360.0).toFloat(), 0.8f, 1f)
     }
 
     override fun onInput(kind: String, x: Float, y: Float, vp: Viewport) {
@@ -307,7 +328,8 @@ class CircleMechanic : MechanicController {
                     dl.circle(sx(bx), sy(by), rpx, palette.hero)
                     dl.circleStroke(sx(bx), sy(by), rpx, max(1.5f, (world.ringR * 0.012 * ppu).toFloat()), Colors.hsv((t * 110.0 % 360.0).toFloat(), 0.95f, 1f))
                 } else {
-                    dl.circle(sx(bx), sy(by), rpx, Colors.hsv(((t * 120.0 + b.id * 47.0) % 360.0).toFloat(), 0.85f, 1f))
+                    // The live ball is just the head of its trail (the reference shows no separate balls).
+                    dl.circle(sx(bx), sy(by), if (world.mirror) rpx * 0.55f else rpx, trailColor(b, t))
                 }
                 continue
             }
